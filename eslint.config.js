@@ -15,7 +15,8 @@ export default [
     rules: {
       // eslint-disable-next-line no-magic-numbers
       "indent": ["error", 2],
-      "semi": ["error", "always"]
+      "no-duplicate-imports": "off",
+      "semi": ["error", "always"],
     }
   }
 ];

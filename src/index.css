@@ -3,3 +3,20 @@
   padding: 0;
   margin: 0;
 }
+
+:root {
+  --color: #ff5400;
+  --color-link-hover: #ffa700;
+  --color-very-light: #b7b7b7;
+  --color-light: #999;
+  --color-medium-light: #6d6d6d;
+  --color-medium: #3d3d3d;
+  --color-medium-dark: #323232;
+  --color-dark: #272727;
+  --color-very-dark: #1d1d1d;
+  --color-ultra-dark: #101010;
+  --fire-gradient: linear-gradient(10deg, #ff8000, transparent) #ff4020;
+  --fire-gradient-hover: linear-gradient(190deg, #ff2020, #ff8000);
+  font-family: barlow, arial, sans-serif;
+  font-weight: 400;
+}
