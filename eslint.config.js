@@ -13,9 +13,13 @@ export default [
   pluginReact.configs.flat.recommended,
   {
     rules: {
+      "curly": "off",
       // eslint-disable-next-line no-magic-numbers
       "indent": ["error", 2],
       "no-duplicate-imports": "off",
+      "no-ternary": "off",
+      "no-undefined": "off",
+      "one-var": "off",
       "semi": ["error", "always"],
     }
   }

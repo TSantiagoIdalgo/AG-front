@@ -14,11 +14,6 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": { 
-      "@module/*": [ "./src/modules/*"],
-      "@state/*": [ "./src/states/*"]
-    },
     "resolvePackageJsonImports": true,
     "importHelpers": true,
     /* Linting */
