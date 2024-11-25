@@ -1,0 +1,19 @@
+.navbar_header {
+    align-items: center;
+    background-color: transparent;
+    display: flex;
+    height: 80px;
+    justify-content: space-between;
+    margin-bottom: -73px;
+    padding: 0 30px;
+    position: fixed;
+    top: 0;
+    transition: .2s;
+    width: 100%;
+    z-index: 2;
+}
+
+.navbar_header_logo {
+    width: 150px;
+    height: 40px;
+}

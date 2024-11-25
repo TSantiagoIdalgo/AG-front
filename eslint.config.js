@@ -16,6 +16,7 @@ export default [
       "curly": "off",
       // eslint-disable-next-line no-magic-numbers
       "indent": ["error", 2],
+      "max-lines-per-function": "off",
       "no-duplicate-imports": "off",
       "no-ternary": "off",
       "no-undefined": "off",
