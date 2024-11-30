@@ -1,0 +1,54 @@
+.navbar_header_scroll,
+.navbar_header {
+    align-items: center;
+    background-color: transparent;
+    display: flex;
+    height: 80px;
+    justify-content: space-between;
+    margin-bottom: -73px;
+    padding: 0 30px;
+    position: fixed;
+    top: 0;
+    transition: .2s;
+    width: 100%;
+    z-index: 2;
+}
+
+.navbar_header_scroll {
+    background-color: #000c;
+    z-index: 1000;
+}
+
+.navbar_header_logo {
+    width: 150px;
+    height: 40px;
+}
+
+.gradient {
+    background: linear-gradient(#000, transparent);
+    content: "";
+    height: 110px;
+    opacity: .6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1;
+    z-index: -1;
+}
+
+.navbar_user {
+    display: flex;
+    gap: 30px;
+
+    img {
+        width: 25px;
+        height: 25px;
+        filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(48deg) brightness(106%) contrast(103%);
+        cursor: pointer;
+    }
+
+    img:hover {
+        filter: brightness(0) saturate(100%) invert(37%) sepia(89%) saturate(3096%) hue-rotate(2deg) brightness(103%) contrast(101%);
+    }
+}
