@@ -1,5 +1,5 @@
 import { FetchData, QueryParams, ResponseBody, ResponseData } from "../common/interfaces/fetch-data.interface";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ErrorResponse } from "../common/interfaces/fetch-data.interface";
 
 const getSearchParams = (baseUrl: string, endpoint: string, query?: QueryParams): string => {
@@ -23,24 +23,26 @@ export const useFetchData = <T, B = undefined>(
   fetchData?: FetchData<B>,
   baseUrl: string = import.meta.env.VITE_API_URL
 ) => {
-  const [data, setData] = useState<ResponseData<T>>();
-  const abortControllerRef = useRef<AbortController | null>(null);
+  const initState: ResponseData<T> = {
+    data: undefined,
+    error: undefined,
+    loading: false,
+  };
+  const [data, setData] = useState<ResponseData<T>>(initState);
 
   const fetchResponse = async () => {
+    setData({ ...initState, loading: true });
     try {
       const { method = "GET", body, headers, query } = fetchData || {};
       const url = getSearchParams(baseUrl, endpoint, query);
-      const controller = new AbortController();
-      abortControllerRef.current = controller;
       const response = await globalThis.fetch(url, {
         body: body ? JSON.stringify(body) : null,
         credentials: "include",
         headers: { "Content-Type": "application/json", ...headers },
         method,
-        signal: controller.signal
       });
       const responseData: ResponseBody<T> = await response.json();
-      setData({ data: responseData, loading: false });
+      setData((prev) => ({ ...prev, data: responseData, loading: false }));
     } catch {
       const responseError: ErrorResponse = {
         error: "INTERNAL_ERROR",
@@ -48,19 +50,14 @@ export const useFetchData = <T, B = undefined>(
         status: 500,
         timestamp: new Date()
       };
-      setData({ error: responseError, loading: false });
+      setData((prev) => ({ ...prev, error: responseError, loading: false }));
     }
     
   };
 
   useEffect(() => {
-    setData({ loading: true });
     fetchResponse();
-
-    return () => {
-      abortControllerRef.current?.abort();
-    };
-  }, [endpoint, fetchData?.method, fetchData?.body, fetchData?.query, baseUrl]);
+  }, []);
 
   return data;
 };

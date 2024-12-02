@@ -8,7 +8,7 @@ export default function App(): React.JSX.Element {
     <div>
       <Navbar/>
       <Routes>
-        <Route path='/' element={<LandingIndex/>}/>
+        <Route path='/' element={<LandingIndex/>} loader/>
       </Routes>
     </div>
   );

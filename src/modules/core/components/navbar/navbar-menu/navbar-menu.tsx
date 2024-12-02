@@ -1,4 +1,4 @@
-import LandingNavbarSearch from "../landing-navbar-search/navbar-search";
+import LandingNavbarSearch from "../navbar-search/navbar-search";
 import { NavLink } from "react-router-dom";
 import PcLogo from '#assets/icons/icon-pc.svg';
 import PlayStationLogo from '#assets/icons/icon-play.svg';

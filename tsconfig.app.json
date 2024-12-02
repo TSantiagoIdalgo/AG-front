@@ -9,7 +9,8 @@
     "baseUrl": "./",
     "paths": {
       "#assets/*": ["./src/assets/*"],
-      "#modules/*": ["./src/modules/*"]
+      "#modules/*": ["./src/modules/*"],
+      "#src/*": ["./src/*"]
     },
 
     /* Bundler mode */
