@@ -22,3 +22,8 @@ export enum WISHLIST_ENDPOINT {
     GET_PRODUCT_WISHLIST = "whitelist/product/",
     GET_FIND_ALL = "whitelist/"
 }
+
+export enum REVIEW_ENDPOINT {
+    GET_FIND_ALL = "review/",
+    GET_FIND_COUNT = "review/count"
+}

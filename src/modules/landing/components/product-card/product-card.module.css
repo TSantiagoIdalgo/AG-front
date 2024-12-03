@@ -83,9 +83,11 @@
 
 .card_title h2 {
     font-size: 15px;
+    font-weight: 100;
 }
 
 .card_title span {
     font-size: 21px;
     color: #ddd;
+    font-weight: 100;
 }
