@@ -1,14 +1,17 @@
 import * as libs from '../libs/landing-libs';
-import { IGetAllProducts, Product } from '../interfaces/landing';
+import { GetAllProductsProps, IGetAllProducts, Product } from '../interfaces/landing';
 import { PRODUCT_ENDPOINT } from '#src/config/endpoints';
 import { useFetchData } from '#src/hooks/use-fetch-data';
 
-export const useGetBanners = () => {
+
+
+export const useGetBanners = (orderBy: Partial<GetAllProductsProps>) => {
+  
   const initIndex = 0;
   const [bannerIndex, setBannerIndex] = libs.useState<number>(initIndex);
   const { loading, data, error } = useFetchData<IGetAllProducts>(PRODUCT_ENDPOINT.GET_FIND_ALL, {
     method: "GET",
-    query: { pageNumber: 0, pageSize: 10 }
+    query: { pageNumber: 0, pageSize: 10, ...orderBy }
   });
 
   libs.useEffect(() => {

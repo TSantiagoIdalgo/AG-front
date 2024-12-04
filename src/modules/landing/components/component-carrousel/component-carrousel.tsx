@@ -1,9 +1,10 @@
+import { GetAllProductsProps } from '#modules/landing/interfaces/landing.js';
 import React from 'react';
 import Style from './component-carrousel.module.css';
 import { useGetBanners } from '#modules/landing/hooks/use-get-banners.ts';
 
-export default function ComponentCarrousel (): React.JSX.Element {
-  const product = useGetBanners();
+export default function ComponentCarrousel (orderBy: Partial<GetAllProductsProps>): React.JSX.Element {
+  const product = useGetBanners(orderBy);
   if (!product) return <div/>;
   const toFixedPrice = 2;
   return (

@@ -1,7 +1,7 @@
 import * as libs from '../../libs/landing-libs';
 import { GetAllProductsProps, IGetAllProducts } from '#modules/landing/interfaces/landing.js';
 import { PRODUCT_ENDPOINT } from '#src/config/endpoints.ts';
-import ProductCard from '../product-card/product-card';
+import { ProductCard } from '#modules/core/components/core-index.ts';
 import React from 'react';
 import Style from './render-sections.module.css';
 import arowLeft from '#assets/icons/icon-arrow.svg';

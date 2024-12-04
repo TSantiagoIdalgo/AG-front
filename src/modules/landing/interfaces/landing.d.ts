@@ -59,6 +59,7 @@ export interface IGetAllProducts {
 export interface GetAllProductsProps {
   "pageSize": number;
   "pageNumber": number;
+  "orderbyWishList": boolean;
   "developer": string;
   "franchise": string;
   "minPrice": number;

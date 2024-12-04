@@ -1,4 +1,4 @@
-import * as libs from '../../libs/landing-libs';
+import * as libs from '../../libs/libs';
 import { Product } from '#modules/landing/interfaces/landing.js';
 import React from 'react';
 import Style from './product-card.module.css';
