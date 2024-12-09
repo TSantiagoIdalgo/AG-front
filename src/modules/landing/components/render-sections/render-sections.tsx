@@ -1,6 +1,8 @@
 import * as libs from '../../libs/landing-libs';
-import { GetAllProductsProps, IGetAllProducts } from '#modules/landing/interfaces/landing.js';
+import { DataResponse } from '#src/common/interfaces/pageable-data.interface.ts';
+import { GetAllProductsProps } from '#modules/landing/interfaces/landing.js';
 import { PRODUCT_ENDPOINT } from '#src/config/endpoints.ts';
+import { Product } from '#src/common/interfaces/product.interface.ts';
 import { ProductCard } from '#modules/core/components/core-index.ts';
 import React from 'react';
 import Style from './render-sections.module.css';
@@ -12,7 +14,7 @@ interface RenderCadsProps {
 }
 
 export default function RenderSections ({ tittle, filter }: RenderCadsProps): React.JSX.Element {
-  const { data, loading, error } = libs.useFetchData<IGetAllProducts>(PRODUCT_ENDPOINT.GET_FIND_ALL, {
+  const { data, loading, error } = libs.useFetchData<DataResponse<Product>>(PRODUCT_ENDPOINT.GET_FIND_ALL, {
     query: { ...filter }
   });
   
