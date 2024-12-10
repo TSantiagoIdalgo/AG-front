@@ -1,0 +1,128 @@
+.container {
+    height: max-content;
+    background-color: var(--color-dark);
+}
+
+.last_reviews {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    height: max-content;
+    background-color: var(--color-dark);
+}
+
+.review {
+    margin: 15px;
+    margin-top: 15px;
+    background: var(--color-medium-dark);
+    border-radius: 10px;
+    overflow: hidden;
+    width: calc(25% - 30px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    height: 400px;
+    align-items: center;
+}
+
+.trends_title {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 50px;
+
+    img {
+        width: 12px;
+        height: 20px;
+        filter: brightness(0) saturate(100%) invert(38%) sepia(67%) saturate(9%) hue-rotate(333deg) brightness(96%) contrast(87%);
+        margin-left: 10px;
+        margin-top: 4px;
+    }
+
+    .title {
+        font-size: 31px;
+        font-family: barlow, arial, sans-serif;
+        font-weight: 100;
+        color: #fff;
+        margin-left: 45px;
+    }
+}
+
+.card_url {
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+}
+
+.card_img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    z-index: 1;
+    position: relative;
+    opacity: 1;
+    transition: opacity 250ms ease-in-out;
+}
+
+.card_video {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transform: none;
+    transition: transform 250ms ease-in-out;
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+}
+
+.card_img:hover {
+    opacity: 0;
+}
+
+.card_img:hover+.card_video {
+    visibility: visible;
+}
+
+.user_action {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.user {
+    flex: 0 0 50px;
+    height: 50px;
+    margin-right: 15px;
+    width: 50px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transition: border 150ms ease-in-out;
+    cursor: pointer;
+}
+
+.user:hover {
+    border: 3px solid var(--color);
+}
+
+.isRecommended {
+    filter: brightness(0) saturate(100%) invert(66%) sepia(72%) saturate(500%) hue-rotate(50deg) brightness(100%) contrast(83%);
+}
+
+.notRecommended {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(69%) saturate(6615%) hue-rotate(335deg) brightness(99%) contrast(106%);
+}
+
+.review_readable {
+    color: var(--color-light);
+    line-height: 23px;
+    line-clamp: 4;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    margin: 20px;
+    margin-top: 10px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

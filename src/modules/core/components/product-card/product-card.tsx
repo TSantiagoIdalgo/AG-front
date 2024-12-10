@@ -1,5 +1,5 @@
 import * as libs from '../../libs/libs';
-import { Product } from '#modules/landing/interfaces/landing.js';
+import { Product } from '#src/common/interfaces/product.interface.ts';
 import React from 'react';
 import Style from './product-card.module.css';
 

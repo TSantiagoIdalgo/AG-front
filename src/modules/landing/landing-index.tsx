@@ -1,4 +1,5 @@
 import * as LandingComponents from './components/landing-components';
+import LastReveiws from './components/last-reviews/last-reviews';
 import React from "react";
 
 
@@ -29,6 +30,7 @@ export default function LandingIndex (): React.JSX.Element {
       }}/>
       <Spacer/>
       <LandingComponents.ComponentCarrousel/>
+      <LastReveiws/>
     </main> 
   );
 }
