@@ -1,5 +1,4 @@
 import * as LandingComponents from './components/landing-components';
-import LastReveiws from './components/last-reviews/last-reviews';
 import React from "react";
 
 
@@ -13,6 +12,7 @@ export default function LandingIndex (): React.JSX.Element {
         pageNumber: 0,
         pageSize: 9 
       }}/>
+      <Spacer/>
       <LandingComponents.TrustPanel/>
       <Spacer/>
       <LandingComponents.RenderSections tittle='Te recomendamos' filter={{ 
@@ -30,7 +30,11 @@ export default function LandingIndex (): React.JSX.Element {
       }}/>
       <Spacer/>
       <LandingComponents.ComponentCarrousel/>
-      <LastReveiws/>
+      <LandingComponents.LastReveiws/>
+      <Spacer/>
+      <LandingComponents.IndiesSection/>
+      <Spacer/>
+      <LandingComponents.Categories/>
     </main> 
   );
 }

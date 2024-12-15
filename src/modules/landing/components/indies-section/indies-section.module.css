@@ -1,0 +1,63 @@
+.indies {
+    align-items: center;
+    background-image: linear-gradient(80deg, rgba(50, 50, 50, .4), #323232 35%), url(/src/assets/background/deadcells.png);
+    background-position: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    margin-left: -30px;
+    padding: 60px;
+}
+
+.indies_character {
+    background-image: url(/src/assets/background/beheaded.png);
+    background-size: cover;
+    flex: 0 0 360px;
+    height: 590px;
+    margin-right: 45px;
+    position: relative;
+}
+
+.indies_games {
+    max-width: 795px;
+    width: 100%;
+}
+
+.indie_games_headline {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    min-width: 300px;
+    width: min-content;
+
+    img {
+        width: 12px;
+        height: 20px;
+        filter: brightness(0) saturate(100%) invert(38%) sepia(67%) saturate(9%) hue-rotate(333deg) brightness(96%) contrast(87%);
+        margin-left: 10px;
+        margin-top: 4px;
+    }
+
+    .title {
+        font-size: 31px;
+        font-family: barlow, arial, sans-serif;
+        font-weight: 100;
+        color: #fff;
+        margin-left: 25px;
+    }
+}
+
+.indie_games_headline:hover {
+    img {
+        filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(94deg) brightness(98%) contrast(106%);
+    }
+}
+
+.indie_games_items {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+}
