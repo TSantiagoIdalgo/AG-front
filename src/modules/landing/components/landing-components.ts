@@ -1,5 +1,6 @@
 import Categories from "./categories/categories";
 import ComponentCarrousel from "./component-carrousel/component-carrousel";
+import Footer from "./footer/footer";
 import IndiesSection from "./indies-section/indies-section";
 import LastReveiws from "./last-reviews/last-reviews";
 import Partners from "./partners/partners";
@@ -13,5 +14,6 @@ export {
   Partners,
   IndiesSection,
   LastReveiws,
-  Categories
+  Categories,
+  Footer
 };

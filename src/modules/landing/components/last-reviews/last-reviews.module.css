@@ -10,6 +10,7 @@
     position: relative;
     height: max-content;
     background-color: var(--color-dark);
+    margin-top: 30px;
 }
 
 .review {
@@ -54,6 +55,7 @@
     color: #fff;
     text-decoration: none;
     position: relative;
+    width: 100%;
 }
 
 .card_img {

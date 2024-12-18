@@ -5,36 +5,39 @@ import React from "react";
 const Spacer = () => <div style={{backgroundColor: 'var(--color-dark)', height: '60px', width: '100%'}}/>;
 export default function LandingIndex (): React.JSX.Element {
   return (
-    <main>
-      <LandingComponents.ComponentCarrousel orderbyWishList/>
-      <LandingComponents.RenderSections tittle='Tendencias' filter={{ 
-        orderbyWishList: true, 
-        pageNumber: 0,
-        pageSize: 9 
-      }}/>
-      <Spacer/>
-      <LandingComponents.TrustPanel/>
-      <Spacer/>
-      <LandingComponents.RenderSections tittle='Te recomendamos' filter={{ 
-        orderByRecommendation: true, 
-        pageNumber: 0,
-        pageSize: 6
-      }}/>
-      <Spacer/>
-      <LandingComponents.Partners/>
-      <Spacer/>
-      <LandingComponents.RenderSections tittle='Mas vendidos' filter={{ 
-        orderByCheckoutCount: true, 
-        pageNumber: 0,
-        pageSize: 6
-      }}/>
-      <Spacer/>
-      <LandingComponents.ComponentCarrousel/>
-      <LandingComponents.LastReveiws/>
-      <Spacer/>
-      <LandingComponents.IndiesSection/>
-      <Spacer/>
-      <LandingComponents.Categories/>
-    </main> 
+    <div>
+      <main>
+        <LandingComponents.ComponentCarrousel orderbyWishList/>
+        <LandingComponents.RenderSections tittle='Tendencias' filter={{ 
+          orderbyWishList: true, 
+          pageNumber: 0,
+          pageSize: 9 
+        }}/>
+        <Spacer/>
+        <LandingComponents.TrustPanel/>
+        <Spacer/>
+        <LandingComponents.RenderSections tittle='Te recomendamos' filter={{ 
+          orderByRecommendation: true, 
+          pageNumber: 0,
+          pageSize: 6
+        }}/>
+        <Spacer/>
+        <LandingComponents.Partners/>
+        <Spacer/>
+        <LandingComponents.RenderSections tittle='Mas vendidos' filter={{ 
+          orderByCheckoutCount: true, 
+          pageNumber: 0,
+          pageSize: 6
+        }}/>
+        <Spacer/>
+        <LandingComponents.ComponentCarrousel/>
+        <LandingComponents.LastReveiws/>
+        <Spacer/>
+        <LandingComponents.IndiesSection/>
+        <Spacer/>
+        <LandingComponents.Categories/>
+      </main> 
+      <LandingComponents.Footer/>
+    </div>
   );
 }
