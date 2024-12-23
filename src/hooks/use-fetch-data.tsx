@@ -2,16 +2,23 @@ import { FetchData, QueryParams, ResponseBody, ResponseData } from "../common/in
 import { useEffect, useState } from "react";
 import { ErrorResponse } from "../common/interfaces/fetch-data.interface";
 
-const getSearchParams = (baseUrl: string, endpoint: string, query?: QueryParams): string => {
+interface IGetSearchParams {
+  query?: QueryParams;
+  id?: string
+}
+
+const getSearchParams = (baseUrl: string, endpoint: string, params: IGetSearchParams): string => {
   try {
     const url = new URL(`${baseUrl}/${endpoint}`);
-    if (query) {
-      Object.entries(query).forEach(([key, value]) => {
+    if (params.id) url.href += params.id; 
+    if (params.query) {
+      Object.entries(params.query).forEach(([key, value]) => {
         if (value) {
           url.searchParams.append(key, value.toString());
         }
       });
     }
+    
     return url.toString();
   } catch {
     throw new Error("URL_MALFORMED");
@@ -33,8 +40,8 @@ export const useFetchData = <T, B = undefined>(
   const fetchResponse = async () => {
     setData({ ...initState, loading: true });
     try {
-      const { method = "GET", body, headers, query } = fetchData || {};
-      const url = getSearchParams(baseUrl, endpoint, query);
+      const { method = "GET", body, headers, query, id } = fetchData || {};
+      const url = getSearchParams(baseUrl, endpoint, { id, query });
       const response = await globalThis.fetch(url, {
         body: body ? JSON.stringify(body) : null,
         credentials: "include",

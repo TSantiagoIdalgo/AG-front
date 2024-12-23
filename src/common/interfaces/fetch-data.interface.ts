@@ -5,6 +5,7 @@ export interface FetchData<B = undefined> {
   body?: B;
   headers?: HeadersInit;
   query?: QueryParams;
+  id?: string
 };
 export interface ErrorResponse {
   error: string;
