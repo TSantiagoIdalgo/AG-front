@@ -1,3 +1,4 @@
+import './product-detail-index.css';
 import * as Detail from './components/product-detail-components';
 import * as libs from './libs/product-detail-libs';
 import { PRODUCT_ENDPOINT } from '#src/config/endpoints.ts';
@@ -9,13 +10,15 @@ export default function ProductDetailIndex(): React.JSX.Element {
   const { loading, data, error } = libs.useFetchData<Product>(PRODUCT_ENDPOINT.GET_FIND_ONE, { id });
   if (loading || !data?.body.data) return <p>Loading...</p>;
   if (error) return <p>ERROR: { error.message }</p>;
-
-  const { backgroundImage, name } = data.body.data;
+  const { backgroundImage, name, description } = data.body.data;
 
   return (
-    <main style={{backgroundColor: "var(--color-dark)", minHeight: "100vh"}}>
+    <main className='product-detail-index'>
       <Detail.HeaderDetail backgroundImage={backgroundImage} name={name}/>
-      <Detail.ContentDetail product={data.body.data}/>
+      <section className='panel-section'>
+        <Detail.PanelDetail product={data.body.data}/>
+        <Detail.AboutDetail description={description}/>
+      </section>
     </main>
   );
 }

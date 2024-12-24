@@ -1,16 +1,3 @@
-.content {
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    max-width: 1200px;
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 100;
-}
-
 .content_panel {
     display: flex;
     width: 100%;
@@ -122,6 +109,7 @@
     position: relative;
     align-items: center;
     flex-direction: column;
+    z-index: 100;
 }
 
 .platfrom_select,
@@ -192,4 +180,110 @@
 
 .selectedPlatform {
     color: var(--color)
+}
+
+.amount {
+    display: flex;
+    margin: 10px;
+    gap: 15px;
+    align-items: baseline;
+}
+
+.amount_retail {
+    font-size: 19px;
+    text-decoration: line-through;
+    color: #fff;
+
+    img {
+        filter: brightness(0) saturate(100%) invert(96%) sepia(97%) saturate(0%) hue-rotate(33deg) brightness(105%) contrast(103%);
+        width: 15px;
+        height: 15px;
+        transform: rotate(45deg);
+        margin-left: 5px;
+        z-index: -1;
+    }
+
+    span {
+        margin-left: 5px;
+    }
+}
+
+.amount_discounted {
+    color: var(--color);
+    font-size: 19px;
+}
+
+.amount_total {
+    font-size: 40px;
+    padding-top: 10px;
+    color: #fff;
+}
+
+.buttons {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.buttons_favorite {
+    align-items: center;
+    appearance: none;
+    -webkit-appearance: none;
+    background: var(--fire-gradient);
+    border: 0;
+    border-radius: 7px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 17px;
+    font-weight: 700;
+    height: 56px;
+    justify-content: center;
+    padding: 0 25px;
+    text-align: center;
+    white-space: normal;
+
+    img {
+        flex: 0 0 25px;
+        height: 25px;
+        width: 25px;
+        filter: brightness(0) saturate(100%) invert(96%) sepia(97%) saturate(0%) hue-rotate(33deg) brightness(105%) contrast(103%);
+
+    }
+}
+
+.buttons_add {
+    align-items: center;
+    appearance: none;
+    -webkit-appearance: none;
+    background: var(--fire-gradient);
+    border: 0;
+    border-radius: 7px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 17px;
+    font-weight: 700;
+    height: 56px;
+    justify-content: center;
+    padding: 0 25px;
+    text-align: center;
+    white-space: normal;
+    width: 100%;
+    gap: 10px;
+
+    img {
+        filter: brightness(0) saturate(100%) invert(96%) sepia(97%) saturate(0%) hue-rotate(33deg) brightness(105%) contrast(103%);
+        width: 25px;
+        height: 25px;
+    }
+}
+
+.buttons_add:hover,
+.buttons_favorite:hover {
+    background: var(--fire-gradient-hover);
 }
