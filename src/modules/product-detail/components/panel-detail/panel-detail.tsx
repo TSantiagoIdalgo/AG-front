@@ -1,23 +1,23 @@
 import * as libs from '../../libs/product-detail-libs';
+import { Platform, Product } from '#src/common/interfaces/product.interface.ts';
 import CartIcon from '#assets/icons/icon-cart.svg';
 import FavoriteIcon from '#assets/icons/icon-favorite.svg';
 import IconCheck from '#assets/icons/icon-check.svg';
 import IconClose from '#assets/icons/icon-close.svg';
 import IconTag from '#assets/icons/icon-tag.svg';
-import { Product } from '#src/common/interfaces/product.interface.ts';
 import React from 'react';
 import Style from './panel-detail.module.css';
 
 export default function PanelDetail({ product }: { product: Product }): React.JSX.Element {
   const {  platforms, mainImage, name, stock, price, discount } = product;
   const platformFind = platforms.find(platform => !platform.disabled);
-  const [selectedPlatform, setSelectedPlatform] = libs.useState(platformFind?.name);
+  const [selectedPlatform, setSelectedPlatform] = libs.useState<Platform | undefined>(platformFind);
   const [onSelectPlatfrom, handleOnSelectPlatfrom] = libs.useState(false);
   const minStock = 1, timeToRefresh = 80;
   const inStock = stock >= minStock;
 
-  const selectPlatfrom = (platformName: string) => {
-    setSelectedPlatform(platformName);
+  const selectPlatfrom = (platform: Platform) => {
+    setSelectedPlatform(platform);
     setTimeout(() => {
       handleOnSelectPlatfrom(false);
     }, timeToRefresh);
@@ -33,7 +33,7 @@ export default function PanelDetail({ product }: { product: Product }): React.JS
       <div className={Style.content_info}>
         <h1 className={Style.name}>{name}</h1>
         <div className={Style.subinfos}>
-          <a href="#">{platformFind?.name}</a>
+          <a href="#">{selectedPlatform?.name}</a>
           <div className={Style.spacer}></div>
           {inStock ? (
             <div className={Style.instock}> 
@@ -49,13 +49,13 @@ export default function PanelDetail({ product }: { product: Product }): React.JS
         </div>
         <div className={Style.select_platform}>
           <div className={onSelectPlatfrom ? Style.platfrom_select : Style.platform}>
-            <span onClick={() => handleOnSelectPlatfrom(!onSelectPlatfrom)} className={Style.selected}>{selectedPlatform}</span>
+            <span onClick={() => handleOnSelectPlatfrom(!onSelectPlatfrom)} className={Style.selected}>{selectedPlatform?.platform}</span>
             {onSelectPlatfrom && (
               <div className={Style.platform_options}>
                 {platforms.map(plat => <span 
-                  onClick={() => selectPlatfrom(plat.name)} 
-                  className={selectedPlatform === plat.name ? Style.selectedPlatform : Style.none} 
-                  key={plat.name}>{plat.name}</span>)}
+                  onClick={() => selectPlatfrom(plat)} 
+                  className={selectedPlatform?.name === plat.name ? Style.selectedPlatform : Style.none} 
+                  key={plat.name}>{plat.platform}</span>)}
               </div>
             )}
           </div>

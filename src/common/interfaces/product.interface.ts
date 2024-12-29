@@ -8,6 +8,7 @@ export interface Genre {
 export interface Platform {
     name:     string;
     disabled: boolean;
+    platform: string;
 }
 export interface Sort {
     sorted:   boolean;

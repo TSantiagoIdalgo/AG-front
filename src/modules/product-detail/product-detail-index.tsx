@@ -10,14 +10,14 @@ export default function ProductDetailIndex(): React.JSX.Element {
   const { loading, data, error } = libs.useFetchData<Product>(PRODUCT_ENDPOINT.GET_FIND_ONE, { id });
   if (loading || !data?.body.data) return <p>Loading...</p>;
   if (error) return <p>ERROR: { error.message }</p>;
-  const { backgroundImage, name, description } = data.body.data;
+  const { backgroundImage, name, description, developer, tags, genres } = data.body.data;
 
   return (
     <main className='product-detail-index'>
       <Detail.HeaderDetail backgroundImage={backgroundImage} name={name}/>
       <section className='panel-section'>
         <Detail.PanelDetail product={data.body.data}/>
-        <Detail.AboutDetail description={description}/>
+        <Detail.AboutDetail description={description} developer={developer} genres={genres} tags={tags}/>
       </section>
     </main>
   );
