@@ -25,5 +25,6 @@ export enum WISHLIST_ENDPOINT {
 
 export enum REVIEW_ENDPOINT {
     GET_FIND_ALL = "review/",
-    GET_FIND_COUNT = "review/count"
+    GET_FIND_COUNT = "review/count",
+    GET_AVG_PRODUCT = "review/recommendation/"
 }

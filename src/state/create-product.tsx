@@ -49,6 +49,9 @@ interface ProductForm {
     stock: number;
     price: number;
     discount: number;
+    release_date: string;
+    distributor: string
+    pegi: string
 }
 
  
@@ -56,7 +59,6 @@ export default function CreateProduct(): React.JSX.Element {
   const [currentTag, setCurrentTag] = useState<string>("");
   const [currentGenre, setCurrentGenre] = useState<string>("");
   const [currentRequirement, setCurrentRequirement] = useState<Requirements>({
-    // eslint-disable-next-line camelcase
     Directx_v: 0,
     OS: "",
     graphics: "",
@@ -76,14 +78,17 @@ export default function CreateProduct(): React.JSX.Element {
     developer: "",
     disabled: false,
     discount: 0,
+    distributor: "",
     franchise: "",
     genres: [],
     name: "",
+    pegi: "",
     platforms: [],
     price: 0,
+    release_date: "",
     requirements: [],
     stock: 0,
-    tags: []
+    tags: [],
   });
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -190,11 +195,22 @@ export default function CreateProduct(): React.JSX.Element {
           <label htmlFor="franchise">franchise</label>
         </div>
         <div>
+          <input type="text" name="release_date" value={productForm.release_date} onChange={handleChange} placeholder="release_date" id="release_date"/>
+          <label htmlFor="release_date">release_date</label>
+        </div>
+        <div>
+          <input type="text" name="distributor" value={productForm.distributor} onChange={handleChange} placeholder="distributor" id="distributor"/>
+          <label htmlFor="distributor">distributor</label>
+        </div>
+        <div>
+          <input type="number" name="pegi" value={productForm.pegi} onChange={handleChange} placeholder="pegi" id="pegi"/>
+          <label htmlFor="pegi">pegi</label>
+        </div>
+        <div>
           <input type="number" name="price" value={productForm.price} onChange={handleChange} placeholder="Price" id="price"/>
           <label htmlFor="price">price</label>
         </div>
         <div>
-
           <input type="number" name="stock" value={productForm.stock} onChange={handleChange} placeholder="Stock" id="stock"/>
           <label htmlFor="stock">stock</label>
         </div>

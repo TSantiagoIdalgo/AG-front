@@ -12,7 +12,6 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    margin-left: 7%;
 
     img {
         width: 12px;
@@ -44,6 +43,7 @@
     flex-direction: column;
     width: 100%;
     z-index: 1;
+    max-width: 1200px;
 }
 
 .trends_cards {
@@ -52,4 +52,5 @@
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
+    gap: 20px;
 }

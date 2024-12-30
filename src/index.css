@@ -21,3 +21,58 @@
   font-family: barlow, arial, sans-serif;
   font-weight: 400;
 }
+
+.note-container {
+  display: flex;
+  font-size: 19px;
+  font-weight: 700;
+  position: relative;
+  height: 36px;
+  width: 36px;
+  margin-right: 15px;
+}
+
+.circle-meter {
+  stroke: var(--color-medium);
+  position: relative;
+}
+
+.circle-meter-bar {
+  stroke: #ff0a4e;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+g {
+  stroke-width: 2;
+}
+
+.circle-meter-bar.medium {
+  stroke: #fcaf02;
+}
+
+.circle-meter-bar.high {
+  stroke: #6dd432;
+}
+
+.rating-reviews-rate {
+  align-items: center;
+  bottom: 0;
+  font-size: 1rem;
+  font-weight: 100;
+  color: #ff0a4e;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.rating-reviews-rate.medium {
+  color: #fcaf02;
+}
+
+.rating-reviews-rate.high {
+  color: #6dd432;
+}

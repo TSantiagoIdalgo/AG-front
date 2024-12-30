@@ -13,7 +13,9 @@ export default function Navbar(): React.JSX.Element {
   return (
     <header className={isScrolling ? Style.navbar_header_scroll : Style.navbar_header}>
       <div className={Style.gradient}/>
-      <img src={Logo} alt="logo-horizontal" className={Style.navbar_header_logo} />
+      <a href="/ancore">
+        <img src={Logo} alt="logo-horizontal" className={Style.navbar_header_logo} />
+      </a>
       <NavbarMenu/>
       <div className={Style.navbar_user}>
         <img src={CartIcon} alt='cart'/>
