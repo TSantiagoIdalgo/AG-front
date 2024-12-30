@@ -2,11 +2,14 @@ import { Product } from "#src/common/interfaces/product.interface.ts";
 import React from "react";
 import Style from './about-detail.module.css';
 
-type TAboutDetail = Pick<Product, "description" | 'genres' | 'developer' | 'tags'>
+type TAboutDetail = Pick<Product, "description" | 'genres' | 'developer' | 'tags' | 'distributor' | 'release_date' | 'pegi'>
 
-export default function AboutDetail({ description, developer, genres, tags }: TAboutDetail): React.JSX.Element {
+export default function AboutDetail({ description, developer, genres, tags, distributor, release_date, pegi }: TAboutDetail): React.JSX.Element {
   const IsMinLength =  1, genresLength = genres.length - IsMinLength, maxTag = 5, minTag = 0;
-
+  const formatDate = (dateTime: string) => {
+    const date = new Date(dateTime);
+    return new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
+  };
   return (
     <div className={Style.details}>
       <section className={Style.about}>
@@ -27,12 +30,20 @@ export default function AboutDetail({ description, developer, genres, tags }: TA
       </section>
       <section className={Style.specifics}>
         <div className={Style.specifics_text}>
+          <span className={Style.specifics_text_title}>Puntuacion:</span>
+          <span className={Style.specifics_text_blank_title}>PEGI {pegi}</span>
+        </div>
+        <div className={Style.specifics_text}>
           <span className={Style.specifics_text_title}>Desarrollador:</span>
           <span className={Style.specifics_value}>{developer}</span>
         </div>
         <div className={Style.specifics_text}>
           <span className={Style.specifics_text_title}>Distribuidor:</span>
-          <span className={Style.specifics_value}>{developer}</span>
+          <span className={Style.specifics_value}>{distributor}</span>
+        </div>
+        <div className={Style.specifics_text}>
+          <span className={Style.specifics_text_title}>Fecha de lanzamiento:</span>
+          <span className={Style.specifics_text_blank_title}>{formatDate(release_date)}</span>
         </div>
         <div className={Style.specifics_text}>
           <span className={Style.specifics_text_title}>Genero:</span>

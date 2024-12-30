@@ -41,4 +41,7 @@ export interface Product {
     backgroundImage: string;
     trailer:         string;
     mainImage:       string;
+    release_date: string;
+    distributor: string
+    pegi: string
 }

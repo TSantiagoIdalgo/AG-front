@@ -37,7 +37,6 @@ export default function LandingIndex (): React.JSX.Element {
         <Spacer/>
         <LandingComponents.Categories/>
       </main> 
-      <LandingComponents.Footer/>
     </div>
   );
 }

@@ -13,6 +13,7 @@ export default [
   pluginReact.configs.flat.recommended,
   {
     rules: {
+      "camelcase": "off",
       "curly": "off",
       // eslint-disable-next-line no-magic-numbers
       "indent": ["error", 2],

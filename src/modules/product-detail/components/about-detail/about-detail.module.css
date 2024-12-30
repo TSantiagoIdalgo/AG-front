@@ -22,7 +22,7 @@
     width: 100%;
 
     h2 {
-        font-size: 31px;
+        font-size: 1.9rem;
         font-weight: 500;
         color: #fff;
     }
@@ -36,7 +36,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     color: var(--color-light);
-    font-size: 15px;
+    font-size: .9rem;
 }
 
 .show_more {
@@ -55,7 +55,7 @@
     margin: 15px -3px -3px;
 
     h2 {
-        font-size: 15px;
+        font-size: .9rem;
         margin: 3px;
         font-weight: 100;
     }
@@ -94,13 +94,13 @@
 
     .specifics_text_title {
         width: 50%;
-        font-size: 15px;
+        font-size: .9rem;
         color: var(--color-light);
     }
 
     .specifics_value {
         width: 50%;
-        font-size: 15px;
+        font-size: .9rem;
         color: #fff;
         cursor: pointer;
     }
@@ -112,12 +112,23 @@
     .specifics_value_genres {
         color: #fff;
         cursor: pointer;
-        font-size: 15px;
+        font-size: .9rem;
         display: flex;
         gap: 6px;
+
+        i {
+            font-style: normal;
+        }
 
         i:hover {
             color: var(--color);
         }
     }
+}
+
+.specifics_text_blank_title {
+    width: 50%;
+    font-size: .9rem;
+    color: var(--color-light);
+    cursor: text;
 }

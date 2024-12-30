@@ -13,7 +13,7 @@ export default function PanelDetail({ product }: { product: Product }): React.JS
   const platformFind = platforms.find(platform => !platform.disabled);
   const [selectedPlatform, setSelectedPlatform] = libs.useState<Platform | undefined>(platformFind);
   const [onSelectPlatfrom, handleOnSelectPlatfrom] = libs.useState(false);
-  const minStock = 1, timeToRefresh = 80;
+  const fixedPrice = 2, minStock = 1, timeToRefresh = 80;
   const inStock = stock >= minStock;
 
   const selectPlatfrom = (platform: Platform) => {
@@ -66,7 +66,7 @@ export default function PanelDetail({ product }: { product: Product }): React.JS
             <span>{price}€</span>
           </span>
           <span className={Style.amount_discounted}>-{discount}%</span>
-          <span className={Style.amount_total}>{calculateTotalPrice()}€</span>
+          <span className={Style.amount_total}>{calculateTotalPrice().toFixed(fixedPrice)}€</span>
         </div>
         <div className={Style.buttons}>
           <div className={Style.buttons_favorite} title="Añadir a mi wishlist">
