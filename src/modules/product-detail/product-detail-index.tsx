@@ -18,6 +18,7 @@ export default function ProductDetailIndex(): React.JSX.Element {
         <Detail.PanelDetail product={data.body.data}/>
         <Detail.AboutDetail description={description} developer={developer} genres={genres} tags={tags} distributor={distributor} release_date={release_date} pegi={pegi}/>
         <Detail.VisualsDetail images={images} trailer={trailer}/>
+        <Detail.DescriptionDetail description={description} />
       </section>
     </main>
   );
