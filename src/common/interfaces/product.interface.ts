@@ -25,6 +25,17 @@ export interface Pageable {
     unpaged:    boolean;
 }
 
+export interface Requirements {
+    id:        number;
+    os:        string;
+    memory:    number;
+    graphics:  string;
+    directx_v: number;
+    storage:   number;
+    processor: string;
+    type:      string;
+}
+
 export interface Product {
     id:              string;
     name:            string;
@@ -41,6 +52,7 @@ export interface Product {
     backgroundImage: string;
     trailer:         string;
     mainImage:       string;
+    requirements: Requirements[]
     release_date: string;
     distributor: string
     pegi: string
