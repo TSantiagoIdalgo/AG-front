@@ -14,7 +14,7 @@ interface RenderCadsProps {
 }
 
 export default function RenderSections ({ tittle, filter }: RenderCadsProps): React.JSX.Element {
-  const { data, loading, error } = libs.useFetchData<DataResponse<Product>>(PRODUCT_ENDPOINT.GET_FIND_ALL, {
+  const { data, loading, error } = libs.useFetchData<DataResponse<Product>>(PRODUCT_ENDPOINT.GET.findAll(), {
     query: { ...filter }
   });
   

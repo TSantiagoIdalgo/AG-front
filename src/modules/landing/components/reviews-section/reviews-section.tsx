@@ -8,7 +8,7 @@ import UserIcon from '#assets/icons/icon-user.svg';
 
 
 export default function ReviewsSection (): React.JSX.Element {
-  const { loading, data, error } = libs.useFetchData<DataResponse<Review>>(REVIEW_ENDPOINT.GET_FIND_ALL, {
+  const { loading, data, error } = libs.useFetchData<DataResponse<Review>>(REVIEW_ENDPOINT.GET.findAll(), {
     query: { orderByCreatedAt: false, pageNumber: 0, pageSize: 5 }
   });
 

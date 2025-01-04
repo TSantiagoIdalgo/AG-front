@@ -1,30 +1,51 @@
-/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
-export enum PRODUCT_ENDPOINT {
-    POST_PRODUCT = "product/create",
-    PATCH_PRODUCT = "product/update/",
-    GET_FIND_ONE = "product/",
-    DELETE_PRODUCT = "product/",
-    GET_FIND_ALL = "product/"
-}
+export const PRODUCT_ENDPOINT = {
+  DELETE: {
+    remove: (productId: string) => `product/${productId}`
+  },
+  GET: {
+    findAll: () => "product/" ,
+    findById: (productId: string) => `product/${productId}`,
+  },
+  PATCH: {
+    update: (productId: string) => `product/update/${productId}`
+  },
+  POST: {
+    create: () => "product/create",
+  },
+};
 
-export enum USER_ENDPOINT {
-    GET_FIND_ONE = "user/",
-    PUT_UPDATE = "user/",
-    DELETE_USER = "user/",
-    GET_VERIFY = "user/verify",
-    GET_FIND_ALL = "user/"
-}
+export const USER_ENDPOINT = {
+  DELETE: {
+    remove: (userId: string) => `user/${userId}`
+  },
+  GET: {
+    findById: (userId: string) => `user/${userId}`,
+    // Utiliza una query ?token=${value} para verificar a un usuario
+    verifyUser: () => `user/verify`
+  },
+  PATCH: {
+    update: (userId: string) => `user/${userId}`
+  }
+};
 
-export enum WISHLIST_ENDPOINT {
-    POST_WISHLIST = "whitelist/",
-    DELETE_WISHLIST = "whitelist/",
-    GET_FIND_BY_USER = "whitelist/user",
-    GET_PRODUCT_WISHLIST = "whitelist/product/",
-    GET_FIND_ALL = "whitelist/"
-}
-
-export enum REVIEW_ENDPOINT {
-    GET_FIND_ALL = "review/",
-    GET_FIND_COUNT = "review/count",
-    GET_AVG_PRODUCT = "review/recommendation/"
-}
+export const REVIEW_ENDPOINT = {
+  DELETE: {
+    remove: (reviewId: string) => `review/${reviewId}`
+  },
+  GET: {
+    // Obtiene el promedio de reviews positivas que tiene el product
+    avgByProduct: (productId: string) => `review/recommendation/${productId}`,
+    // Obtiene la cantidad de reviews que existen
+    count: () => "review/count",
+    findAll: () => "review/",
+    findByProduct: (productId: string) => `review/product/${productId}`,
+  },
+  PATCH: {
+    update: (reviewId: string) => `review/${reviewId}`,
+  },
+  POST: {
+    create: (productId: string) => `review/${productId}`,
+    // Coloca un like o dislike a una review
+    setReaction: () => "review/reaction"
+  },
+};

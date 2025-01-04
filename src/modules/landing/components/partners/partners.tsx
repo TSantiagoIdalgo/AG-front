@@ -9,7 +9,7 @@ interface CountResponse {
 }
 
 export default function Partners (): React.JSX.Element {
-  const { loading, data } = useFetchData<CountResponse>(REVIEW_ENDPOINT.GET_FIND_COUNT);
+  const { loading, data } = useFetchData<CountResponse>(REVIEW_ENDPOINT.GET.count());
   
   return (
     <div>

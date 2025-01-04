@@ -7,7 +7,7 @@ import React from "react";
 
 export default function ProductDetailIndex(): React.JSX.Element {
   const { id } = libs.useParams();
-  const { loading, data, error } = libs.useFetchData<Product>(PRODUCT_ENDPOINT.GET_FIND_ONE, { id });
+  const { loading, data, error } = libs.useFetchData<Product>(PRODUCT_ENDPOINT.GET.findById(id as string));
   if (loading || !data?.body.data) return <p>Loading...</p>;
   if (error) return <p>ERROR: { error.message }</p>;
   const { backgroundImage, name, description, developer, tags, genres, release_date, distributor, pegi, trailer, images } = data.body.data;

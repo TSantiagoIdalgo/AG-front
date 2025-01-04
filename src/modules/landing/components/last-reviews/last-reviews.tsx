@@ -11,7 +11,7 @@ import arowLeft from '#assets/icons/icon-arrow.svg';
 
 export default function LastReveiws(): React.JSX.Element {
   const [onMouseEnter, setOnMouseEnter] = libs.useState(false);
-  const { loading, data, error } = libs.useFetchData<DataResponse<Review>>(REVIEW_ENDPOINT.GET_FIND_ALL, {
+  const { loading, data, error } = libs.useFetchData<DataResponse<Review>>(REVIEW_ENDPOINT.GET.findAll(), {
     query: {  orderByCreatedAt: true, pageNumber: 0, pageSize: 4 }
   });
 

@@ -11,8 +11,7 @@ export const useGetBanners = (orderBy: Partial<GetAllProductsProps>) => {
   
   const initIndex = 0;
   const [bannerIndex, setBannerIndex] = libs.useState<number>(initIndex);
-  const { loading, data, error } = useFetchData<DataResponse<Product>>(PRODUCT_ENDPOINT.GET_FIND_ALL, {
-    method: "GET",
+  const { loading, data, error } = useFetchData<DataResponse<Product>>(PRODUCT_ENDPOINT.GET.findAll(), {
     query: { pageNumber: 0, pageSize: 10, ...orderBy }
   });
 
