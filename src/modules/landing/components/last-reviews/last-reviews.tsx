@@ -6,6 +6,7 @@ import React from "react";
 import RecommendedIcon from '#assets/icons/icon-like.svg';
 import { Review } from '#src/common/interfaces/review.interface.ts';
 import Style from "./last-reviews.module.css";
+import UUIDBase64 from '#src/common/uuid-base64.ts';
 import UserIcon from '#assets/icons/icon-user.svg';
 import arowLeft from '#assets/icons/icon-arrow.svg';
 
@@ -29,7 +30,7 @@ export default function LastReveiws(): React.JSX.Element {
       <section className={Style.last_reviews}>
         {data.body.data?.content.map((review) => (
           <figure key={review.id} className={Style.review}>
-            <a href={`/ancore/${review.id}`} className={Style.card_url} onMouseEnter={mouseEnter} onMouseLeave={mouseEnter}>
+            <a href={`/ancore/${new UUIDBase64(review.product.id).uuidToBase64()}`} className={Style.card_url} onMouseEnter={mouseEnter} onMouseLeave={mouseEnter}>
               <img src={review.product.mainImage} alt={review.product.name} className={Style.card_img}/>
               <video preload='none' loop autoPlay muted playsInline className={Style.card_video}>
                 <source src={review.product.trailer} type='video/webm'/>

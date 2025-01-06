@@ -1,4 +1,12 @@
-import { Product } from "./product.interface";
+
+export interface ProductReview {
+  id: string;
+  name: string;
+  price: number;
+  discount: number;
+  trailer: string;
+  mainImage: string;
+}
 
 export interface User {
     username: string;
@@ -29,7 +37,7 @@ export interface Review {
     user: User;
     reactions: ReviewReaction[];
     createdAt: Date;
-    product: Product;
+    product: ProductReview;
 }
 
 

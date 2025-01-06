@@ -1,15 +1,23 @@
+/* eslint-disable consistent-return */
 import './product-detail-index.css';
 import * as Detail from './components/product-detail-components';
 import * as libs from './libs/product-detail-libs';
 import { PRODUCT_ENDPOINT } from '#src/config/endpoints.ts';
 import { Product } from '#src/common/interfaces/product.interface.ts';
 import React from "react";
+import UUIDBase64 from '#src/common/uuid-base64.ts';
+
 
 export default function ProductDetailIndex(): React.JSX.Element {
   const { id } = libs.useParams();
-  const { loading, data, error } = libs.useFetchData<Product>(PRODUCT_ENDPOINT.GET.findById(id as string));
+  const { loading, data } = libs.useFetchData<Product>(PRODUCT_ENDPOINT.GET.findById(UUIDBase64.base64ToUuid(id as string)));
+  const navigate = libs.useNavigate();
+  libs.useEffect(() => {
+    if (data?.body.error) return navigate("/");
+  }, [data?.body]);
+
+
   if (loading || !data?.body.data) return <p>Loading...</p>;
-  if (error) return <p>ERROR: { error.message }</p>;
   const { backgroundImage, name, description, developer, tags, genres, release_date, distributor, pegi, trailer, images, requirements } = data.body.data;
   return (
     <main className='product-detail-index'>

@@ -4,6 +4,7 @@ import { REVIEW_ENDPOINT } from '#src/config/endpoints.ts';
 import React from 'react';
 import { Review } from '#src/common/interfaces/review.interface.ts';
 import Style from './reviews-section.module.css';
+import UUIDBase64 from '#src/common/uuid-base64.ts';
 import UserIcon from '#assets/icons/icon-user.svg';
 
 
@@ -26,7 +27,8 @@ export default function ReviewsSection (): React.JSX.Element {
 
     if (days > one) return `Hace ${days} dias`;
     else if (days > zero) return "Ayer";
-    return `Hace ${hours} horas`;
+    else if (hours > zero) return `Hace ${hours} horas`;
+    return "Hace unos momentos";
 
   };
 
@@ -40,7 +42,7 @@ export default function ReviewsSection (): React.JSX.Element {
             <img src={UserIcon} alt='user'/>
             <div className={Style.info}>
               <div className={Style.stars}></div>
-              <a href='#' className={Style.name}>{review.product.name}</a>
+              <a href={`/ancore/${new UUIDBase64(review.product.id).uuidToBase64()}`} className={Style.name}>{review.product.name}</a>
             </div>
           </div>
           <div className={Style.text_readable}>
