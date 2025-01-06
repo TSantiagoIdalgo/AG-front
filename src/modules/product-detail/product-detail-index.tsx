@@ -14,6 +14,7 @@ export default function ProductDetailIndex(): React.JSX.Element {
   const navigate = libs.useNavigate();
   libs.useEffect(() => {
     if (data?.body.error) return navigate("/");
+    else if (data?.body.data) document.title = `Comprar ${data.body.data.name}`;
   }, [data?.body]);
 
 
@@ -28,6 +29,7 @@ export default function ProductDetailIndex(): React.JSX.Element {
         <Detail.VisualsDetail images={images} trailer={trailer}/>
         <Detail.DescriptionDetail description={description} />
         <Detail.ConfigurationDetail requirements={requirements}/>
+        <Detail.ReviewsDetail/>
       </section>
     </main>
   );
