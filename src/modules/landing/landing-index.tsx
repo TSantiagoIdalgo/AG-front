@@ -30,7 +30,7 @@ export default function LandingIndex (): React.JSX.Element {
           pageSize: 6
         }}/>
         <Spacer/>
-        <LandingComponents.ComponentCarrousel/>
+        <LandingComponents.ComponentCarrousel orderByCheckoutCount/>
         <LandingComponents.LastReveiws/>
         <Spacer/>
         <LandingComponents.IndiesSection/>

@@ -3,6 +3,7 @@
     justify-content: center;
     position: relative;
     width: 100%;
+    max-height: 205px;
     background-color: var(--color-dark);
 }
 
@@ -71,6 +72,8 @@
     line-height: 20px;
     margin: 15px 0;
     color: var(--color-light);
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .time {

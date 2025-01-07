@@ -1,4 +1,4 @@
-import { Footer, Navbar } from '#modules/core/components/core-index.ts';
+import { Footer, Navbar, PreFooter } from '#modules/core/components/core-index.ts';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import CreateProduct from './state/create-product';
 import LandingIndex from './modules/landing/landing-index';
@@ -15,6 +15,7 @@ export default function App(): React.JSX.Element {
         <Route path='/:id' element={<ProductDetailIndex/>}/>
         <Route path='/create' element={<CreateProduct/>}/>
       </Routes>
+      <PreFooter/>
       <Footer/>
     </div>
   );
