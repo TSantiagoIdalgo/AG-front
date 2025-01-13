@@ -45,3 +45,8 @@ export interface AVGProductReview {
   percentage: number;
   totalReviews: number
 }
+
+export interface ReviewReactionBody {
+  reviewId: string;
+  reactionType: ReactionType
+}

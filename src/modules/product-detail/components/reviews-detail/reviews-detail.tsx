@@ -3,14 +3,16 @@ import DislikeIcon from '#assets/icons/icon-dislike.svg';
 import LikeIcon from '#assets/icons/icon-like.svg';
 import { REVIEW_ENDPOINT } from '#src/config/endpoints.ts';
 import React from "react";
-import { Review } from "#src/common/interfaces/review.interface.ts";
+import { Review } from '#src/common/interfaces/review.interface.ts';
 import Style from './reviews-detail.module.css';
 import UUIDBase64 from '#src/common/uuid-base64.ts';
 import UserIcon from '#assets/icons/icon-user.svg';
+import { useSetReaction } from '#modules/product-detail/hooks/use-set-reaction.ts';
 
 export default function ReviewsDetail (): React.JSX.Element {
   const { id } = libs.useParams();
   const [showReview, handleShowReview] = libs.useState(false);
+  const { handleLike, isLiked, mutation } = useSetReaction();
   const { loading, data } = libs.useFetchData<Review[]>(REVIEW_ENDPOINT.GET.findByProduct(UUIDBase64.base64ToUuid(id as string)), {
     query: { recommended: true }
   });
@@ -28,7 +30,7 @@ export default function ReviewsDetail (): React.JSX.Element {
       <span className={Style.readable} key={index}>{line || '\u00A0'}</span>
     ));
   };
-  
+  console.log(isLiked, mutation);
   return (
     <section className={Style.reviews_container}>
       <div className={Style.headline}>
@@ -55,11 +57,11 @@ export default function ReviewsDetail (): React.JSX.Element {
               <div className={Style.usefull}>
                 <div className={Style.ask}>¿Te ha resultado útil?</div>
                 <div className={Style.votes}>
-                  <a href="#" className={Style.vote}>
+                  <a href="#" className={Style.vote} onClick={() => handleLike(review.id, true)}>
                     <img src={LikeIcon} className={Style.like_blank}/>
                     <span className={Style.positive}>0</span>
                   </a>
-                  <a href="#" className={Style.vote}>
+                  <a href="#" className={Style.vote} onClick={() => handleLike(review.id, false)}>
                     <img src={DislikeIcon} className={Style.like_blank}/>
                   </a>
                 </div>

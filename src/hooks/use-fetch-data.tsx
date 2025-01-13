@@ -4,10 +4,10 @@ import { ErrorResponse } from "../common/interfaces/fetch-data.interface";
 
 interface IGetSearchParams {
   query?: QueryParams;
-  id?: string
+  id?: string | number
 }
 
-const getSearchParams = (baseUrl: string, endpoint: string, params: IGetSearchParams): string => {
+export const getSearchParams = (baseUrl: string, endpoint: string, params: IGetSearchParams): string => {
   try {
     const url = new URL(`${baseUrl}/${endpoint}`);
     if (params.id) url.href += params.id; 
@@ -30,12 +30,12 @@ export const useFetchData = <T, B = undefined>(
   fetchData?: FetchData<B>,
   baseUrl: string = import.meta.env.VITE_API_URL
 ) => {
-  const initState: ResponseData<T> = {
+  const initState: Partial<ResponseData<T>> = {
     data: undefined,
     error: undefined,
     loading: false,
   };
-  const [data, setData] = useState<ResponseData<T>>(initState);
+  const [data, setData] = useState<Partial<ResponseData<T>>>(initState);
 
   const fetchResponse = async () => {
     setData({ ...initState, loading: true });
@@ -66,5 +66,5 @@ export const useFetchData = <T, B = undefined>(
     fetchResponse();
   }, []);
 
-  return data;
+  return { ...data, fetchResponse };
 };

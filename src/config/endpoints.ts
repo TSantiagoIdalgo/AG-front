@@ -19,7 +19,7 @@ export const USER_ENDPOINT = {
     remove: (userId: string) => `user/${userId}`
   },
   GET: {
-    findById: (userId: string) => `user/${userId}`,
+    findById: (userId?: string) => `user/find/${userId}`,
     // Utiliza una query ?token=${value} para verificar a un usuario
     verifyUser: () => `user/verify`
   },
@@ -46,6 +46,6 @@ export const REVIEW_ENDPOINT = {
   POST: {
     create: (productId: string) => `review/${productId}`,
     // Coloca un like o dislike a una review
-    setReaction: () => "review/reaction"
+    setReaction: () => "review/reaction/"
   },
 };
