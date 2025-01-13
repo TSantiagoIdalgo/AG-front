@@ -40,5 +40,8 @@ export interface Review {
     product: ProductReview;
 }
 
-
-
+export interface AVGProductReview {
+  productId: string;
+  percentage: number;
+  totalReviews: number
+}

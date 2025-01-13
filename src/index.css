@@ -48,11 +48,11 @@ g {
   stroke-width: 2;
 }
 
-.circle-meter-bar.medium {
+#medium {
   stroke: #fcaf02;
 }
 
-.circle-meter-bar.high {
+#high {
   stroke: #6dd432;
 }
 
@@ -70,10 +70,11 @@ g {
   top: 0;
 }
 
-.rating-reviews-rate.medium {
+#text-medium {
   color: #fcaf02;
 }
 
-.rating-reviews-rate.high {
+
+#text-high {
   color: #6dd432;
 }

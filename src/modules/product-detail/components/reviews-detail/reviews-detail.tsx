@@ -14,7 +14,7 @@ export default function ReviewsDetail (): React.JSX.Element {
   const { loading, data } = libs.useFetchData<Review[]>(REVIEW_ENDPOINT.GET.findByProduct(UUIDBase64.base64ToUuid(id as string)), {
     query: { recommended: true }
   });
-
+  if (data?.status === 'NOT_FOUND') return <></>; 
   if (loading || !data?.body.data) return <p>Loading...</p>;
 
   const formatDate = (dateTime: string) => {
@@ -28,7 +28,7 @@ export default function ReviewsDetail (): React.JSX.Element {
       <span className={Style.readable} key={index}>{line || '\u00A0'}</span>
     ));
   };
-
+  
   return (
     <section className={Style.reviews_container}>
       <div className={Style.headline}>
