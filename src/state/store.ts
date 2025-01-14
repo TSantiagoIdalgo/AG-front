@@ -3,7 +3,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from './reducers/user-slice';
 
 export interface IUserState {
-    user: User
+    user: {
+      data: User
+    }
 }
 
 export const store = configureStore({

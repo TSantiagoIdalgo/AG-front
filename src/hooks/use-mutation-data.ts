@@ -38,7 +38,8 @@ export const useMutation = <T>(
       method,
     });
     const responseData: ResponseBody<T> = await response.json();
-    setMutation((prev) => ({ ...prev, data: responseData, loading: false }));
+    setMutation({ data: responseData, error: undefined, loading: false });
+    return responseData;
   };
 
   return { callMutation, mutation };

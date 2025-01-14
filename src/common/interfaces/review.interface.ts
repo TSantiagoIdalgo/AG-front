@@ -38,6 +38,7 @@ export interface Review {
     reactions: ReviewReaction[];
     createdAt: Date;
     product: ProductReview;
+    reactionType?: ReactionType
 }
 
 export interface AVGProductReview {
