@@ -1,0 +1,8 @@
+.catalogue {
+    background: var(--color-dark);
+    color: #fff;
+    flex-direction: column;
+    font-size: 15px;
+    position: relative;
+    width: 100%;
+}

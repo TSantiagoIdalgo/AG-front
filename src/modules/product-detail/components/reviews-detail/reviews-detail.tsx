@@ -11,6 +11,7 @@ export default function ReviewsDetail (): React.JSX.Element {
   const { loading, data } = libs.useFetchData<Review[]>(REVIEW_ENDPOINT.GET.findByProduct(UUIDBase64.base64ToUuid(id as string)), {
     query: { recommended: true }
   });
+  
   if (data?.status === 'NOT_FOUND') return <></>; 
   if (loading || !data?.body.data) return <p>Loading...</p>;
   return (

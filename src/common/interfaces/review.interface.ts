@@ -8,9 +8,15 @@ export interface ProductReview {
   mainImage: string;
 }
 
+export interface Role {
+  id: number, 
+  name: string
+}
+
 export interface User {
     username: string;
     email: string;
+    roles: Role[];
     verify: boolean;
 }
 

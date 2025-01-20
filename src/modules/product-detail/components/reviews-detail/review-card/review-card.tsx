@@ -1,15 +1,18 @@
 import * as libs from '../../../libs/product-detail-libs';
+import { ReactionType, Review } from '#src/common/interfaces/review.interface.ts';
 import DislikeIcon from '#assets/icons/icon-dislike.svg';
+import { IUserState } from '#src/state/store.ts';
 import LikeIcon from '#assets/icons/icon-like.svg';
 import React from 'react';
-import { Review } from '#src/common/interfaces/review.interface.ts';
 import Style from './review-card.module.css';
 import UserIcon from '#assets/icons/icon-user.svg';
 import { useSetReaction } from '#modules/product-detail/hooks/use-set-reaction.ts';
 
 const ReviewCard  = ({ review }: { review: Review }): React.JSX.Element => {
   const [showReview, handleShowReview] = libs.useState(false);
-  const { handleLike, handleDislike, isLiked, countOfLikes, isDisliked } = useSetReaction(review);
+  const { handleLike, handleDislike, isLiked, reactions, isDisliked } = useSetReaction(review);
+  const user = libs.useSelector((state: IUserState) => state.user);
+  const countOfLikes = libs.useMemo(() => reactions.filter((rr) => rr?.reactionType === ReactionType.LIKE).length, [reactions]);
   const formatDate = (dateTime: string) => {
     const date = new Date(dateTime);
     return new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
@@ -41,13 +44,13 @@ const ReviewCard  = ({ review }: { review: Review }): React.JSX.Element => {
         <div className={Style.usefull}>
           <div className={Style.ask}>¿Te ha resultado útil?</div>
           <div className={Style.votes}>
-            <a className={isLiked ? Style.vote_like : Style.vote} onClick={handleLike}>
+            <button type="button" disabled={!user.data} className={isLiked ? Style.vote_like : Style.vote} onClick={handleLike}>
               <img src={LikeIcon} className={Style.like_blank}/>
               <span className={Style.positive}>{countOfLikes}</span>
-            </a>
-            <a className={isDisliked ? Style.vote_dislike : Style.vote} onClick={handleDislike}>
+            </button>
+            <button type='button' disabled={!user.data} className={isDisliked ? Style.vote_dislike : Style.vote} onClick={handleDislike}>
               <img src={DislikeIcon} className={Style.like_blank}/>
-            </a>
+            </button>
           </div>
         </div>
       </div>

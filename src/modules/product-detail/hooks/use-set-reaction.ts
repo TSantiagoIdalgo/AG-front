@@ -1,19 +1,16 @@
-/* eslint-disable max-statements */
- 
+
 import * as libs from '../libs/product-detail-libs';
 import { ReactionType, Review, ReviewReaction, ReviewReactionBody } from '#src/common/interfaces/review.interface.ts';
 import { IUserState } from '#src/state/store.ts';
 import { REVIEW_ENDPOINT } from '#src/config/endpoints.ts';
-import { useMemo } from 'react';
 
 export const useSetReaction = (review: Review) => {
-  const { callMutation, mutation } = libs.useMutation<ReviewReaction>(REVIEW_ENDPOINT.POST.setReaction());
+  const { callMutation } = libs.useMutation<ReviewReaction>(REVIEW_ENDPOINT.POST.setReaction());
   const [isLiked, setIsLiked] = libs.useState(review.reactionType === ReactionType.LIKE);
   const [isDisliked, setIsDisliked] = libs.useState(review.reactionType === ReactionType.DISLIKE);
   const [reactions, setReactions] = libs.useState(review.reactions);
   const user = libs.useSelector((state: IUserState) => state.user);
 
-  const countOfLikes = useMemo(() => reactions.filter((rr) => rr?.reactionType === ReactionType.LIKE).length, [reactions]);
 
   const updateReactions = (email: string, newReactionType: ReactionType | null, newReaction: ReviewReaction) => {
     setReactions((prev) => {
@@ -38,5 +35,5 @@ export const useSetReaction = (review: Review) => {
   const handleLike = () => handleReaction(ReactionType.LIKE, isLiked, setIsLiked);
   const handleDislike = () => handleReaction(ReactionType.DISLIKE, isDisliked, setIsDisliked);
 
-  return { countOfLikes, handleDislike, handleLike, isDisliked, isLiked , mutation };
+  return { handleDislike,  handleLike, isDisliked,  isLiked, reactions };
 };
