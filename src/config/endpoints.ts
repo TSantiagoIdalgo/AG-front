@@ -49,3 +49,22 @@ export const REVIEW_ENDPOINT = {
     setReaction: () => "review/reaction/"
   },
 };
+
+export const PLATFORM_ENDPOINT = {
+  GET: {
+    findAll: () => "platform/"
+  }
+};
+
+export const GENRE_ENDPOINT = {
+  DELETE: {
+    deleteById: (name: string) => `genre/${name}`
+  },
+  GET: {
+    findAll: () => "genre/",
+    findById: (name: string) => `genre/${name}`
+  },
+  POST: {
+    create: () => "genre/"
+  },
+};

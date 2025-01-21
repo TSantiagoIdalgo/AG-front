@@ -66,5 +66,5 @@ export const useFetchData = <T, B = undefined>(
     fetchResponse();
   }, []);
 
-  return { ...data, fetchResponse };
+  return { ...data, refetch: fetchResponse };
 };
