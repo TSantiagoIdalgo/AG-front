@@ -1,27 +1,48 @@
- 
+import * as libs from '#modules/catalogue/libs/catalogue-libs';
+import { IFiltersDropdown } from "#modules/catalogue/interfaces/catalogue.interface.ts"; 
 import React from "react";
 import SearchIcon from '#assets/icons/search.svg';
 import Style from './filters-dropdown.module.css';
 import { useOutClick } from "#modules/catalogue/hooks/use-out-click.ts";
 
-interface IFiltersDropdown {
-  name: string;
-  results: string[]
-}
-const FiltersDropdown = ({ name, results }: IFiltersDropdown): React.JSX.Element => {
-  const [option, selectOption] = React.useState<string>();
+const FiltersDropdown = ({ name, results, type }: IFiltersDropdown): React.JSX.Element => {
+  const [searchParams, setSearchParams] = libs.useSearchParams();
+  const [option, selectOption] = React.useState<string | null>(searchParams.get(type));
+  const [visualOption, setVisualOption] = React.useState<string | null>(searchParams.get(type));
   const containerRef = React.useRef<HTMLDivElement>(null);
   const toggle = useOutClick(containerRef);
-  const [checked, handleChecked] = React.useState(toggle);
+
+  libs.useEffect(() => {
+    if (type === 'orderBy' && option) {
+      searchParams.set(type, visualOption as string);
+      setSearchParams(searchParams);
+    } else if (option) {
+      searchParams.set(type, option as string);
+      setSearchParams(searchParams);
+    }
+  }, [option]);
+
+  const handleOptions = (op: string, visualOp: string) => {
+    selectOption(op);
+    setVisualOption(visualOp);
+  };
+
+  const handleDeleteOption = () => {
+    const params = new URLSearchParams(searchParams);
+    if (params.has(type)) params.delete(type);
+    selectOption(null);
+    setVisualOption(null);
+    setSearchParams(params);
+  };
 
   return (
     <span className={Style.select_content} ref={containerRef}>
       {option 
-        ? <button onClick={() => selectOption(undefined)} type="button" className={Style.select_content_close}>X</button> 
+        ? <button onClick={handleDeleteOption} type="button" className={Style.select_content_close}>X</button> 
         : null}
-      <input type="checkbox" checked={checked} onChange={() => handleChecked(toggle)} name={name} className={Style.select_check}/>
+      <input type="checkbox" checked={toggle} readOnly name={name} className={Style.select_check}/>
       <span className={option? Style.select_selection_op : Style.select_selection}>
-        <span className={option ? Style.select_render_option : Style.select_render}>{option ? option : name}</span>
+        <span className={option ? Style.select_render_option : Style.select_render}>{visualOption ? visualOption : name}</span>
       </span>
       <div className={Style.select_dropdown}>
         {toggle && (
@@ -31,8 +52,8 @@ const FiltersDropdown = ({ name, results }: IFiltersDropdown): React.JSX.Element
             <div className={Style.select_dropdown_result}>
               <ul className={Style.search_dropdown_ul}>
                 {results.map(res => (
-                  <li key={res} onClick={() => selectOption(res)} className={option === res ? Style.select_dropdown_result_select : Style.none}>
-                    <span>{res}</span>
+                  <li key={res.value} onClick={() => handleOptions(res.value, res.visualString)} className={option === res.value ? Style.select_dropdown_result_select : Style.none}>
+                    <span>{res.visualString}</span>
                   </li>
                 ))}
               </ul>

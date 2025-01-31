@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import SearchIcon from '#assets/icons/search.svg';
 import Style from './filters-genre-dropdown.module.css';
 import { useOutClick } from "#modules/catalogue/hooks/use-out-click.ts";
+import { useSetGenres } from "#modules/catalogue/hooks/use-set-genres.ts";
 
 interface IFiltersDropdown {
   name: string;
@@ -11,16 +12,12 @@ interface IFiltersDropdown {
 }
 const FiltersGenreDropdown = ({ name, results }: IFiltersDropdown): React.JSX.Element => {
   const initialPadding = 15, maxGenres = 3;
-  const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
+  const { selectedOptions, handleOptionSelect, handleDeleteOption } = useSetGenres();
   const [padding, setPadding] = React.useState<number>(initialPadding);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const toggle = useOutClick(containerRef);
   const [checked, handleChecked] = React.useState(toggle);
-
-  const handleOptionSelect = (option: string) => {
-    setSelectedOptions((prev) => prev.includes(option) ? prev.filter((op) => op !== option) : [...prev, option]);
-  };
 
   useEffect(() => {
     if (dropdownRef.current) {
@@ -35,7 +32,7 @@ const FiltersGenreDropdown = ({ name, results }: IFiltersDropdown): React.JSX.El
   return (
     <span className={Style.container} ref={containerRef}>
       {selectedOptions.length ? 
-        <button onClick={() => setSelectedOptions([])} type="button" className={Style.container_close}>X</button> 
+        <button onClick={handleDeleteOption} type="button" className={Style.container_close}>X</button> 
         : null}
       <input
         type="checkbox"

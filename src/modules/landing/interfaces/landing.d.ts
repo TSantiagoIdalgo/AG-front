@@ -3,7 +3,6 @@
 export interface GetAllProductsProps {
   "pageSize": number;
   "pageNumber": number;
-  "orderbyWishList": boolean;
   "developer": string;
   "franchise": string;
   "minPrice": number;
@@ -14,6 +13,9 @@ export interface GetAllProductsProps {
   "tags": string[]
   "platform": string[]
   "name": string;
+  "orderbyWishList": boolean;
   "orderByRecommendation": boolean
   "orderByCheckoutCount": boolean
+  "orderByCreatedAt": boolean ;
+  "orderByPrice": boolean;
 }
