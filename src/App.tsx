@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CatalogueIndex from '#modules/catalogue/catalogue-index.tsx';
 import CreateProduct from './state/create-product';
-import { IUserState } from './state/store';
+import { IState } from './state/store';
 import LandingIndex from './modules/landing/landing-index';
 import ProductDetailIndex from '#modules/product-detail/product-detail-index.tsx';
 import { ProtectedRoute } from '#modules/auth/components/protected-route.tsx';
@@ -15,7 +15,7 @@ import { useFetchData } from './hooks/use-fetch-data';
 
 export default function App(): React.JSX.Element {
   const { loading, data } = useFetchData<User>(USER_ENDPOINT.GET.findById());
-  const { data: user } = useSelector((state: IUserState) => state.user);
+  const { data: user } = useSelector((state: IState) => state.user);
   const dispatch = useDispatch();
   React.useEffect(() => { dispatch(getUser(data?.body.data)); }, [data]);
 

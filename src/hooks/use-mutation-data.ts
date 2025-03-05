@@ -1,6 +1,10 @@
+/* eslint-disable max-statements */
 
 import { ResponseBody, ResponseData } from "../common/interfaces/fetch-data.interface";
-import { getSearchParams } from "./use-fetch-data";
+import { addRequest, removeRequest } from "#src/state/reducers/fetch-queue-slice.ts";
+import { useDispatch, useSelector } from "react-redux";
+import { IState } from "#src/state/store.ts";
+import { buildUrl } from "#src/common/build-url.ts";
 import { useState } from "react";
 
 type QueryParams = Record<string, string | number | undefined | boolean | string[]>;
@@ -12,7 +16,8 @@ interface FetchData {
 interface IMutation<B> {
     id?: string | number;
     query?: QueryParams;
-    body: B
+    params?: QueryParams;
+    body?: B
 }
 export const useMutation = <T>(
   endpoint: string,
@@ -25,22 +30,30 @@ export const useMutation = <T>(
     loading: false,
   };
   const [mutation, setMutation] = useState<ResponseData<T>>(initState);
+  const { activeRequests } = useSelector((state: IState) => state.fetchQueue);
+  const dispatch = useDispatch();
 
   const callMutation = async <B>(properties: IMutation<B>) => {
-    if (!properties.body) throw new Error("Body required");
-    setMutation({ ...initState, loading: true });
-    const { method = "POST", headers } = fetchData || {};
-    const url = getSearchParams(baseUrl, endpoint, { id: properties.id, query: properties.query });
-    const response = await globalThis.fetch(url, {
-      body: JSON.stringify(properties.body),
-      credentials: "include",
-      headers: { "Content-Type": "application/json", ...headers },
-      method,
-    });
-    const responseData: ResponseBody<T> = await response.json();
-    setMutation({ data: responseData, error: undefined, loading: false });
-    return responseData;
+    dispatch(addRequest(endpoint));
+    try {
+      if (!properties.body) throw new Error("Body required");
+      setMutation({ ...initState, loading: true });
+      const { method = "POST", headers } = fetchData || {};
+      const { body, id, params, query } = properties;
+      const url = buildUrl(baseUrl, {  endpoint, id, params, querys: query });
+      const response = await globalThis.fetch(url, {
+        body: body ? JSON.stringify(body) : undefined,
+        credentials: "include",
+        headers: { "Content-Type": "application/json", ...headers },
+        method,
+      });
+      const responseData: ResponseBody<T> = await response.json();
+      setMutation({ data: responseData, error: undefined, loading: false });
+      return responseData;
+    } finally {
+      dispatch(removeRequest(endpoint));
+    }
   };
 
-  return { callMutation, mutation };
+  return { callMutation, isPending: activeRequests.includes(endpoint), mutation };
 };

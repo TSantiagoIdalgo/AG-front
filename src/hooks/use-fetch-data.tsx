@@ -1,29 +1,19 @@
-import { FetchData, QueryParams, ResponseBody, ResponseData } from "../common/interfaces/fetch-data.interface";
+import { FetchData, ResponseBody, ResponseData } from "../common/interfaces/fetch-data.interface";
+import { addRequest, removeRequest } from "#src/state/reducers/fetch-queue-slice.ts";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { ErrorResponse } from "../common/interfaces/fetch-data.interface";
+import { IState } from "#src/state/store.ts";
+import { buildUrl } from "#src/common/build-url.ts";
 
-interface IGetSearchParams {
-  query?: QueryParams;
-  id?: string | number
-}
 
-export const getSearchParams = (baseUrl: string, endpoint: string, params: IGetSearchParams): string => {
-  try {
-    const url = new URL(`${baseUrl}/${endpoint}`);
-    if (params.id) url.href += params.id; 
-    if (params.query) {
-      Object.entries(params.query).forEach(([key, value]) => {
-        if (value) {
-          url.searchParams.append(key, value.toString());
-        }
-      });
-    }
-    
-    return url.toString();
-  } catch {
-    throw new Error("URL_MALFORMED");
-  }
-};
+
+const getError = () =>  ({
+  error: "INTERNAL_ERROR",
+  message: "FAILED_TO_FETCH",
+  status: 500,
+  timestamp: new Date()
+} as ErrorResponse);
 
 export const useFetchData = <T, B = undefined>(
   endpoint: string,
@@ -35,13 +25,16 @@ export const useFetchData = <T, B = undefined>(
     error: undefined,
     loading: false,
   };
+  const { activeRequests } = useSelector((state: IState) => state.fetchQueue);
+  const dispatch = useDispatch();
   const [data, setData] = useState<Partial<ResponseData<T>>>(initState);
 
   const fetchResponse = async () => {
     setData({ ...initState, loading: true });
+    dispatch(addRequest(endpoint));
     try {
-      const { method = "GET", body, headers, query, id } = fetchData || {};
-      const url = getSearchParams(baseUrl, endpoint, { id, query });
+      const { method = "GET", body, headers, query, id, params } = fetchData || {};
+      const url = buildUrl(baseUrl, { endpoint, id, params, querys: query });
       const response = await globalThis.fetch(url, {
         body: body ? JSON.stringify(body) : null,
         credentials: "include",
@@ -51,13 +44,9 @@ export const useFetchData = <T, B = undefined>(
       const responseData: ResponseBody<T> = await response.json();
       setData((prev) => ({ ...prev, data: responseData, loading: false }));
     } catch {
-      const responseError: ErrorResponse = {
-        error: "INTERNAL_ERROR",
-        message: "FAILED_TO_FETCH",
-        status: 500,
-        timestamp: new Date()
-      };
-      setData((prev) => ({ ...prev, error: responseError, loading: false }));
+      setData((prev) => ({ ...prev, error: getError(), loading: false }));
+    } finally {
+      dispatch(removeRequest(endpoint));
     }
     
   };
@@ -66,5 +55,5 @@ export const useFetchData = <T, B = undefined>(
     fetchResponse();
   }, []);
 
-  return { ...data, refetch: fetchResponse };
+  return { ...data, isPending: activeRequests.includes(endpoint), refetch: fetchResponse };
 };

@@ -1,7 +1,7 @@
 
 import * as libs from '../libs/product-detail-libs';
 import { ReactionType, Review, ReviewReaction, ReviewReactionBody } from '#src/common/interfaces/review.interface.ts';
-import { IUserState } from '#src/state/store.ts';
+import { IState } from '#src/state/store.ts';
 import { REVIEW_ENDPOINT } from '#src/config/endpoints.ts';
 
 export const useSetReaction = (review: Review) => {
@@ -9,7 +9,7 @@ export const useSetReaction = (review: Review) => {
   const [isLiked, setIsLiked] = libs.useState(review.reactionType === ReactionType.LIKE);
   const [isDisliked, setIsDisliked] = libs.useState(review.reactionType === ReactionType.DISLIKE);
   const [reactions, setReactions] = libs.useState(review.reactions);
-  const user = libs.useSelector((state: IUserState) => state.user);
+  const user = libs.useSelector((state: IState) => state.user);
 
 
   const updateReactions = (email: string, newReactionType: ReactionType | null, newReaction: ReviewReaction) => {
