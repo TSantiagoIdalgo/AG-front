@@ -6,7 +6,7 @@ const Spacer = () => <div style={{backgroundColor: 'var(--color-dark)', height: 
 export default function LandingIndex (): React.JSX.Element {
   return (
     <div>
-      <main>
+      <main style={{width: '100%'}}>
         <LandingComponents.ComponentCarrousel orderbyWishList/>
         <LandingComponents.RenderSections tittle='Tendencias' filter={{ 
           orderbyWishList: true, 

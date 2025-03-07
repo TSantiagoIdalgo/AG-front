@@ -4,6 +4,7 @@ import { Genre, Platform } from '#src/common/interfaces/product.interface.ts';
 import { FilterObject } from '../../interfaces/catalogue.interface';
 import FiltersDropdown from './filters-dropdown/filters-dropdown';
 import FiltersGenreDropdown from './filters-genre-dropdown/filters-genre-dropdown';
+import FiltersPrice from './filters-price/filters-price';
 import React from "react";
 import Style from './filters-catalogue.module.css';
 import { getOrdersTypes } from '#modules/catalogue/hooks/get-orders-types.ts';
@@ -22,7 +23,7 @@ export default function FiltersCatalogue(): React.JSX.Element {
 
   return (
     <div className={Style.filters}>
-      <form name="filters">
+      <form name="filters" className={Style.filters_form}>
         <div className={Style.seach_title}>
           <FiltersDropdown
             name="Sistemas" 
@@ -44,6 +45,7 @@ export default function FiltersCatalogue(): React.JSX.Element {
             type='orderBy'
           />
         </div>
+        <FiltersPrice/>
       </form>
     </div>
   );

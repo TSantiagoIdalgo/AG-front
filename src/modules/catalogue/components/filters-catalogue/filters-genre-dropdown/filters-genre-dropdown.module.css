@@ -59,6 +59,11 @@
     border: 2px solid transparent;
 }
 
+.select_option_selected:hover,
+.select_option:hover {
+    border: 2px solid var(--color);
+}
+
 .select_render_option,
 .select_render {
     align-items: center;

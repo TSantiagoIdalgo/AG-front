@@ -8,9 +8,9 @@ import { buildUrl } from "#src/common/build-url.ts";
 
 
 
-const getError = () =>  ({
+const getError = (error: Error) =>  ({
   error: "INTERNAL_ERROR",
-  message: "FAILED_TO_FETCH",
+  message: error.message,
   status: 500,
   timestamp: new Date()
 } as ErrorResponse);
@@ -43,8 +43,8 @@ export const useFetchData = <T, B = undefined>(
       });
       const responseData: ResponseBody<T> = await response.json();
       setData((prev) => ({ ...prev, data: responseData, loading: false }));
-    } catch {
-      setData((prev) => ({ ...prev, error: getError(), loading: false }));
+    } catch (error) {
+      setData((prev) => ({ ...prev, error: getError(error as Error), loading: false }));
     } finally {
       dispatch(removeRequest(endpoint));
     }

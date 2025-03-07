@@ -7,6 +7,8 @@
     width: max-content;
     z-index: 1;
     color: #fff;
+    min-width: 300px;
+    width: calc(33.333% - 30px);
 }
 
 .card_url {

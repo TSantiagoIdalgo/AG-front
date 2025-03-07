@@ -5,6 +5,7 @@
     margin-right: 30px;
     padding-top: 200px;
     position: relative;
+    padding-bottom: 30px;
 
     form {
         align-self: center;
@@ -21,5 +22,10 @@
     margin: -15px;
     min-height: 88px;
     position: relative;
+}
 
+.filters_form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }

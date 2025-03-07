@@ -1,4 +1,3 @@
-import { setOrdersBy, setPlatform, setSystem } from "#src/state/reducers/filter-slice.ts";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useFetchData } from "#src/hooks/use-fetch-data.tsx";
@@ -10,8 +9,5 @@ export {
   useFetchData,
   useDispatch,
   useSelector,
-  setPlatform,
-  setSystem,
-  setOrdersBy,
   useSearchParams
 };

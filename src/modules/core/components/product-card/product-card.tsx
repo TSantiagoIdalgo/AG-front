@@ -13,15 +13,13 @@ export default  function ProductCard ({ id, name, price, discount, mainImage, tr
   const mouseEnter = () => {
     setOnMouseEnter(!onMouseEnter);
   };
+  
+  const parsePrice = () => {
+    const fixedPrice = 2, total = 100;
+    const discountedPrice = price - (price * discount) / total;
 
-  const parsePrice = (num: number) => {
-    const fixedPrice = 2, isPar = 1, sliceString = -1, toZero = 0;
-    const number = num.toString();
-    let numberString = parseFloat(number).toFixed(fixedPrice);
-    if (num % isPar === toZero) return numberString;
-    while (numberString.endsWith('0')) {
-      numberString = numberString.slice(fixedPrice, sliceString);
-    }
+    const numberString = discountedPrice.toFixed(fixedPrice);    
+
     return numberString;
   };
 
@@ -36,7 +34,7 @@ export default  function ProductCard ({ id, name, price, discount, mainImage, tr
       </a>
       <div className={Style.card_title}>
         <h2>{name}</h2>
-        <span>${parsePrice(price)}</span>
+        <span>${parsePrice()}</span>
       </div>
     </figure>
   );

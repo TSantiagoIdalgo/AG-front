@@ -12,6 +12,7 @@ export default function CatalogueIndex(): React.JSX.Element {
   return (
     <section className={Style.catalogue}>
       <Catalogue.FiltersCatalogue/>
+      <Catalogue.MainCatalogue/>
     </section>
   );
 }

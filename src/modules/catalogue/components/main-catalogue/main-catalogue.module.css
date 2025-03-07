@@ -1,0 +1,32 @@
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: auto;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-bottom: 30px;
+}
+
+.wrapper {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.cuantity_results {
+    font-size: 21px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: -15px;
+    position: relative;
+}
