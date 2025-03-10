@@ -11,15 +11,16 @@ import { getOrdersTypes } from '#modules/catalogue/hooks/get-orders-types.ts';
 
 export default function FiltersCatalogue(): React.JSX.Element {
   const { data: genres } = libs.useFetchData<Genre[]>(GENRE_ENDPOINT.GET.findAll());
-  const { data: platform, loading } = libs.useFetchData<Platform[]>(PLATFORM_ENDPOINT.GET.findAll());
-  if (!platform?.body.data || !genres?.body.data || loading) return <p></p>;
+  const { data: platform } = libs.useFetchData<Platform[]>(PLATFORM_ENDPOINT.GET.findAll());
   const ordersTypes = getOrdersTypes();
-  const platformSet = new Set(platform.body.data.map((plat) => plat.name));
-  const systemSet = new Set(platform?.body.data.map((sys) => sys.platform));
+  const skeleton = Array.from({ length: 10 }, () => "");
+
+  const platformSet = new Set(platform?.body.data?.map((plat) => plat.name) || skeleton);
+  const systemSet = new Set(platform?.body.data?.map((sys) => sys.platform) || skeleton);
 
   const platforms: FilterObject[] = Array.from(platformSet).map((plat) => ({ value: plat, visualString: plat }));
   const systems: FilterObject[] = Array.from(systemSet).map((sys) => ({ value: sys, visualString: sys }));
-  const genresString = genres.body.data.map((genre) => genre.name);
+  const genresString = genres?.body.data?.map((genre) => genre.name) || skeleton;
 
   return (
     <div className={Style.filters}>

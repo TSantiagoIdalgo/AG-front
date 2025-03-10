@@ -20,14 +20,14 @@ export const useFetchData = <T, B = undefined>(
   fetchData?: FetchData<B>,
   baseUrl: string = import.meta.env.VITE_API_URL
 ) => {
-  const initState: Partial<ResponseData<T>> = {
+  const initState: ResponseData<T> = {
     data: undefined,
     error: undefined,
     loading: false,
   };
   const { activeRequests } = useSelector((state: IState) => state.fetchQueue);
   const dispatch = useDispatch();
-  const [data, setData] = useState<Partial<ResponseData<T>>>(initState);
+  const [data, setData] = useState<ResponseData<T>>(initState);
 
   const fetchResponse = async () => {
     setData({ ...initState, loading: true });

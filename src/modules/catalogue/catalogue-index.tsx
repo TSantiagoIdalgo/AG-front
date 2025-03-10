@@ -6,20 +6,16 @@ import { useFilterProducts } from './hooks/use-filter-products';
 
 export default function CatalogueIndex(): React.JSX.Element {
   const { loading, data } = useFilterProducts();
-  const initValue = 1;
+  const defaultValue = 0, initValue = 1;
   libs.useEffect(() => {
     document.title = "Resultados";
-  }, []);
-
-  if (loading || !data) return <p>Loading...</p>;
-
-  
+  }, []);  
 
   return (
     <section className={Style.catalogue}>
       <Catalogue.FiltersCatalogue/>
-      <Catalogue.MainCatalogue numberOfElements={data.totalElements} products={data.content}/>
-      { data.totalPages > initValue && <Catalogue.PageableCatalogue numberOfPages={data.totalPages}/> }
+      <Catalogue.MainCatalogue totalElements  ={data?.totalElements ?? defaultValue} loading={loading} products={data?.content}/>
+      { data && data.totalPages > initValue && <Catalogue.PageableCatalogue numberOfPages={data.totalPages}/> }
     </section>
   );
 }
