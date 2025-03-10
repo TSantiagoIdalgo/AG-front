@@ -1,5 +1,5 @@
 
-export type QueryParams = Record<string, string | number | undefined | boolean | string[]>;
+export type QueryParams = Record<string, string | number | undefined | boolean | string[] | null>;
 export interface FetchData<B = undefined> {
   method?: "GET" | "POST" | "PUT" | "DELETE";
   body?: B;

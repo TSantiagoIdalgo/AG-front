@@ -36,3 +36,10 @@
 .input:focus::placeholder {
     color: transparent;
 }
+
+.reload {
+    filter: brightness(0) saturate(100%) invert(62%) sepia(89%) saturate(4379%) hue-rotate(174deg) brightness(104%) contrast(107%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

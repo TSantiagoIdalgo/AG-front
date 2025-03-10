@@ -1,4 +1,4 @@
-type Params = Record<string, string | number | undefined | boolean | string[]>;
+type Params = Record<string, string | number | undefined | boolean | string[] | null>;
 
 interface QueryProperties {
   endpoint: string
@@ -27,7 +27,10 @@ export const buildUrl = (baseURL: string, properties: QueryProperties): string =
     const urlObject = new URL(url, baseURL);
     if (properties?.querys) {
       Object.entries(properties.querys).forEach(([key, value]) => {
-        if (value) urlObject.searchParams.append(key, value.toString());
+        if (value && !Array.isArray(value)) urlObject.searchParams.append(key, value.toString());
+        else if (Array.isArray(value)) {
+          value.forEach((val) => urlObject.searchParams.append(key, val));
+        }
       });
     }
 
