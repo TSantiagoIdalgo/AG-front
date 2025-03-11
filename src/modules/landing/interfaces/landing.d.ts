@@ -15,7 +15,8 @@ export interface GetAllProductsProps {
   "name": string;
   "orderbyWishList": boolean;
   "orderByRecommendation": boolean
-  "orderByCheckoutCount": boolean
+  "orderByCheckoutCount": boolean;
+  "orderByDiscount": boolean;
   "orderByCreatedAt": boolean ;
   "orderByPrice": boolean;
 }

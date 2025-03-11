@@ -20,5 +20,9 @@ export const getOrdersTypes = (): FilterObject[] => [
   {
     value: "orderByPrice",
     visualString: "Menor precio"
+  },
+  {
+    value: "orderByDiscount",
+    visualString: "Descuento: Mas alto"
   }
 ];

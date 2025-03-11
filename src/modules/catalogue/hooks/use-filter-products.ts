@@ -17,6 +17,7 @@ export const useFilterProducts = () => {
       genres: getArrayOrNull(searchParams.getAll("genre")),
       maxPrice: searchParams.get("maxPrice"),
       minPrice: searchParams.get("minPrice"),
+      name: searchParams.get("name"),
       pageNumber: page,
       pageSize: initValue,
       platform: getArrayOrNull(searchParams.getAll("platform")),

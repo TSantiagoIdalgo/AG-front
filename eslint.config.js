@@ -15,10 +15,12 @@ export default [
     rules: {
       "camelcase": "off",
       "curly": "off",
+      "func-names": "off",
       // eslint-disable-next-line no-magic-numbers
       "indent": ["error", 2],
       "max-lines-per-function": "off",
       "no-duplicate-imports": "off",
+      "no-invalid-this": "off",
       "no-ternary": "off",
       "no-undefined": "off",
       "one-var": "off",
