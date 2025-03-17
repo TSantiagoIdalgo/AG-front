@@ -22,6 +22,7 @@ export const useFilterProducts = () => {
       pageSize: initValue,
       platform: getArrayOrNull(searchParams.getAll("platform")),
       system: getArrayOrNull(searchParams.getAll("system")),
+      tags: getArrayOrNull(searchParams.getAll("tag"))
     };
 
     if (!orderType) return query;
