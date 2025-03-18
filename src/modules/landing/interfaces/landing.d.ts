@@ -10,7 +10,6 @@ export interface GetAllProductsProps {
   "minDiscount": number;
   "maxDiscount": number;
   "genres": string[]
-  "tags": string[]
   "platform": string[]
   "name": string;
   "orderbyWishList": boolean;

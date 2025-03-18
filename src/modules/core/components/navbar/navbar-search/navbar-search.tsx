@@ -8,21 +8,20 @@ import { useChangeSearchParams } from '#src/hooks/use-change-search-params.ts';
 
 export default function LandingNavbarSearch (): React.JSX.Element {
   const { updateParams, searchParams, deleteParams } = useChangeSearchParams();
-  const [searching, handleSearching] = libs.useState(Boolean(searchParams.has("name") || searchParams.has("tag")));
+  const [searching, handleSearching] = libs.useState(Boolean(searchParams.has("name")));
   const [searchValue, setSearchValue] = libs.useState(searchParams.get("name") ?? "");
   const navigate = libs.useNavigate();
-  const debounceTime = 200, initNameLength = 0;
+  const debounceTime = 200;
 
   const debouncedUpdate = libs.useRef(
     debounce((value: string) => {
-      const tag = value.split(" ").filter((val) => val.trim().length > initNameLength);
-      const newParams = updateParams({ name: value, tag });
+      const newParams = updateParams({ name: value });
       navigate(`/catalogue?${newParams.toString()}`);
     }, debounceTime)
   );
 
   const deleteQuerys = () => {
-    deleteParams([{ key: "tag" }, { key: "name" }]);
+    deleteParams([{ key: "name" }]);
     handleSearching(!searching);
     setSearchValue("");
   };

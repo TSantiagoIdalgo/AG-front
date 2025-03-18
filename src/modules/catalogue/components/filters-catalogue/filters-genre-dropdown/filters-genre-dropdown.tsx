@@ -32,6 +32,10 @@ const FiltersGenreDropdown = ({ name, results }: IFiltersDropdown): React.JSX.El
     }
   }, [selectedOptions]);
 
+  useEffect(() => {
+    setSearchResults(results);
+  }, [results.length]);
+
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchValue(value);

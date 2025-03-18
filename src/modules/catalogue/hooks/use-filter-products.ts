@@ -19,10 +19,9 @@ export const useFilterProducts = () => {
       minPrice: searchParams.get("minPrice"),
       name: searchParams.get("name"),
       pageNumber: page,
-      pageSize: initValue,
+      pageSize: 60,
       platform: getArrayOrNull(searchParams.getAll("platform")),
-      system: getArrayOrNull(searchParams.getAll("system")),
-      tags: getArrayOrNull(searchParams.getAll("tag"))
+      system: getArrayOrNull(searchParams.getAll("system"))
     };
 
     if (!orderType) return query;

@@ -23,6 +23,10 @@ const FiltersDropdown = ({ name, results, type }: IFiltersDropdown): React.JSX.E
     }
   }, [option]);
 
+  libs.useEffect(() => {
+    setSearchResults(results);
+  }, [results.length]);
+
   const handleOptions = (op: string, visualOp: string) => {
     selectOption(op);
     setVisualOption(visualOp);
