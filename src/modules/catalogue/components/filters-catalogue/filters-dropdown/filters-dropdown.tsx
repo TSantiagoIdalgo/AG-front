@@ -1,12 +1,15 @@
+/* eslint-disable max-statements */
 import * as libs from '#modules/catalogue/libs/catalogue-libs';
-import { IFiltersDropdown } from "#modules/catalogue/interfaces/catalogue.interface.ts"; 
+import { FilterObject, IFiltersDropdown } from "#modules/catalogue/interfaces/catalogue.interface.ts"; 
 import React from "react";
 import SearchIcon from '#assets/icons/search.svg';
 import Style from './filters-dropdown.module.css';
 import { useOutClick } from "#modules/catalogue/hooks/use-out-click.ts";
 
 const FiltersDropdown = ({ name, results, type }: IFiltersDropdown): React.JSX.Element => {
-  const [searchParams, setSearchParams] = libs.useSearchParams();
+  const { searchParams, updateParams, deleteParams } = libs.useChangeSearchParams();
+  const [searchValue, setSearchValue] = libs.useState<string>("");
+  const [searchresults, setSearchResults] = libs.useState<FilterObject[]>(results);
   const [option, selectOption] = React.useState<string | null>(searchParams.get(type));
   const [visualOption, setVisualOption] = React.useState<string | null>(searchParams.get(type));
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -14,11 +17,9 @@ const FiltersDropdown = ({ name, results, type }: IFiltersDropdown): React.JSX.E
 
   libs.useEffect(() => {
     if (type === 'orderBy' && option) {
-      searchParams.set(type, visualOption as string);
-      setSearchParams(searchParams);
+      updateParams({ [type]: visualOption as string });
     } else if (option) {
-      searchParams.set(type, option as string);
-      setSearchParams(searchParams);
+      updateParams({ [type]: option });
     }
   }, [option]);
 
@@ -28,11 +29,17 @@ const FiltersDropdown = ({ name, results, type }: IFiltersDropdown): React.JSX.E
   };
 
   const handleDeleteOption = () => {
-    const params = new URLSearchParams(searchParams);
-    if (params.has(type)) params.delete(type);
+    deleteParams([{ key: type }]);
     selectOption(null);
     setVisualOption(null);
-    setSearchParams(params);
+  };
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setSearchValue(value);
+    if (!value.length) return setSearchResults(results);
+    const filteredResults = searchresults.filter(result => result.value.toLowerCase().includes(value.toLowerCase()));
+    return setSearchResults(filteredResults);
   };
 
   return (
@@ -47,11 +54,11 @@ const FiltersDropdown = ({ name, results, type }: IFiltersDropdown): React.JSX.E
       <div className={Style.select_dropdown}>
         {toggle && (
           <div className={Style.search_dropdown}>
-            <input type="search" className={Style.search_dropdown_input} />
+            <input autoComplete='off' value={searchValue} name='search' onChange={handleSearch} type="search" className={Style.search_dropdown_input} />
             <img src={SearchIcon} alt="search" className={Style.search_dropdown_icon} />
             <div className={Style.select_dropdown_result}>
               <ul className={Style.search_dropdown_ul}>
-                {results.map(res => (
+                {searchresults.map(res => (
                   <li key={res.value} onClick={() => handleOptions(res.value, res.visualString)} className={option === res.value ? Style.select_dropdown_result_select : Style.none}>
                     <span>{res.visualString}</span>
                   </li>
