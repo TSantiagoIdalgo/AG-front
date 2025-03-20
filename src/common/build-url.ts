@@ -7,11 +7,11 @@ interface QueryProperties {
   id?: string | number
 }
 
-/** 
+/**
  * Crea una url a partir de los parametros
- * @param baseURL: 'http://localhost:3000'
- * @param properites: { endpoint: "user/{id}/find", params: { id: 24 }, querys: { name: "example" } }
  * @returns (string) 'http://localhost:3000/user/24/find?name=example'
+ * @param baseURL
+ * @param properties
  */
 
 export const buildUrl = (baseURL: string, properties: QueryProperties): string => {

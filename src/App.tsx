@@ -1,23 +1,27 @@
-import { Footer, Navbar, PreFooter } from '#modules/core/components/core-index.ts';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import AuthTemplate from '#modules/auth/components/auth/auth-template.tsx';
+import AuthLogin from "#modules/auth/components/auth/login/auth-login.tsx";
+import {ProtectedRoute} from '#modules/auth/components/protected-route/protected-route.tsx';
 import CatalogueIndex from '#modules/catalogue/catalogue-index.tsx';
-import CreateProduct from './state/create-product';
-import { IState } from './state/store';
-import LandingIndex from './modules/landing/landing-index';
+import {Footer, Navbar, PreFooter} from '#modules/core/components/core-index.ts';
 import ProductDetailIndex from '#modules/product-detail/product-detail-index.tsx';
-import { ProtectedRoute } from '#modules/auth/components/protected-route.tsx';
+import {IState} from "#src/state/store.ts";
 import React from 'react';
-import { USER_ENDPOINT } from './config/endpoints';
-import { User } from './common/interfaces/review.interface';
-import { getUser } from './state/reducers/user-slice';
-import { useFetchData } from './hooks/use-fetch-data';
+import {useDispatch, useSelector} from 'react-redux';
+import {Navigate, Route, Routes} from 'react-router-dom';
+import {User} from './common/interfaces/review.interface';
+import {USER_ENDPOINT} from './config/endpoints';
+import {useFetchData} from './hooks/use-fetch-data';
+import LandingIndex from './modules/landing/landing-index';
+import CreateProduct from './state/create-product';
+import {getUser} from './state/reducers/user-slice';
 
 export default function App(): React.JSX.Element {
-  const { loading, data } = useFetchData<User>(USER_ENDPOINT.GET.findById());
-  const { data: user } = useSelector((state: IState) => state.user);
+  const {loading, data} = useFetchData<User>(USER_ENDPOINT.GET.findById());
+  const {data: user} = useSelector((state: IState) => state.user);
   const dispatch = useDispatch();
-  React.useEffect(() => { dispatch(getUser(data?.body.data)); }, [data]);
+  React.useEffect(() => {
+    dispatch(getUser(data?.body.data));
+  }, [data]);
 
   if (loading) return <p></p>;
 
@@ -25,14 +29,15 @@ export default function App(): React.JSX.Element {
     <div>
       <Navbar/>
       <Routes>
-        <Route path='*'  element={<Navigate to="/"/>}/>
+        <Route path='*' element={<Navigate to="/"/>}/>
         <Route path='/' element={<LandingIndex/>}/>
+        <Route element={<ProtectedRoute roles={["ROLE_ADMIN"]}/>}>
+          <Route path='/create/product' element={<CreateProduct/>}/>
+        </Route>
         <Route path='/:id' element={<ProductDetailIndex/>}/>
         <Route path='/catalogue' element={<CatalogueIndex/>}/>
         {!user && (
-          <Route element={<ProtectedRoute roles={["ROLE_ADMIN"]}/>}>
-            <Route path='/create/product' element={<CreateProduct/>}/>
-          </Route>
+          <Route path='/login' element={<AuthTemplate><AuthLogin/></AuthTemplate>}/>
         )}
       </Routes>
       <PreFooter/>

@@ -3,7 +3,7 @@ export const PRODUCT_ENDPOINT = {
     remove: (productId: string) => `product/${productId}`
   },
   GET: {
-    findAll: () => "product/" ,
+    findAll: () => "product/",
     findById: (productId: string) => `product/${productId}`,
   },
   PATCH: {
@@ -25,6 +25,9 @@ export const USER_ENDPOINT = {
   },
   PATCH: {
     update: (userId: string) => `user/${userId}`
+  },
+  POST: {
+    login: () => "auth/login",
   }
 };
 

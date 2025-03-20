@@ -1,0 +1,54 @@
+.container {
+    width: 100%;
+    min-height: 100dvh;
+    height: 100%;
+    background-color: var(--color-medium-dark);
+    z-index: 1000;
+    position: absolute;
+    display: flex;
+}
+
+.container_sections {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wallpaper {
+    height: 100%;
+    width: 50%;
+    background-image: url('/src/assets/background/wallpaper.jpg');
+    background-position: top;
+    background-size: cover;
+    bottom: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.close {
+    font-size: 2rem;
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    color: #fff;
+    z-index: 100;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: var(--color);
+}
+
+.navbar_header_logo {
+    width: 150px;
+    height: 40px;
+    position: absolute;
+    left: 30px;
+    top: 25px;
+}

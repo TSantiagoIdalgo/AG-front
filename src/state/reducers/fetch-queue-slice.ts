@@ -1,7 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export interface IFetchQueue {
-    activeRequests: string[];
+  activeRequests: string[];
 }
 
 const initialState: IFetchQueue = {
@@ -17,9 +17,9 @@ export const fetchQueueSlice = createSlice({
     },
     removeRequest: (state, action: PayloadAction<string>) => {
       state.activeRequests = state.activeRequests.filter((req) => req !== action.payload);
-    },
+    }
   }
 });
 
-export const { addRequest, removeRequest } = fetchQueueSlice.actions;
+export const {addRequest, removeRequest} = fetchQueueSlice.actions;
 export default fetchQueueSlice.reducer;
