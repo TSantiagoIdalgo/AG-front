@@ -1,5 +1,6 @@
 import AuthTemplate from '#modules/auth/components/auth/auth-template.tsx';
 import AuthLogin from "#modules/auth/components/auth/login/auth-login.tsx";
+import AuthRegister from "#modules/auth/components/auth/register/auth-register.tsx";
 import {ProtectedRoute} from '#modules/auth/components/protected-route/protected-route.tsx';
 import CatalogueIndex from '#modules/catalogue/catalogue-index.tsx';
 import {Footer, Navbar, PreFooter} from '#modules/core/components/core-index.ts';
@@ -37,7 +38,10 @@ export default function App(): React.JSX.Element {
         <Route path='/:id' element={<ProductDetailIndex/>}/>
         <Route path='/catalogue' element={<CatalogueIndex/>}/>
         {!user && (
-          <Route path='/login' element={<AuthTemplate><AuthLogin/></AuthTemplate>}/>
+          <>
+            <Route path='/login' element={<AuthTemplate><AuthLogin/></AuthTemplate>}/>
+            <Route path='/register' element={<AuthTemplate><AuthRegister/></AuthTemplate>}/>
+          </>
         )}
       </Routes>
       <PreFooter/>

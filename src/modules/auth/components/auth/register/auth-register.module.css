@@ -1,0 +1,32 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.register_fields {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.register_buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 720px;
+  gap: 20px;
+  margin-top: 20px;
+
+  button {
+    width: 100%;
+  }
+
+  span {
+    color: #fff;
+    cursor: pointer;
+  }
+}

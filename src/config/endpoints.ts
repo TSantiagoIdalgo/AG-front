@@ -28,6 +28,7 @@ export const USER_ENDPOINT = {
   },
   POST: {
     login: () => "auth/login",
+    register: () => "auth/register",
   }
 };
 

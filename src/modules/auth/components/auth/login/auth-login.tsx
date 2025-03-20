@@ -32,25 +32,29 @@ export default function AuthLogin(): React.JSX.Element {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={Style.loginForm}>
-      <h1>Inicia Sesion</h1>
-      <Input
-        name='Email Adress'
-        type='email'
-        info={register('email')}
-        error={errors.email?.message}/>
-      <Input
-        name='Password'
-        type='password'
-        info={register('password')}
-        error={errors.password?.message}/>
-      <Button type='submit' text='Login' style={{width: '100%'}}/>
-      <div className={Style.buttons}>
-        <Link to={"/register"}>
-          <span>¿No tienes una cuenta?</span>
-        </Link>
-        <Link to={"/forgot-password"}>
-          <span>¿Has olvidado la contraseña?</span>
-        </Link>
+      <div>
+        <h1>Inicia Sesion</h1>
+        <Input
+          name='Email Adress'
+          type='email'
+          info={register('email')}
+          error={errors.email?.message}
+          style={{width: '430px'}}/>
+        <Input
+          name='Password'
+          type='password'
+          info={register('password')}
+          error={errors.password?.message}
+          style={{width: '430px'}}/>
+        <Button type='submit' text='Login' style={{width: '100%'}}/>
+        <div className={Style.buttons}>
+          <Link to={"/register"}>
+            <span>¿No tienes una cuenta?</span>
+          </Link>
+          <Link to={"/forgot-password"}>
+            <span>¿Has olvidado la contraseña?</span>
+          </Link>
+        </div>
       </div>
     </form>
   );
