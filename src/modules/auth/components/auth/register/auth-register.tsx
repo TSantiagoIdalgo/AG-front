@@ -1,5 +1,5 @@
-import Button from "#modules/core/button/button.tsx";
-import Input from "#modules/core/input/input.tsx";
+import Button from "#modules/core/components/button/button.tsx";
+import Input from "#modules/core/components/input/input.tsx";
 import {User} from "#src/common/interfaces/review.interface.ts";
 import {registerSchema, TRegisterSchema} from "#src/common/interfaces/user.interface.ts";
 import {USER_ENDPOINT} from "#src/config/endpoints.ts";
@@ -15,7 +15,7 @@ export default function AuthRegister(): React.JSX.Element {
   const {register, handleSubmit, formState: {errors}, setError} = useForm<TRegisterSchema>({
     resolver: zodResolver(registerSchema)
   });
-  
+
   const onSubmit = async (data: TRegisterSchema) => {
     try {
       const payload = {email: data.email, password: data.password, username: data.userName};

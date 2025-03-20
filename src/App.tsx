@@ -5,6 +5,7 @@ import {ProtectedRoute} from '#modules/auth/components/protected-route/protected
 import CatalogueIndex from '#modules/catalogue/catalogue-index.tsx';
 import {Footer, Navbar, PreFooter} from '#modules/core/components/core-index.ts';
 import ProductDetailIndex from '#modules/product-detail/product-detail-index.tsx';
+import Verify from "#modules/verify/verify.tsx";
 import {IState} from "#src/state/store.ts";
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -39,6 +40,7 @@ export default function App(): React.JSX.Element {
         <Route path='/catalogue' element={<CatalogueIndex/>}/>
         {!user && (
           <>
+            <Route path='/verify' element={<Verify/>}/>
             <Route path='/login' element={<AuthTemplate><AuthLogin/></AuthTemplate>}/>
             <Route path='/register' element={<AuthTemplate><AuthRegister/></AuthTemplate>}/>
           </>

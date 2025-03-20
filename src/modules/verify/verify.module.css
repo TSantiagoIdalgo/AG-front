@@ -1,0 +1,9 @@
+.main {
+  width: 100%;
+  min-height: 100dvh;
+  height: 100%;
+  background-color: var(--color-medium-dark);
+  z-index: 1000;
+  position: absolute;
+  display: flex;
+}

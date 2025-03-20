@@ -1,5 +1,5 @@
-import Button from "#modules/core/button/button.tsx";
-import Input from "#modules/core/input/input.tsx";
+import Button from "#modules/core/components/button/button.tsx";
+import Input from "#modules/core/components/input/input.tsx";
 import {User} from "#src/common/interfaces/review.interface.ts";
 import {loginSchema, signInSchema} from "#src/common/interfaces/user.interface.ts";
 import {USER_ENDPOINT} from "#src/config/endpoints.ts";

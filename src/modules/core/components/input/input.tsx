@@ -1,4 +1,4 @@
-import {InputProps} from '#src/modules/core/interfaces/input.interface.ts';
+import {InputProps} from '#modules/core/interfaces/input.interface.ts';
 import React from 'react';
 import Style from './input.module.css';
 
