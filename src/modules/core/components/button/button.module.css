@@ -14,6 +14,11 @@
   background: var(--fire-gradient-hover);
 }
 
+.button:disabled {
+  opacity: .3;
+  cursor: auto;
+}
+
 @media only screen and (max-width: 600px) {
   .button {
     width: 100%;

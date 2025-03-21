@@ -1,0 +1,21 @@
+.header {
+  height: 80px;
+  width: 100%;
+  background-color: var(--color-ultra-dark);
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  position: fixed;
+  top: 0;
+  transition: .2s;
+  z-index: 2;
+}
+
+.logo {
+  background-image: url(/src/assets/icons/logo-horizontal.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 40px;
+  width: 150px;
+}

@@ -1,0 +1,28 @@
+.secure {
+  align-items: center;
+  display: flex;
+}
+
+.icon_secure {
+  filter: brightness(0) saturate(100%) invert(69%) sepia(46%) saturate(768%) hue-rotate(80deg) brightness(93%) contrast(95%);
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+.text {
+  border-left: 1px solid hsla(0, 0%, 100%, .1);
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+}
+
+.secured {
+  font-weight: 400;
+  color: #fff;
+}
+
+.ssl {
+  color: var(--color-medium-light);
+  font-size: 13px;
+}

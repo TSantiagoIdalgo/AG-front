@@ -34,7 +34,7 @@ export default function AboutDetail({
     data,
     loading
   } = libs.useFetchData<AVGProductReview>(REVIEW_ENDPOINT.GET.avgByProduct(UUIDBase64.base64ToUuid(id as string)));
-  const dividePercetage = 10, high = 80, maxTag = 5, medium = 50, zero = 0;
+  const dividePercentage = 10, high = 80, maxTag = 5, medium = 50, zero = 0;
 
   libs.useEffect(() => {
     (function getPercentage() {
@@ -79,7 +79,7 @@ export default function AboutDetail({
               </g>
             </svg>
             <div className="rating-reviews-rate"
-              id={`text-${circleMeter.reviewsRate}`}>{circleMeter.circleMeterBar / dividePercetage}</div>
+              id={`text-${circleMeter.reviewsRate}`}>{circleMeter.circleMeterBar / dividePercentage}</div>
           </div>
           <div className={Style.based}>
             <span>Basada en</span>

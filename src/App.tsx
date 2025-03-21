@@ -2,6 +2,7 @@ import AuthTemplate from '#modules/auth/components/auth/auth-template.tsx';
 import AuthLogin from "#modules/auth/components/auth/login/auth-login.tsx";
 import AuthRegister from "#modules/auth/components/auth/register/auth-register.tsx";
 import {ProtectedRoute} from '#modules/auth/components/protected-route/protected-route.tsx';
+import CartIndex from "#modules/cart/cart-index.tsx";
 import CatalogueIndex from '#modules/catalogue/catalogue-index.tsx';
 import {Footer, Navbar, PreFooter} from '#modules/core/components/core-index.ts';
 import ProductDetailIndex from '#modules/product-detail/product-detail-index.tsx';
@@ -9,7 +10,7 @@ import Verify from "#modules/verify/verify.tsx";
 import {IState} from "#src/state/store.ts";
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
 import {User} from './common/interfaces/review.interface';
 import {USER_ENDPOINT} from './config/endpoints';
 import {useFetchData} from './hooks/use-fetch-data';
@@ -21,6 +22,7 @@ export default function App(): React.JSX.Element {
   const {loading, data} = useFetchData<User>(USER_ENDPOINT.GET.findById());
   const {data: user} = useSelector((state: IState) => state.user);
   const dispatch = useDispatch();
+  const location = useLocation();
   React.useEffect(() => {
     dispatch(getUser(data?.body.data));
   }, [data]);
@@ -29,7 +31,7 @@ export default function App(): React.JSX.Element {
 
   return (
     <div>
-      <Navbar/>
+      {!location.pathname.includes('cart') && <Navbar/>}
       <Routes>
         <Route path='*' element={<Navigate to="/"/>}/>
         <Route path='/' element={<LandingIndex/>}/>
@@ -38,6 +40,7 @@ export default function App(): React.JSX.Element {
         </Route>
         <Route path='/:id' element={<ProductDetailIndex/>}/>
         <Route path='/catalogue' element={<CatalogueIndex/>}/>
+        <Route path='/cart' element={<CartIndex/>}/>
         {!user && (
           <>
             <Route path='/verify' element={<Verify/>}/>
@@ -46,8 +49,12 @@ export default function App(): React.JSX.Element {
           </>
         )}
       </Routes>
-      <PreFooter/>
-      <Footer/>
+      {!location.pathname.includes('cart') && (
+        <>
+          <PreFooter/>
+          <Footer/>
+        </>
+      )}
     </div>
   );
 }

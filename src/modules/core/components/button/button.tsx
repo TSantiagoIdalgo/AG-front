@@ -5,13 +5,15 @@ export interface IButton {
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   type: 'button' | 'submit' | 'reset'
   text: string
-  style?: React.CSSProperties
+  style?: React.CSSProperties;
+  id?: string;
+  disabled?: boolean;
 }
 
 const PrimaryButton = (props: IButton) => {
-  const {text, onClick, style, type} = props;
+  const {text, onClick, style, type, id, disabled} = props;
   return (
-    <button className={Style.button} onClick={onClick} style={style} type={type}>
+    <button className={Style.button} disabled={disabled} id={id} onClick={onClick} style={style} type={type}>
       {text}
     </button>
   );
