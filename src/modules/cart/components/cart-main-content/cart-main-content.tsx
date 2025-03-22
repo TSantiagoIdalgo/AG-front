@@ -15,7 +15,9 @@ export default function CartMainContent(): React.JSX.Element {
               <img src={IconCart} alt="cart" className={Style.cart_icon}/>
               <h2>Tu cesta esta vacia</h2>
               <span className={Style.content}>No has añadido ningún producto a tu cesta todavía. ¡Navega por la web y encuentra ofertas increíbles!</span>
-              <Button text="Descubre juegos" type="button" id={Style.button_content}/>
+              <a href="/ancore">
+                <Button text="Descubre juegos" type="button" id={Style.button_content}/>
+              </a>
             </div>
           </article>
         </article>

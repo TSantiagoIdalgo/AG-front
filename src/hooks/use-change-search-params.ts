@@ -1,13 +1,13 @@
-import { useSearchParams } from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 
 interface IDeleteParams {
   key: string;
-  value?: string | boolean | number | string
+  value?: string | boolean | number
 }
 
 export const useChangeSearchParams = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  
+
   const updateParams = (newParams: Record<string, string | string[]>) => {
     const currentParams = new URLSearchParams(window.location.search);
     Object.entries(newParams).forEach(([key, value]) => {
@@ -38,9 +38,9 @@ export const useChangeSearchParams = () => {
       if (searchParams.has(key)) {
         newParams.delete(key);
         setSearchParams(newParams);
-      } 
+      }
     });
   };
 
-  return { deleteParams, searchParams, updateParams  };
+  return {deleteParams, searchParams, updateParams};
 };

@@ -28,24 +28,28 @@ export default function App(): React.JSX.Element {
   }, [data]);
 
   if (loading) return <p></p>;
-
+  
   return (
     <div>
       {!location.pathname.includes('cart') && <Navbar/>}
       <Routes>
         <Route path='*' element={<Navigate to="/"/>}/>
         <Route path='/' element={<LandingIndex/>}/>
+        <Route path='/:id' element={<ProductDetailIndex/>}/>
+        <Route path='/catalogue' element={<CatalogueIndex/>}/>
         <Route element={<ProtectedRoute roles={["ROLE_ADMIN"]}/>}>
           <Route path='/create/product' element={<CreateProduct/>}/>
         </Route>
-        <Route path='/:id' element={<ProductDetailIndex/>}/>
-        <Route path='/catalogue' element={<CatalogueIndex/>}/>
-        <Route path='/cart' element={<CartIndex/>}/>
         {!user && (
           <>
             <Route path='/verify' element={<Verify/>}/>
             <Route path='/login' element={<AuthTemplate><AuthLogin/></AuthTemplate>}/>
             <Route path='/register' element={<AuthTemplate><AuthRegister/></AuthTemplate>}/>
+          </>
+        )}
+        {user && (
+          <>
+            <Route path='/cart' element={<CartIndex/>}/>
           </>
         )}
       </Routes>

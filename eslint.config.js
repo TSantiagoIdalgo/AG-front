@@ -26,6 +26,7 @@ export default [
       "one-var": "off",
       "semi": ["error", "always"],
       "sort-imports": "off",
+      "no-warning-comments": "off"
     }
   }
 ];
