@@ -10,7 +10,7 @@ import Verify from "#modules/verify/verify.tsx";
 import {IState} from "#src/state/store.ts";
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
+import {Route, Routes, useLocation} from 'react-router-dom';
 import {User} from './common/interfaces/review.interface';
 import {USER_ENDPOINT} from './config/endpoints';
 import {useFetchData} from './hooks/use-fetch-data';
@@ -28,12 +28,11 @@ export default function App(): React.JSX.Element {
   }, [data]);
 
   if (loading) return <p></p>;
-  
+
   return (
     <div>
       {!location.pathname.includes('cart') && <Navbar/>}
       <Routes>
-        <Route path='*' element={<Navigate to="/"/>}/>
         <Route path='/' element={<LandingIndex/>}/>
         <Route path='/:id' element={<ProductDetailIndex/>}/>
         <Route path='/catalogue' element={<CatalogueIndex/>}/>
@@ -49,7 +48,7 @@ export default function App(): React.JSX.Element {
         )}
         {user && (
           <>
-            <Route path='/cart' element={<CartIndex/>}/>
+            <Route path='/user/cart' element={<CartIndex/>}/>
           </>
         )}
       </Routes>

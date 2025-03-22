@@ -12,6 +12,7 @@ const FiltersDropdown = ({name, results, type}: IFiltersDropdown): React.JSX.Ele
   const [searchresults, setSearchResults] = libs.useState<FilterObject[]>(results);
   const [option, selectOption] = React.useState<string | null>(searchParams.get(type));
   const [visualOption, setVisualOption] = React.useState<string | null>(searchParams.get(type));
+  const location = libs.useLocation();
   const containerRef = React.useRef<HTMLDivElement>(null);
   const toggle = useOutClick(containerRef);
 
@@ -46,15 +47,22 @@ const FiltersDropdown = ({name, results, type}: IFiltersDropdown): React.JSX.Ele
     return setSearchResults(filteredResults);
   };
 
+  const getTitle = () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("system") && type === 'system') return params.get("system");
+    else if (visualOption) return visualOption;
+    return name;
+  };
+
   return (
     <span className={Style.select_content} ref={containerRef}>
-      {option
+      {option || (location.search.includes("system") && type === "system")
         ? <button onClick={handleDeleteOption} type="button" className={Style.select_content_close}>X</button>
         : null}
       <input type="checkbox" checked={toggle} readOnly name={name} className={Style.select_check}/>
       <span className={option ? Style.select_selection_op : Style.select_selection}>
         <span
-          className={option ? Style.select_render_option : Style.select_render}>{visualOption ? visualOption : name}</span>
+          className={option ? Style.select_render_option : Style.select_render}>{getTitle()}</span>
       </span>
       <div className={Style.select_dropdown}>
         {toggle && (
@@ -66,7 +74,7 @@ const FiltersDropdown = ({name, results, type}: IFiltersDropdown): React.JSX.Ele
               <ul className={Style.search_dropdown_ul}>
                 {searchresults.map(res => (
                   <li key={res.value} onClick={() => handleOptions(res.value, res.visualString)}
-                    className={option === res.value ? Style.select_dropdown_result_select : Style.none}>
+                    className={option === res.value || location.search.includes(res.value) ? Style.select_dropdown_result_select : Style.none}>
                     <span>{res.visualString}</span>
                   </li>
                 ))}

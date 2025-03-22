@@ -14,6 +14,20 @@ export const PRODUCT_ENDPOINT = {
   },
 };
 
+export const CART_ENDPOINT = {
+  DELETE: {
+    remove: (productId: string) => `cart/remove/${productId}`,
+  },
+  GET: {
+    getUserCart: () => 'cart/',
+    getUserPaidCart: () => 'cart/paid',
+  },
+  POST: {
+    decreaseProduct: () => 'cart/decrease/{productId}',
+    increaseProduct: () => 'cart/increase/{productId}',
+  }
+};
+
 export const USER_ENDPOINT = {
   DELETE: {
     remove: (userId: string) => `user/${userId}`

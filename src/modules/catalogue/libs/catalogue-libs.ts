@@ -1,9 +1,8 @@
-import { useCallback, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { useChangeSearchParams } from "#src/hooks/use-change-search-params.ts";
-import { useFetchData } from "#src/hooks/use-fetch-data.tsx";
-import { useSearchParams } from "react-router-dom";
+import {useChangeSearchParams} from "#src/hooks/use-change-search-params.ts";
+import {useFetchData} from "#src/hooks/use-fetch-data.tsx";
+import {useCallback, useEffect, useRef, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useLocation, useSearchParams} from "react-router-dom";
 
 export {
   useEffect,
@@ -14,5 +13,6 @@ export {
   useSearchParams,
   useChangeSearchParams,
   useRef,
-  useCallback
+  useCallback,
+  useLocation
 };

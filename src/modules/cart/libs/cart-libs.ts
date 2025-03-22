@@ -1,0 +1,1 @@
+export {useFetchData} from "#src/hooks/use-fetch-data.tsx";

@@ -22,7 +22,7 @@ export default function Navbar(): React.JSX.Element {
       </a>
       <NavbarMenu/>
       <div className={Style.navbar_user}>
-        <Link to={user ? "/cart" : "/login"}>
+        <Link to={user ? "/user/cart" : "/login"}>
           <img src={CartIcon} alt='cart'/>
         </Link>
         <Link to={user ? "/profile" : "/login"}>
