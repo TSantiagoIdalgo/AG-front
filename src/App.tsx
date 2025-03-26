@@ -31,7 +31,7 @@ export default function App(): React.JSX.Element {
 
   return (
     <div>
-      {!location.pathname.includes('cart') && <Navbar/>}
+      {!location.pathname.includes('user') && <Navbar/>}
       <Routes>
         <Route path='/' element={<LandingIndex/>}/>
         <Route path='/:id' element={<ProductDetailIndex/>}/>
@@ -48,11 +48,11 @@ export default function App(): React.JSX.Element {
         )}
         {user && (
           <>
-            <Route path='/user/cart' element={<CartIndex/>}/>
+            <Route path='/user/:id' element={<CartIndex/>}/>
           </>
         )}
       </Routes>
-      {!location.pathname.includes('cart') && (
+      {!location.pathname.includes('user') && (
         <>
           <PreFooter/>
           <Footer/>

@@ -22,7 +22,7 @@ const CartEmpty = () => (
 
 export default function CartMainContent(): React.JSX.Element {
   const fixedPrice = 2, initValue = 0, totalPercentage = 100;
-  const {loading, data} = libs.useFetchData<Cart>(CART_ENDPOINT.GET.getUserCart());
+  const {loading, data, refetch} = libs.useFetchData<Cart>(CART_ENDPOINT.GET.getUserCart());
 
   const totalDiscount = useMemo(() => data?.body.data?.items.reduce((acc, item) => {
     const discountedPrice = (item.product.price * item.product.discount) / totalPercentage;
@@ -48,11 +48,17 @@ export default function CartMainContent(): React.JSX.Element {
                   productId={item.product.id}
                   key={item.id}
                   productPrice={item.product.price}
-                  productDiscount={item.product.discount}/>)
+                  productDiscount={item.product.discount}
+                  refetch={refetch}
+                  quantity={item.quantity}
+                  productStock={item.product.stock}/>)
             ) : <CartEmpty/>}
           </article>
         </article>
-        <CartMainResume subtotal={subtotal.toFixed(fixedPrice)} totalPrice={total.toFixed(fixedPrice)}
+        <CartMainResume
+          isCartEmpty={!items.length}
+          subtotal={subtotal.toFixed(fixedPrice)}
+          totalPrice={total.toFixed(fixedPrice)}
           discount={totalDiscount ? totalDiscount.toFixed(fixedPrice) : "0.00"}/>
       </section>
     </main>

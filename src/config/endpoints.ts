@@ -16,13 +16,14 @@ export const PRODUCT_ENDPOINT = {
 
 export const CART_ENDPOINT = {
   DELETE: {
-    remove: (productId: string) => `cart/remove/${productId}`,
+    remove: () => `cart/remove/{productId}`,
   },
   GET: {
     getUserCart: () => 'cart/',
     getUserPaidCart: () => 'cart/paid',
   },
   POST: {
+    createCheckoutSession: () => 'api/checkout/create-checkout-session',
     decreaseProduct: () => 'cart/decrease/{productId}',
     increaseProduct: () => 'cart/increase/{productId}',
   }
