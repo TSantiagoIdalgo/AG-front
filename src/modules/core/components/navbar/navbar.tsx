@@ -1,18 +1,21 @@
 import CartIcon from '#assets/icons/icon-cart.svg';
 import UserIcon from '#assets/icons/icon-user.svg';
 import Logo from '#assets/icons/logo-horizontal.svg';
+import NavbarModal from "#modules/core/components/navbar/navbar-modal/navbar-modal.tsx";
 import {useScroll} from '#modules/core/hooks/use-scroll.ts';
 import {IState} from "#src/state/store.ts";
-import React from 'react';
+import React, {useState} from 'react';
 import {useSelector} from "react-redux";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import NavbarMenu from './navbar-menu/navbar-menu';
 import Style from './navbar.module.css';
 
 export default function Navbar(): React.JSX.Element {
   const {data: user} = useSelector((state: IState) => state.user);
+  const [modal, handleModal] = useState<boolean>(false);
   const initScroll = 100;
   const {scrollY} = useScroll();
+  const navigate = useNavigate();
   const isScrolling = scrollY >= initScroll;
   return (
     <header className={isScrolling ? Style.navbar_header_scroll : Style.navbar_header}>
@@ -25,10 +28,11 @@ export default function Navbar(): React.JSX.Element {
         <Link to={user ? "/user/cart" : "/login"}>
           <img src={CartIcon} alt='cart'/>
         </Link>
-        <Link to={user ? "/profile" : "/login"}>
+        <div onClick={() => user ? handleModal(true) : navigate('/login')}>
           <img src={UserIcon} alt='user'/>
-        </Link>
+        </div>
       </div>
+      {modal && <NavbarModal handleModal={handleModal} user={user}/>}
     </header>
   );
 }
