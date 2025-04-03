@@ -1,0 +1,89 @@
+
+.main_panel {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 0 !important;
+  margin-top: 0 !important;
+  position: relative;
+  padding-bottom: 60px;
+
+  .avatar_panel {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+
+    .user_avatar_own {
+      position: relative;
+      width: 120px;
+
+      .avatar {
+        background-size: 100%;
+        width: 100%;
+        display: flex;
+
+        img {
+          height: 120px;
+          width: 120px;
+        }
+      }
+    }
+
+    .user_links {
+      display: flex;
+      flex-direction: column;
+      margin: 15px;
+      margin-bottom: 0 !important;
+
+      .title {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin: 7.5px;
+        color: #fff;
+      }
+
+      .createdAt {
+        color: var(--color-light);
+        margin: 0 7.5px 7.5px;
+        text-align: center;
+      }
+
+      .details {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+
+        .steam {
+          border-radius: 50%;
+          padding: 10px;
+          background-color: rgba(35, 141, 245, .2);
+
+          img {
+            width: 25px;
+            height: 20px;
+            filter: brightness(0) saturate(100%) invert(46%) sepia(55%) saturate(4045%) hue-rotate(193deg) brightness(102%) contrast(92%);
+            opacity: 0.4;
+          }
+        }
+
+        .discord {
+          border-radius: 50%;
+          padding: 10px;
+          background-color: rgba(88, 101, 242, .2);
+
+          img {
+            width: 25px;
+            height: 20px;
+            filter: brightness(0) saturate(100%) invert(42%) sepia(29%) saturate(7215%) hue-rotate(222deg) brightness(96%) contrast(97%);
+            opacity: 0.4;
+          }
+        }
+      }
+    }
+  }
+}

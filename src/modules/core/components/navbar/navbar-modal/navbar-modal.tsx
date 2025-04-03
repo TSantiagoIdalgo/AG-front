@@ -1,6 +1,7 @@
 import {useOutClick} from "#modules/catalogue/hooks/use-out-click.ts";
 import {User} from "#src/common/interfaces/review.interface.ts";
 import React, {useEffect, useRef, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import Style from './navbar-modal.module.css';
 
 interface INavbarModalProps {
@@ -12,6 +13,7 @@ const navbarModal: React.FC<INavbarModalProps> = ({handleModal}): React.JSX.Elem
   const [firstPaint, setFirstPaint] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const outClick = useOutClick(containerRef, 'mousemove');
+  const navigate = useNavigate();
   useEffect(() => {
     if (firstPaint) setFirstPaint(false);
     else handleModal(outClick);
@@ -23,7 +25,7 @@ const navbarModal: React.FC<INavbarModalProps> = ({handleModal}): React.JSX.Elem
         <div className={Style.navbar_modal_content_data}>
           <div className={Style.navbar_modal_info}>
             <span className={Style.text}>Panel de control</span>
-            <span className={Style.text}>Mis pedidos</span>
+            <span className={Style.text} onClick={() => navigate("/user/my-orders")}>Mis pedidos</span>
             <span className={Style.text}>Wishlist</span>
             <span className={Style.text}>Configuracion</span>
             <span className={Style.spacer}></span>

@@ -1,0 +1,85 @@
+.tabs {
+  box-shadow: 0 1px 0 0 hsla(0, 0%, 100%, .1);
+  display: flex;
+  justify-content: flex-start;
+
+  li {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    position: relative;
+    list-style: none;
+
+    a {
+      align-items: center;
+      display: flex;
+      padding: 0 15px 20px;
+      font-size: .9rem;
+      white-space: nowrap;
+      color: #fff;
+      gap: 10px;
+
+      img {
+        width: 20px;
+        filter: brightness(0) saturate(100%) invert(96%) sepia(6%) saturate(42%) hue-rotate(203deg) brightness(119%) contrast(100%);
+      }
+    }
+
+
+    a:hover {
+      color: var(--color);
+
+      img {
+        filter: brightness(0) saturate(100%) invert(45%) sepia(100%) saturate(3749%) hue-rotate(360deg) brightness(101%) contrast(107%);
+      }
+    }
+  }
+
+  li:first-of-type {
+    padding-left: 0;
+  }
+
+  .arrow {
+    filter: brightness(0) saturate(100%) invert(96%) sepia(6%) saturate(42%) hue-rotate(203deg) brightness(119%) contrast(100%);
+    width: 10px;
+    height: 20px;
+    margin-right: 15px;
+    margin-left: 5px;
+    margin-top: -2px;
+  }
+
+  .setting {
+    margin-left: auto;
+    color: #fff;
+
+    img {
+      width: 20px;
+      height: 20px;
+      filter: brightness(0) saturate(100%) invert(45%) sepia(100%) saturate(3749%) hue-rotate(360deg) brightness(101%) contrast(107%);
+    }
+  }
+
+  .setting:hover {
+    color: var(--color);
+  }
+}
+
+#active {
+  color: var(--color);
+
+  img {
+    filter: brightness(0) saturate(100%) invert(45%) sepia(100%) saturate(3749%) hue-rotate(360deg) brightness(101%) contrast(107%);
+  }
+}
+
+#active::after {
+  background-color: #ff5400;
+  border-radius: 6px;
+  bottom: -2px;
+  content: "";
+  display: flex;
+  height: 3px;
+  position: absolute;
+  width: 100%;
+  left: 0;
+}
