@@ -2,10 +2,11 @@ import AuthTemplate from '#modules/auth/components/auth/auth-template.tsx';
 import AuthLogin from "#modules/auth/components/auth/login/auth-login.tsx";
 import AuthRegister from "#modules/auth/components/auth/register/auth-register.tsx";
 import {ProtectedRoute} from '#modules/auth/components/protected-route/protected-route.tsx';
-import CartIndex from "#modules/cart/cart-index.tsx";
+import CartIndex, {CartActivationIndex} from "#modules/cart/cart-index.tsx";
 import CatalogueIndex from '#modules/catalogue/catalogue-index.tsx';
 import {Footer, Navbar, PreFooter} from '#modules/core/components/core-index.ts';
 import ProductDetailIndex from '#modules/product-detail/product-detail-index.tsx';
+import UserIndex from "#modules/user/user-index.tsx";
 import Verify from "#modules/verify/verify.tsx";
 import {IState} from "#src/state/store.ts";
 import React from 'react';
@@ -31,7 +32,7 @@ export default function App(): React.JSX.Element {
 
   return (
     <div>
-      {!location.pathname.includes('user') && <Navbar/>}
+      {(!location.pathname.includes('cart') || location.pathname.includes("activation")) && <Navbar/>}
       <Routes>
         <Route path='/' element={<LandingIndex/>}/>
         <Route path='/:id' element={<ProductDetailIndex/>}/>
@@ -46,18 +47,16 @@ export default function App(): React.JSX.Element {
             <Route path='/register' element={<AuthTemplate><AuthRegister/></AuthTemplate>}/>
           </>
         )}
-        {user && (
-          <>
-            <Route path='/user/:id' element={<CartIndex/>}/>
-          </>
-        )}
+        {user ? (
+          <Route path='/user'>
+            <Route path='cart' element={<CartIndex/>}/>
+            <Route path='activation' element={<CartActivationIndex/>}/>
+            <Route path='*' element={<UserIndex/>}/>
+          </Route>
+        ) : null}
       </Routes>
-      {!location.pathname.includes('user') && (
-        <>
-          <PreFooter/>
-          <Footer/>
-        </>
-      )}
+      {!location.pathname.includes('user') && <PreFooter/>}
+      <Footer/>
     </div>
   );
 }

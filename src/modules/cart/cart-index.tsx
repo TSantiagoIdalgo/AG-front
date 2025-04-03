@@ -16,3 +16,15 @@ export default function CartIndex(): React.JSX.Element {
     </div>
   );
 }
+
+export const CartActivationIndex = (): React.JSX.Element => {
+  useEffect(() => {
+    window.document.title = "Activacion";
+  }, []);
+  return (
+    <div className={Style.cart_index}>
+      <CartComponents.CartHeader/>
+      <CartComponents.CartMainProductsPay/>
+    </div>
+  );
+};

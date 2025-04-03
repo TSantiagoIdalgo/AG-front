@@ -1,0 +1,25 @@
+.profile_container {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 200px;
+  max-width: 1200px;
+  width: 100%;
+  padding-bottom: 60px;
+}
+
+
+.main_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: auto;
+  min-height: 85vh;
+  background-color: var(--color-dark);
+
+
+  .user_profile_layout {
+    display: flex;
+    flex-direction: column;
+  }
+}
