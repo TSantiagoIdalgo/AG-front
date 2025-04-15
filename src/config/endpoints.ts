@@ -24,7 +24,6 @@ export const CART_ENDPOINT = {
     getUserPaidCart: () => 'cart/paid',
   },
   POST: {
-    createCheckoutSession: () => 'api/checkout/create-checkout-session',
     decreaseProduct: () => 'cart/decrease/{productId}',
     increaseProduct: () => 'cart/increase/{productId}',
   }
@@ -87,4 +86,13 @@ export const GENRE_ENDPOINT = {
   POST: {
     create: () => 'genre/'
   },
+};
+
+export const CHECKOUT_ENDPOINT = {
+  GET: {
+    getUserCheckouts: () => 'api/checkout/user'
+  },
+  POST: {
+    createCheckoutSession: () => 'api/checkout/create-checkout-session',
+  }
 };

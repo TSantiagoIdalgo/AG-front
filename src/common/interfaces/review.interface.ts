@@ -21,8 +21,8 @@ export interface User {
 }
 
 export enum ReactionType {
-  LIKE = "LIKE",
-  DISLIKE = "DISLIKE"
+  LIKE = 'LIKE',
+  DISLIKE = 'DISLIKE'
 }
 
 

@@ -31,7 +31,7 @@ export default function Navbar(): React.JSX.Element {
           <Link to={user ? '/user/cart' : '/login'}>
             <img src={CartIcon} alt='cart'/>
           </Link>
-          {cartCount&& <span className={Style.count_of_products}><h2>{cartCount}</h2></span>}
+          {cartCount ? <span className={Style.count_of_products}><h2>{cartCount}</h2></span> : null}
         </div>
         <div className={Style.navbar_user_icon} onClick={() => user ? handleModal(true) : navigate('/login')}>
           <img src={UserIcon} alt='user'/>

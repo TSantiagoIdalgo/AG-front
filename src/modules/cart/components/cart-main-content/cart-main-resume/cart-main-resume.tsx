@@ -1,9 +1,9 @@
-import BackIcon from "#assets/icons/icon-arrow.svg";
-import Button from "#modules/core/components/button/button.tsx";
-import { CART_ENDPOINT } from "#src/config/endpoints.ts";
-import { useMutation } from "#src/hooks/use-mutation-data.ts";
-import React from "react";
-import Style from "./cart-main-resume.module.css";
+import BackIcon from '#assets/icons/icon-arrow.svg';
+import Button from '#modules/core/components/button/button.tsx';
+import { CHECKOUT_ENDPOINT } from '#src/config/endpoints.ts';
+import { useMutation } from '#src/hooks/use-mutation-data.ts';
+import React from 'react';
+import Style from './cart-main-resume.module.css';
 
 interface ICartMainResumeProps {
   totalPrice: string;
@@ -19,17 +19,17 @@ const CartMainResume: React.FC<ICartMainResumeProps> = ({
   isCartEmpty,
 }): React.JSX.Element => {
   const { callMutation, isPending } = useMutation<{ id: string }>(
-    CART_ENDPOINT.POST.createCheckoutSession(),
+    CHECKOUT_ENDPOINT.POST.createCheckoutSession(),
     {
-      method: "POST",
+      method: 'POST',
     }
   );
 
   const onCreateCheckout = async () => {
     const response = await callMutation({});
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.href = response?.body.data?.id as string;
-    link.rel = "noopener noreferrer";
+    link.rel = 'noopener noreferrer';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -56,7 +56,7 @@ const CartMainResume: React.FC<ICartMainResumeProps> = ({
           onClick={onCreateCheckout}
           text="Proceder con el pago"
           type="button"
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
         />
         <span className={Style.choice}>O</span>
         <a className={Style.back} href="/ancore">

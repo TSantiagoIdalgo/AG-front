@@ -5,9 +5,11 @@ import * as libs from '#modules/user/libs/user-libs.ts';
 import React from 'react';
 import Style from './tabs.module.css';
 
+export type TUserPaths = 'my-orders' | 'wishlist' | 'dashboard' | 'library' | 'my-reviews' | 'setting'
+
 export default function UserTabs(): React.JSX.Element {
   const {pathname} = libs.useLocation();
-  const includesPath = (link: string) => pathname.toLowerCase().includes(link.toLowerCase());
+  const includesPath = (link: TUserPaths) => pathname.toLowerCase().includes(link.toLowerCase());
   return (
     <ul className={Style.tabs}>
       <li>

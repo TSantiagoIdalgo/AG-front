@@ -1,12 +1,12 @@
 import IconCart from '#assets/icons/icon-cart.svg';
 import CartMainContentCard
-  from "#modules/cart/components/cart-main-content/cart-main-content-card/cart-main-content-card.tsx";
-import CartMainResume from "#modules/cart/components/cart-main-content/cart-main-resume/cart-main-resume.tsx";
-import {Cart} from "#modules/cart/interfaces/cart.interface.ts";
+  from '#modules/cart/components/cart-main-content/cart-main-content-card/cart-main-content-card.tsx';
+import CartMainResume from '#modules/cart/components/cart-main-content/cart-main-resume/cart-main-resume.tsx';
+import {Cart} from '#modules/cart/interfaces/cart.interface.ts';
 import * as libs from '#modules/cart/libs/cart-libs';
-import Button from "#modules/core/components/button/button.tsx";
-import {CART_ENDPOINT} from "#src/config/endpoints.ts";
-import React, {useMemo} from "react";
+import Button from '#modules/core/components/button/button.tsx';
+import {CART_ENDPOINT} from '#src/config/endpoints.ts';
+import React, {useMemo} from 'react';
 import Style from './cart-main-content.module.css';
 
 const CartEmpty = () => (
@@ -59,7 +59,7 @@ export default function CartMainContent(): React.JSX.Element {
           isCartEmpty={!items.length}
           subtotal={subtotal.toFixed(fixedPrice)}
           totalPrice={total.toFixed(fixedPrice)}
-          discount={totalDiscount ? totalDiscount.toFixed(fixedPrice) : "0.00"}/>
+          discount={totalDiscount ? totalDiscount.toFixed(fixedPrice) : '0.00'}/>
       </section>
     </main>
   );

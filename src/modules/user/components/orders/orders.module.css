@@ -1,0 +1,37 @@
+.orders {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .spacer {
+        height: 60px;
+        width: 100%;
+    }
+
+    h2 {
+        color: #fff;
+        font-weight: 400;
+        font-size: 1.4rem;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+}
+
+.notice {
+    align-self: center;
+    border-radius: 7px;
+    padding: 15px 30px 15px 54px;
+    box-shadow: none !important;
+    color: #00abff !important;
+    background-position: 20px;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-color: rgba(0, 171, 255, .15);
+    background-image: url(https://www.instant-gaming.com/themes/igv2/images/icons/alerts/icon-notice.svg);
+}
+

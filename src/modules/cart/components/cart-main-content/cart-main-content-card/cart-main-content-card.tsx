@@ -1,9 +1,9 @@
 import ArrowIcon from '#assets/icons/icon-arrow.svg';
-import DeleteIcon from "#assets/icons/icon-delete.svg";
-import {useQuantityItem} from "#modules/cart/hooks/use-quantity-item.ts";
-import {Platform} from "#src/common/interfaces/product.interface.ts";
-import UUIDBase64 from "#src/common/uuid-base64.ts";
-import React from "react";
+import DeleteIcon from '#assets/icons/icon-delete.svg';
+import {useQuantityItem} from '#modules/cart/hooks/use-quantity-item.ts';
+import {Platform} from '#src/common/interfaces/product.interface.ts';
+import UUIDBase64 from '#src/common/uuid-base64.ts';
+import React from 'react';
 import Style from './cart-main-content-card.module.css';
 
 interface ICartMainContentCard {
