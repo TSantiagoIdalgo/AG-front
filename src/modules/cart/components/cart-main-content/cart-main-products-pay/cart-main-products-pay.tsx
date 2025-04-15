@@ -1,9 +1,9 @@
-import { Cart } from "#modules/cart/interfaces/cart.interface.ts";
-import * as libs from "#modules/cart/libs/cart-libs.ts";
-import UUIDBase64 from "#src/common/uuid-base64.ts";
-import React from "react";
-import Style from "./cart-main-products-pay.module.css";
-import { eventSource } from "#src/main.tsx";
+import { Cart } from '#modules/cart/interfaces/cart.interface.ts';
+import * as libs from '#modules/cart/libs/cart-libs.ts';
+import UUIDBase64 from '#src/common/uuid-base64.ts';
+import React from 'react';
+import Style from './cart-main-products-pay.module.css';
+import { eventSource } from '#src/main.tsx';
 
 const CartMainProductsPay = (): React.JSX.Element => {
   const [cart, setCart] = libs.useState<Cart>();
@@ -11,10 +11,10 @@ const CartMainProductsPay = (): React.JSX.Element => {
     const paymentEntry = (event: MessageEvent<string>) => {
       setCart(JSON.parse(event.data));
     };
-    eventSource.addEventListener("payment", paymentEntry);
+    eventSource.addEventListener('payment', paymentEntry);
 
     return () => {
-      eventSource.removeEventListener("payment", paymentEntry);
+      eventSource.removeEventListener('payment', paymentEntry);
     };
   }, []);
 

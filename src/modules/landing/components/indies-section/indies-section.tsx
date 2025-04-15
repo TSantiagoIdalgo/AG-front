@@ -10,7 +10,7 @@ import arrowLeft from '#assets/icons/icon-arrow.svg';
 
 export default function IndiesSection (): React.JSX.Element {
   const { data, loading, error } = libs.useFetchData<DataResponse<Product>>(PRODUCT_ENDPOINT.GET.findAll(), {
-    query: { genres: "indie", pageNumber: 0, pageSize: 4 }
+    query: { genres: "Indie", pageNumber: 0, pageSize: 4 }
   });
   if (loading || !data) return <p>Loading...</p>;
   if (error) return <p>ERROR: { error.message }</p>;

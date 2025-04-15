@@ -1,5 +1,5 @@
-import {User} from "#src/common/interfaces/review.interface.ts";
-import {USER_ENDPOINT} from "#src/config/endpoints.ts";
+import {User} from '#src/common/interfaces/review.interface.ts';
+import {USER_ENDPOINT} from '#src/config/endpoints.ts';
 import React from 'react';
 import * as libs from './libs/verify-libs';
 import Style from './verify.module.css';
@@ -12,13 +12,13 @@ export default function Verify(): React.JSX.Element {
   });
 
   libs.useEffect(() => {
-    if (!searchParams.has("access_token")) navigate("/");
-    if (!loading && data?.body.error) navigate("/");
+    if (!searchParams.has('access_token')) navigate('/');
+    if (!loading && data?.body.error) navigate('/');
     if (!loading && data?.body.data) {
       const newParams = new URLSearchParams(searchParams);
-      newParams.delete("access_token");
+      newParams.delete('access_token');
       setSearchParams(newParams);
-      navigate("/");
+      navigate('/');
     }
 
 

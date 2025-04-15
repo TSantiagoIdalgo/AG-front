@@ -4,7 +4,7 @@ import * as Detail from './components/product-detail-components';
 import * as libs from './libs/product-detail-libs';
 import { PRODUCT_ENDPOINT } from '#src/config/endpoints.ts';
 import { Product } from '#src/common/interfaces/product.interface.ts';
-import React from "react";
+import React from 'react';
 import UUIDBase64 from '#src/common/uuid-base64.ts';
 
 
@@ -13,7 +13,7 @@ export default function ProductDetailIndex(): React.JSX.Element {
   const { loading, data } = libs.useFetchData<Product>(PRODUCT_ENDPOINT.GET.findById(UUIDBase64.base64ToUuid(id as string)));
   const navigate = libs.useNavigate();
   libs.useEffect(() => {
-    if (data?.body.error) return navigate("/");
+    if (data?.body.error) return navigate('/');
     else if (data?.body.data) document.title = `Comprar ${data.body.data.name}`;
   }, [data?.body]);
 

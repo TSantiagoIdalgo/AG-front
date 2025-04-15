@@ -1,18 +1,26 @@
+ 
 import CartIcon from '#assets/icons/icon-cart.svg';
 import IconCheck from '#assets/icons/icon-check.svg';
 import IconClose from '#assets/icons/icon-close.svg';
 import FavoriteIcon from '#assets/icons/icon-favorite.svg';
 import IconTag from '#assets/icons/icon-tag.svg';
-import {Cart} from "#modules/cart/interfaces/cart.interface.ts";
+import {Cart} from '#modules/cart/interfaces/cart.interface.ts';
 import {Platform, Product} from '#src/common/interfaces/product.interface.ts';
-import {CART_ENDPOINT} from "#src/config/endpoints.ts";
+import {CART_ENDPOINT} from '#src/config/endpoints.ts';
 import React from 'react';
-import * as libs from "../../libs/product-detail-libs";
-import {useMutation} from "../../libs/product-detail-libs";
+import * as libs from '../../libs/product-detail-libs';
+import {useMutation} from '../../libs/product-detail-libs';
 import Style from './panel-detail.module.css';
+import { useUserCartCount } from '#modules/core/hooks/use-user-cart-count.ts';
+
+const calculateTotalPrice = (discount: number, price: number): number => {
+  const initValue = 100;
+  return (initValue - discount) * price / initValue;
+};
 
 // TODO component refactor
 export default function PanelDetail({product}: { product: Product }): React.JSX.Element {
+  const { refetch } = useUserCartCount();
   const {platforms, mainImage, name, stock, price, discount} = product;
   const {callMutation} = useMutation<Cart>(CART_ENDPOINT.POST.increaseProduct());
   const platformFind = platforms.find(platform => !platform.disabled);
@@ -26,11 +34,6 @@ export default function PanelDetail({product}: { product: Product }): React.JSX.
     setTimeout(() => {
       handleOnSelectPlatfrom(false);
     }, timeToRefresh);
-  };
-
-  const calculateTotalPrice = (): number => {
-    const initValue = 100;
-    return (initValue - discount) * price / initValue;
   };
 
   return (
@@ -73,13 +76,16 @@ export default function PanelDetail({product}: { product: Product }): React.JSX.
             <span>{price}€</span>
           </span>
           <span className={Style.amount_discounted}>-{discount}%</span>
-          <span className={Style.amount_total}>{calculateTotalPrice().toFixed(fixedPrice)}€</span>
+          <span className={Style.amount_total}>{calculateTotalPrice(discount, price).toFixed(fixedPrice)}€</span>
         </div>
         <div className={Style.buttons}>
           <div className={Style.buttons_favorite} title="Añadir a mi wishlist">
             <img src={FavoriteIcon} alt="favorite"/>
           </div>
-          <div className={Style.buttons_add} onClick={() => callMutation({params: {productId: product.id}})}>
+          <div className={Style.buttons_add} onClick={async () => {
+            await callMutation({params: {productId: product.id}});
+            await refetch();
+          }}>
             <img src={CartIcon} alt="cart"/>
             <span>Añadir a la cesta</span>
           </div>

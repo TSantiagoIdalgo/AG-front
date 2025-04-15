@@ -1,5 +1,5 @@
-import { User } from "#src/common/interfaces/review.interface.ts";
-import { createSlice } from "@reduxjs/toolkit";
+import { User } from '#src/common/interfaces/review.interface.ts';
+import { createSlice } from '@reduxjs/toolkit';
 
 interface IUser {
     data: User | undefined
@@ -11,7 +11,7 @@ const initialState: IUser = {
 
 export const userSlice = createSlice({
   initialState,
-  name: "user",
+  name: 'user',
   reducers: {
     deleteUser: (state) => {
       state.data = undefined;

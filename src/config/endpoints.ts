@@ -3,23 +3,24 @@ export const PRODUCT_ENDPOINT = {
     remove: (productId: string) => `product/${productId}`
   },
   GET: {
-    findAll: () => "product/",
+    findAll: () => 'product/',
     findById: (productId: string) => `product/${productId}`,
   },
   PATCH: {
     update: (productId: string) => `product/update/${productId}`
   },
   POST: {
-    create: () => "product/create",
+    create: () => 'product/create',
   },
 };
 
 export const CART_ENDPOINT = {
   DELETE: {
-    remove: () => `cart/remove/{productId}`,
+    remove: () => 'cart/remove/{productId}',
   },
   GET: {
     getUserCart: () => 'cart/',
+    getUserCartProductsCount: () => 'cart/count/unpaid',
     getUserPaidCart: () => 'cart/paid',
   },
   POST: {
@@ -36,14 +37,14 @@ export const USER_ENDPOINT = {
   GET: {
     findById: (userId?: string) => `user/find/${userId}`,
     // Utiliza una query ?token=${value} para verificar a un usuario
-    verifyUser: () => `user/verify`
+    verifyUser: () => 'user/verify'
   },
   PATCH: {
     update: (userId: string) => `user/${userId}`
   },
   POST: {
-    login: () => "auth/login",
-    register: () => "auth/register",
+    login: () => 'auth/login',
+    register: () => 'auth/register',
   }
 };
 
@@ -55,8 +56,8 @@ export const REVIEW_ENDPOINT = {
     // Obtiene el promedio de reviews positivas que tiene el product
     avgByProduct: (productId: string) => `review/recommendation/${productId}`,
     // Obtiene la cantidad de reviews que existen
-    count: () => "review/count",
-    findAll: () => "review/",
+    count: () => 'review/count',
+    findAll: () => 'review/',
     findByProduct: (productId: string) => `review/product/${productId}`,
   },
   PATCH: {
@@ -65,13 +66,13 @@ export const REVIEW_ENDPOINT = {
   POST: {
     create: (productId: string) => `review/${productId}`,
     // Coloca un like o dislike a una review
-    setReaction: () => "review/reaction/"
+    setReaction: () => 'review/reaction/'
   },
 };
 
 export const PLATFORM_ENDPOINT = {
   GET: {
-    findAll: () => "platform/"
+    findAll: () => 'platform/'
   }
 };
 
@@ -80,10 +81,10 @@ export const GENRE_ENDPOINT = {
     deleteById: (name: string) => `genre/${name}`
   },
   GET: {
-    findAll: () => "genre/",
+    findAll: () => 'genre/',
     findById: (name: string) => `genre/${name}`
   },
   POST: {
-    create: () => "genre/"
+    create: () => 'genre/'
   },
 };

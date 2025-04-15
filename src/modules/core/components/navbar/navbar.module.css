@@ -40,16 +40,59 @@
 .navbar_user {
     display: flex;
     gap: 30px;
+    align-items: center;
 
-    img {
-        width: 25px;
-        height: 25px;
+    .cart_logo_container a img {
+        width: 30px;
+        height: 30px;
         filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(48deg) brightness(106%) contrast(103%);
         cursor: pointer;
         transition: filter 50ms ease-in;
     }
 
-    img:hover {
+    .cart_logo_container a img:hover {
         filter: brightness(0) saturate(100%) invert(37%) sepia(89%) saturate(3096%) hue-rotate(2deg) brightness(103%) contrast(101%);
+    }
+
+    .navbar_user_icon{
+        width: 55px;
+        height: 55px;
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            transition: 150ms ease-in-out border;
+            cursor: pointer;
+        }
+
+        img:hover {
+            border-color: var(--color);
+        }
+    }
+}
+
+
+.cart_logo_container {
+    position: relative;
+}
+
+.count_of_products {
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: var(--color);
+    color: #000;
+    position: absolute;
+    top: -5px;
+    right: -15px;
+
+    h2 {
+        font-size: 1rem;
+        font-weight: 100;
     }
 }

@@ -1,4 +1,4 @@
-import {Product} from "#src/common/interfaces/product.interface.ts";
+import {Product} from '#src/common/interfaces/product.interface.ts';
 
 export interface CartItem {
   id: string;

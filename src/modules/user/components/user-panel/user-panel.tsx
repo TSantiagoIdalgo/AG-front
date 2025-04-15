@@ -1,9 +1,9 @@
 import DsIcon from '#assets/icons/icon-dcr.svg';
-import SteamIcon from "#assets/icons/icon-stm.svg";
+import SteamIcon from '#assets/icons/icon-stm.svg';
 import AvatarIcon from '#assets/icons/icon-user.svg';
-import * as libs from "#modules/user/libs/user-libs.ts";
-import {IState} from "#src/state/store.ts";
-import React from "react";
+import * as libs from '#modules/user/libs/user-libs.ts';
+import {IState} from '#src/state/store.ts';
+import React from 'react';
 import Style from './user-panel.module.css';
 
 export default function UserPanel(): React.JSX.Element {
