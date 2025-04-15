@@ -3,7 +3,7 @@
 /* eslint-disable no-inline-comments */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 interface Platform {
     name: string;
@@ -23,7 +23,7 @@ interface Genre {
 }
 
 enum RequirementType {
-    RECOMMENDED = "RECOMMENDED", MINIMUM = "MINIMUM"
+    RECOMMENDED = 'RECOMMENDED', MINIMUM = 'MINIMUM'
 }
 
 interface Requirements {
@@ -56,36 +56,36 @@ interface ProductForm {
 
  
 export default function CreateProduct(): React.JSX.Element {
-  const [currentTag, setCurrentTag] = useState<string>("");
-  const [currentGenre, setCurrentGenre] = useState<string>("");
+  const [currentTag, setCurrentTag] = useState<string>('');
+  const [currentGenre, setCurrentGenre] = useState<string>('');
   const [currentRequirement, setCurrentRequirement] = useState<Requirements>({
     Directx_v: 0,
-    OS: "",
-    graphics: "",
+    OS: '',
+    graphics: '',
     memory: 0,
-    processor: "",
+    processor: '',
     storage: 0,
     type: RequirementType.MINIMUM
   });
   const [currentPlatform, setCurrentPlatform] = useState<Platform>({
     disabled: false,
-    name: "",
-    platform: ""
+    name: '',
+    platform: ''
   });
   const [currentFiles, setCurrentFiles] = useState<Files>();
   const [productForm, setProductForm] = useState<ProductForm>({
-    description: "",
-    developer: "",
+    description: '',
+    developer: '',
     disabled: false,
     discount: 0,
-    distributor: "",
-    franchise: "",
+    distributor: '',
+    franchise: '',
     genres: [],
-    name: "",
-    pegi: "",
+    name: '',
+    pegi: '',
     platforms: [],
     price: 0,
-    release_date: "",
+    release_date: '',
     requirements: [],
     stock: 0,
     tags: [],
@@ -96,37 +96,37 @@ export default function CreateProduct(): React.JSX.Element {
     const formData = new FormData();
 
     // Adjuntar el objeto productForm como JSON
-    formData.append("product", new Blob([JSON.stringify(productForm)], { type: "application/json" }));
+    formData.append('product', new Blob([JSON.stringify(productForm)], { type: 'application/json' }));
 
     // Adjuntar archivos únicos
     if (currentFiles?.mainImage) {
-      formData.append("mainImage", currentFiles.mainImage);
+      formData.append('mainImage', currentFiles.mainImage);
     }
     if (currentFiles?.trailer) {
-      formData.append("trailer", currentFiles.trailer);
+      formData.append('trailer', currentFiles.trailer);
     }
     if (currentFiles?.backgroundImage) {
-      formData.append("backgroundImage", currentFiles.backgroundImage);
+      formData.append('backgroundImage', currentFiles.backgroundImage);
     }
 
     // Adjuntar lista de imágenes
     if (currentFiles?.images) {
       Object.values(currentFiles.images as FileList).forEach((image) => {
-        formData.append("images", image); // Sin envolver en un Blob
+        formData.append('images', image); // Sin envolver en un Blob
       });
     }
 
     // Enviar el FormData al backend
     try {
-      const response = await globalThis.fetch("http://localhost:8080/product/create", {
+      const response = await globalThis.fetch('http://localhost:8080/product/create', {
         body: formData,
-        credentials: "include",
-        method: "POST",
+        credentials: 'include',
+        method: 'POST',
       });
       const data = await response.json();
-      console.log("Respuesta del servidor:", data);
+      console.log('Respuesta del servidor:', data);
     } catch (error) {
-      console.error("Error al enviar los datos:", error);
+      console.error('Error al enviar los datos:', error);
     }
   };
 
@@ -146,7 +146,7 @@ export default function CreateProduct(): React.JSX.Element {
       ...prev,
       tags: [...prev.tags, currentTag]
     }));
-    setCurrentTag("");
+    setCurrentTag('');
   };
 
   const setGenres = () => {
@@ -173,7 +173,7 @@ export default function CreateProduct(): React.JSX.Element {
   
   return (
     <div>
-      <form onSubmit={onSubmit} style={{display: "flex", flexDirection: "column", marginTop: "200px", width: "600px"}}>
+      <form onSubmit={onSubmit} style={{display: 'flex', flexDirection: 'column', marginTop: '200px', width: '600px'}}>
         <div>
           <input name="name" value={productForm.name} onChange={handleChange} placeholder="Name" id="name"/>
           <label htmlFor="name">Name</label>
@@ -220,7 +220,7 @@ export default function CreateProduct(): React.JSX.Element {
             <label htmlFor="tag">Tags</label>
             <button type="button" onClick={setTag}>AÑADIR TAG</button>
           </div>
-          {productForm.tags.map((tag, index) => <span style={{margin: "10px"}} key={index}>{tag}</span>)}
+          {productForm.tags.map((tag, index) => <span style={{margin: '10px'}} key={index}>{tag}</span>)}
         </div>
         <div>
           <div>
@@ -228,18 +228,18 @@ export default function CreateProduct(): React.JSX.Element {
             <label htmlFor="genre">Genre</label>
             <button type="button" onClick={setGenres}>AÑADIR GENRE</button>
           </div>
-          {productForm.genres.map((genre) => <span style={{margin: "10px"}} key={genre.name}>{genre.name}</span>)}
+          {productForm.genres.map((genre) => <span style={{margin: '10px'}} key={genre.name}>{genre.name}</span>)}
         </div>
         <div>
-          <div style={{display: "flex", flexDirection: "column", gap: "10px", marginLeft: "50px"}}>
+          <div style={{display: 'flex', flexDirection: 'column', gap: '10px', marginLeft: '50px'}}>
             <input onChange={(event) => setCurrentPlatform((prev) => ({ ...prev, name: event.target.value }))} id="platform_name"/>
             <label htmlFor="platform_name">platform_name</label>
             <input onChange={(event) => setCurrentPlatform((prev) => ({ ...prev, platform: event.target.value }))} id="platform_platform"/>
             <label htmlFor="platform_platform">platform_platform</label>
             <button type="button" onClick={setPlatform}>AÑADIR PLATFORM</button>
           </div>
-          <div style={{display: "flex"}}>
-            {productForm.platforms.map((platform) => <span style={{margin: "10px"}} key={platform.name}>{JSON.stringify(platform)}</span>)}
+          <div style={{display: 'flex'}}>
+            {productForm.platforms.map((platform) => <span style={{margin: '10px'}} key={platform.name}>{JSON.stringify(platform)}</span>)}
           </div>
         </div>
         <div>
@@ -250,8 +250,8 @@ export default function CreateProduct(): React.JSX.Element {
             </div>
           ))}
           <button type="button" onClick={setNewRequirement}>ADD REQUIREMENT</button>
-          <div style={{display: "flex"}}>
-            {productForm.requirements.map((requirements) => <span style={{margin: "10px"}} key={requirements.processor}>{JSON.stringify(requirements)}</span>)}
+          <div style={{display: 'flex'}}>
+            {productForm.requirements.map((requirements) => <span style={{margin: '10px'}} key={requirements.processor}>{JSON.stringify(requirements)}</span>)}
           </div>
         </div>
         <div>

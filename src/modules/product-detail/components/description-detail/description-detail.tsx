@@ -1,6 +1,6 @@
 import * as libs from '../../libs/product-detail-libs';
-import { Product } from "#src/common/interfaces/product.interface.ts";
-import React from "react";
+import { Product } from '#src/common/interfaces/product.interface.ts';
+import React from 'react';
 import Style from './description-details.module.css';
 
 type TDescriptionDetail = Pick<Product, 'description'>

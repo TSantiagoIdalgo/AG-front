@@ -29,8 +29,8 @@ export default function CartMainContent(): React.JSX.Element {
     return acc + discountedPrice;
   }, initValue), [data?.body.data?.total]);
 
-  if (loading || !data?.body.data) return <div></div>;
-  const {items, subtotal, total} = data.body.data;
+  if (loading || !data) return <div></div>;
+  const {items = [], subtotal = initValue, total = initValue} = data.body.data || {};
 
   return (
     <main className={Style.main_content}>
