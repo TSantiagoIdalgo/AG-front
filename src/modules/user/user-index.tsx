@@ -11,6 +11,7 @@ export default function UserIndex(): React.JSX.Element {
     const url = pathname.split('/user/').at(atProperty) as TUserPaths;
     switch (url) {
     case 'my-orders': return <UserComponents.MyOrders/>;
+    case 'wishlist': return <UserComponents.Wishlist/>;
     default: return <Navigate to={'/'}/>;
     }
 

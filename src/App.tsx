@@ -33,11 +33,11 @@ export default function App(): React.JSX.Element {
   }, [data]);
 
   if (loading) return <p></p>;
-
+  
   return (
     <div>
-      {(!location.pathname.includes('cart') ||
-        location.pathname.includes('activation')) && <Navbar />}
+      {(!location.pathname.includes('cart') &&
+        !location.pathname.includes('activation')) && <Navbar />}
       <Routes>
         <Route path="/" element={<LandingIndex />} />
         <Route path="/:id" element={<ProductDetailIndex />} />

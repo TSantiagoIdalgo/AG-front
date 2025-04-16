@@ -6,7 +6,7 @@ import FavoriteIcon from '#assets/icons/icon-favorite.svg';
 import IconTag from '#assets/icons/icon-tag.svg';
 import {Cart} from '#modules/cart/interfaces/cart.interface.ts';
 import {Platform, Product} from '#src/common/interfaces/product.interface.ts';
-import {CART_ENDPOINT} from '#src/config/endpoints.ts';
+import {CART_ENDPOINT, WISHLIST_ENDPOINT} from '#src/config/endpoints.ts';
 import React from 'react';
 import * as libs from '../../libs/product-detail-libs';
 import {useMutation} from '../../libs/product-detail-libs';
@@ -19,10 +19,12 @@ const calculateTotalPrice = (discount: number, price: number): number => {
 };
 
 // TODO component refactor
+// eslint-disable-next-line max-statements
 export default function PanelDetail({product}: { product: Product }): React.JSX.Element {
   const { refetch } = useUserCartCount();
   const {platforms, mainImage, name, stock, price, discount} = product;
   const {callMutation} = useMutation<Cart>(CART_ENDPOINT.POST.increaseProduct());
+  const { callMutation: addToWishlist } = useMutation(WISHLIST_ENDPOINT.POST.addProductToWishlist(product.id));
   const platformFind = platforms.find(platform => !platform.disabled);
   const [selectedPlatform, setSelectedPlatform] = libs.useState<Platform | undefined>(platformFind);
   const [onSelectPlatform, handleOnSelectPlatfrom] = libs.useState(false);
@@ -79,7 +81,7 @@ export default function PanelDetail({product}: { product: Product }): React.JSX.
           <span className={Style.amount_total}>{calculateTotalPrice(discount, price).toFixed(fixedPrice)}€</span>
         </div>
         <div className={Style.buttons}>
-          <div className={Style.buttons_favorite} title="Añadir a mi wishlist">
+          <div className={Style.buttons_favorite} title="Añadir a mi wishlist" onClick={() => addToWishlist()}>
             <img src={FavoriteIcon} alt="favorite"/>
           </div>
           <div className={Style.buttons_add} onClick={async () => {

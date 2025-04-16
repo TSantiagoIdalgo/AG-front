@@ -9,33 +9,34 @@ export type TUserPaths = 'my-orders' | 'wishlist' | 'dashboard' | 'library' | 'm
 
 export default function UserTabs(): React.JSX.Element {
   const {pathname} = libs.useLocation();
+  const navigate = libs.useNavigate();
   const includesPath = (link: TUserPaths) => pathname.toLowerCase().includes(link.toLowerCase());
   return (
     <ul className={Style.tabs}>
       <li>
-        <a href="/ancore/user/dashboard" id={includesPath('dashboard') ? Style.active : Style.none}>
+        <p onClick={() => navigate('/user/dashboard')} id={includesPath('dashboard') ? Style.active : Style.none}>
           <img src={DashboardIcon} alt="dashboard"/>
           <span>Panel de control</span>
-        </a>
+        </p>
       </li>
       <img src={ArrowIcon} alt="arrow" className={Style.arrow}/>
       <li>
-        <a href="/ancore/user/my-orders" id={includesPath('my-orders') ? Style.active : Style.none}>Mis pedidos</a>
+        <p onClick={() => navigate('/user/my-orders')} id={includesPath('my-orders') ? Style.active : Style.none}>Mis pedidos</p>
       </li>
       <li>
-        <a href="/ancore/user/wishlist" id={includesPath('wishlist') ? Style.active : Style.none}>Wishlist</a>
+        <p onClick={() => navigate('/user/wishlist')} id={includesPath('wishlist') ? Style.active : Style.none}>Wishlist</p>
       </li>
       <li>
-        <a href="/ancore/user/library" id={includesPath('library') ? Style.active : Style.none}>Biblioteca</a>
+        <p onClick={() => navigate('/user/library')} id={includesPath('library') ? Style.active : Style.none}>Biblioteca</p>
       </li>
       <li>
-        <a href="/ancore/user/my-reviews" id={includesPath('my-reviews') ? Style.active : Style.none}>Reviews</a>
+        <p onClick={() => navigate('/user/my-reviews')} id={includesPath('my-reviews') ? Style.active : Style.none}>Reviews</p>
       </li>
       <li className={Style.setting}>
-        <a href="/ancore/user/setting" id={includesPath('setting') ? Style.active : Style.none}>
+        <p onClick={() => navigate('/user/setting')} id={includesPath('setting') ? Style.active : Style.none}>
           <img src={SettingIcon} alt="setting"/>
           <span>Configuracion</span>
-        </a>
+        </p>
       </li>
     </ul>
   );

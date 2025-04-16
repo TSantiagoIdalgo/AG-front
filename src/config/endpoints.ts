@@ -97,3 +97,16 @@ export const CHECKOUT_ENDPOINT = {
     createCheckoutSession: () => 'api/checkout/create-checkout-session',
   }
 };
+
+export const WISHLIST_ENDPOINT = {
+  DELETE: {
+    removeProductFromWishlist: (productId: string) => `whitelist/${productId}`
+  },
+  GET: {
+    getAllWhitelist: () => 'whitelist/',
+    getUserWishlist: () => 'whitelist/user',
+  },
+  POST: {
+    addProductToWishlist: (productId: string) => `whitelist/${productId}`
+  },
+};
