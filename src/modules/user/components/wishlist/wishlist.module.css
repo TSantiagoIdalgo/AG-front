@@ -1,22 +1,36 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  width: 100%;
+  height: 100%;
+
+  .container_title {
+    color: #fff;
+    font-size: 1.5rem;
+  }
+
+  .container_items {
     display: flex;
-    flex-direction: column;
-    margin-top: 50px;
+    flex-wrap: wrap;
     width: 100%;
     height: 100%;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+}
 
-    .container_title {
-        color: #fff;
-        font-size: 1.5rem;
-    }
-
-    .container_items {
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-        height: 100%;
-        margin-top: 10px;
-        align-items: center;
-        justify-content: center;
-    }
+.notice {
+    align-self: center;
+    border-radius: 7px;
+    padding: 15px 30px 15px 54px;
+    box-shadow: none !important;
+    color: #00abff !important;
+    background-position: 20px;
+    background-repeat: no-repeat;
+    margin-top: 50px;
+    background-size: 25px;
+    background-color: rgba(0, 171, 255, .15);
+    background-image: url(https://www.instant-gaming.com/themes/igv2/images/icons/alerts/icon-notice.svg);
 }

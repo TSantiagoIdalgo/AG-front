@@ -3,6 +3,7 @@ import CartIcon from '#assets/icons/icon-cart.svg';
 import IconCheck from '#assets/icons/icon-check.svg';
 import IconClose from '#assets/icons/icon-close.svg';
 import FavoriteIcon from '#assets/icons/icon-favorite.svg';
+import FavoriteIconActive from '#assets/icons/icon-favorited.svg';
 import IconTag from '#assets/icons/icon-tag.svg';
 import {Cart} from '#modules/cart/interfaces/cart.interface.ts';
 import {Platform, Product} from '#src/common/interfaces/product.interface.ts';
@@ -12,6 +13,7 @@ import * as libs from '../../libs/product-detail-libs';
 import {useMutation} from '../../libs/product-detail-libs';
 import Style from './panel-detail.module.css';
 import { useUserCartCount } from '#modules/core/hooks/use-user-cart-count.ts';
+import { debounce } from '#src/common/debounce.ts';
 
 const calculateTotalPrice = (discount: number, price: number): number => {
   const initValue = 100;
@@ -20,16 +22,21 @@ const calculateTotalPrice = (discount: number, price: number): number => {
 
 // TODO component refactor
 // eslint-disable-next-line max-statements
-export default function PanelDetail({product}: { product: Product }): React.JSX.Element {
-  const { refetch } = useUserCartCount();
+export default function PanelDetail({product, inWishlist}: { product: Product, inWishlist: boolean }): React.JSX.Element {
   const {platforms, mainImage, name, stock, price, discount} = product;
-  const {callMutation} = useMutation<Cart>(CART_ENDPOINT.POST.increaseProduct());
-  const { callMutation: addToWishlist } = useMutation(WISHLIST_ENDPOINT.POST.addProductToWishlist(product.id));
-  const platformFind = platforms.find(platform => !platform.disabled);
-  const [selectedPlatform, setSelectedPlatform] = libs.useState<Platform | undefined>(platformFind);
-  const [onSelectPlatform, handleOnSelectPlatfrom] = libs.useState(false);
   const fixedPrice = 2, minStock = 1, timeToRefresh = 80;
   const inStock = stock >= minStock;
+  const debounceTime = 300;
+  const { refetch } = useUserCartCount();
+  const platformFind = platforms.find(platform => !platform.disabled);
+  const [onSelectPlatform, handleOnSelectPlatfrom] = libs.useState(false);
+  const {callMutation} = useMutation<Cart>(CART_ENDPOINT.POST.increaseProduct());
+  const [isProductInWishlist, setProductIsInWishlist] = libs.useState(inWishlist);
+  const [selectedPlatform, setSelectedPlatform] = libs.useState<Platform | undefined>(platformFind);
+  const { callMutation: addToWishlist } = useMutation(WISHLIST_ENDPOINT.POST.addProductToWishlist(product.id));
+  const { callMutation: removeFromWishlist } = useMutation(WISHLIST_ENDPOINT.DELETE.removeProductFromWishlist(product.id), {
+    method: 'DELETE'
+  });
 
   const selectPlatform = (platform: Platform) => {
     setSelectedPlatform(platform);
@@ -37,6 +44,15 @@ export default function PanelDetail({product}: { product: Product }): React.JSX.
       handleOnSelectPlatfrom(false);
     }, timeToRefresh);
   };
+
+  const handleProductForWishlsit = debounce(async () => {
+    if (isProductInWishlist) {
+      await removeFromWishlist();
+      return setProductIsInWishlist(false);
+    } 
+    await addToWishlist();
+    return setProductIsInWishlist(true);
+  }, debounceTime);
 
   return (
     <div className={Style.content_panel}>
@@ -81,8 +97,11 @@ export default function PanelDetail({product}: { product: Product }): React.JSX.
           <span className={Style.amount_total}>{calculateTotalPrice(discount, price).toFixed(fixedPrice)}€</span>
         </div>
         <div className={Style.buttons}>
-          <div className={Style.buttons_favorite} title="Añadir a mi wishlist" onClick={() => addToWishlist()}>
-            <img src={FavoriteIcon} alt="favorite"/>
+          <div 
+            className={isProductInWishlist ? Style.buttons_favorite_active : Style.buttons_favorite} 
+            title="Añadir a mi wishlist" 
+            onClick={handleProductForWishlsit}>
+            <img src={isProductInWishlist ? FavoriteIconActive : FavoriteIcon} alt="favorite"/>
           </div>
           <div className={Style.buttons_add} onClick={async () => {
             await callMutation({params: {productId: product.id}});

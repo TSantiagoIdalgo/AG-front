@@ -34,7 +34,7 @@ const navbarModal: React.FC<INavbarModalProps> = ({handleModal}): React.JSX.Elem
           <div className={Style.navbar_modal_info}>
             <span className={Style.text}>Panel de control</span>
             <span className={Style.text} onClick={() => navigate('/user/my-orders')}>Mis pedidos</span>
-            <span className={Style.text}>Wishlist</span>
+            <span className={Style.text} onClick={() => navigate('/user/wishlist')}>Wishlist</span>
             <span className={Style.text}>Configuracion</span>
             <span className={Style.spacer}></span>
             <span className={Style.text} onClick={onLogout}>Desconectarse</span>

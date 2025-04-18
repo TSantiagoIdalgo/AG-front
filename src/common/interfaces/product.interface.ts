@@ -57,3 +57,8 @@ export interface Product {
     distributor: string
     pegi: string
 }
+
+export interface ProductWithIsInWishlist {
+    product: Product;
+    inWishlist: boolean;
+}

@@ -9,7 +9,7 @@ import { store } from './state/store.ts';
 export const eventSource = new EventSource(
   'http://localhost:8080/api/checkout/sse',
   {
-    withCredentials: true,
+    withCredentials: true
   }
 );
 

@@ -5,9 +5,9 @@ import * as libs from '../../libs/libs';
 import Style from './product-card.module.css';
 
 
-type TProductCard = Pick<Product, 'name' | 'price' | 'discount' | 'mainImage' | 'trailer' | 'id'>
+type TProductCard = Pick<Product, 'name' | 'price' | 'discount' | 'mainImage' | 'trailer' | 'id'> & { onDelete?: () => Promise<void> }
 
-export default function ProductCard({id, name, price, discount, mainImage, trailer}: TProductCard): React.JSX.Element {
+export default function ProductCard({id, name, price, discount, mainImage, trailer, onDelete}: TProductCard): React.JSX.Element {
   const [onMouseEnter, setOnMouseEnter] = libs.useState(false);
   const base64 = new UUIDBase64(id);
   const mouseEnter = () => {
@@ -23,6 +23,7 @@ export default function ProductCard({id, name, price, discount, mainImage, trail
 
   return (
     <figure className={Style.card}>
+      {onDelete ? <span className={Style.delete} onClick={onDelete}>X</span> : null}
       <a href={`/ancore/${base64.uuidToBase64()}`} className={Style.card_url} onMouseEnter={mouseEnter}
         onMouseLeave={mouseEnter}>
         <img src={mainImage} alt={name} className={Style.card_img}/>

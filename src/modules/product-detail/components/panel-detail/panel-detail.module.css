@@ -226,7 +226,7 @@
     justify-content: center;
     margin-top: 20px;
 }
-
+.buttons_favorite_active,
 .buttons_favorite {
     align-items: center;
     appearance: none;
@@ -252,6 +252,13 @@
         width: 25px;
         filter: brightness(0) saturate(100%) invert(96%) sepia(97%) saturate(0%) hue-rotate(33deg) brightness(105%) contrast(103%);
 
+    }
+}
+
+.buttons_favorite_active {
+    background: rgba(255, 10, 78, .2) !important;
+    img {
+        filter: brightness(0) saturate(100%) invert(16%) sepia(80%) saturate(5614%) hue-rotate(337deg) brightness(105%) contrast(103%);
     }
 }
 

@@ -5,6 +5,7 @@ export const PRODUCT_ENDPOINT = {
   GET: {
     findAll: () => 'product/',
     findById: (productId: string) => `product/${productId}`,
+    findWithIsInWishlist: (productId: string) => `product/wishlist/${productId}`
   },
   PATCH: {
     update: (productId: string) => `product/update/${productId}`
