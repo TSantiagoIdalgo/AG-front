@@ -28,3 +28,26 @@
     width: 100%;
     flex-wrap: wrap;
 }
+
+.review {
+    align-items: center;
+    background-color: var(--color-medium-dark);
+    border: 0;
+    border-radius: 10px;
+    color: #fff;
+    display: flex;
+    font-size: 17px;
+    justify-content: center;
+    padding: 30px;
+    transition: .2s;
+    flex-wrap: wrap;
+}
+
+.based {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    .link {
+        color: #999;
+    }
+}

@@ -46,7 +46,6 @@ const Wishlist = (): React.JSX.Element => {
   }, [data?.body.data]);
 
   if (loading) return <p>Loading...</p>;
-  else if (data?.body.error) return <p>Error: {data.body.error.message}</p>;
 
   const beforeDeleteItem = (productId: string) => {
     const deleteItem = 1, notFoundItem = -1;
@@ -61,7 +60,7 @@ const Wishlist = (): React.JSX.Element => {
     <div className={Style.container}>
       <h2 className={Style.container_title}>{wishlist.length} juegos en tu lista de deseos</h2>
       <div className={Style.container_items}>
-        {wishlist.length 
+        {wishlist && wishlist.length 
           ? wishlist.map(({ id, product }) => <RenderCard key={id} product={product} beforeDelete={beforeDeleteItem}/>) 
           : <div className={Style.notice}>
         ¡No pierdas de vista los juegos que te gustan y añade tantos como quieras a tu wishlist! Para eliminarlos, simplemente visita la ficha del juego

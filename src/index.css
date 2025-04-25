@@ -33,6 +33,19 @@
   margin-right: 15px;
 }
 
+#note-container {
+  display: flex;
+  font-size: 19px;
+  font-weight: 700;
+  position: relative;
+  width: 70px;
+  margin-right: 15px;
+
+  .rating-reviews-rate {
+    font-size: 31px;
+  }
+}
+
 .circle-meter {
   stroke: var(--color-medium);
   position: relative;

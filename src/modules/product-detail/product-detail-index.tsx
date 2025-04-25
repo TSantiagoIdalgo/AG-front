@@ -20,7 +20,7 @@ export default function ProductDetailIndex(): React.JSX.Element {
   if (loading || !data?.body.data) return <p>Loading...</p>;
 
   const { backgroundImage, name, description, developer, tags, genres, release_date, distributor, pegi, trailer, images, requirements } = data.body.data.product;
-  
+
   return (
     <main className='product-detail-index'>
       <Detail.HeaderDetail backgroundImage={backgroundImage} name={name}/>
@@ -30,7 +30,7 @@ export default function ProductDetailIndex(): React.JSX.Element {
         <Detail.VisualsDetail images={images} trailer={trailer}/>
         <Detail.DescriptionDetail description={description} />
         <Detail.ConfigurationDetail requirements={requirements}/>
-        <Detail.ReviewsDetail/>
+        <Detail.ReviewsDetail isPurchased={data.body.data.purchasedByUser}/>
       </section>
     </main>
   );

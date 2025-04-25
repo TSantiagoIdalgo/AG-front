@@ -61,5 +61,5 @@ export interface Product {
 export interface ProductWithIsInWishlistAndIsPurchased {
     product: Product;
     inWishlist: boolean;
-    purchaseByUser:boolean;
+    purchasedByUser:boolean;
 }

@@ -1,15 +1,15 @@
-import {Product} from "#src/common/interfaces/product.interface.ts";
+import {Product} from '#src/common/interfaces/product.interface.ts';
 import {AVGProductReview} from '#src/common/interfaces/review.interface.ts';
 import UUIDBase64 from '#src/common/uuid-base64.ts';
 import {REVIEW_ENDPOINT} from '#src/config/endpoints.ts';
-import React from "react";
+import React from 'react';
 import * as libs from '../../libs/product-detail-libs';
-import AboutDetailInfo from "../about-detail-info/about-detail-info";
+import AboutDetailInfo from '../about-detail-info/about-detail-info';
 import Style from './about-detail.module.css';
 
-type TAboutDetail = Pick<Product, "description" | 'genres' | 'developer' | 'tags' | 'distributor' | 'release_date' | 'pegi'>
+type TAboutDetail = Pick<Product, 'description' | 'genres' | 'developer' | 'tags' | 'distributor' | 'release_date' | 'pegi'>
 
-interface PercentageOfReviews {
+export interface PercentageOfReviews {
   circleMeterBar: number;
   circleMeterBarId: string,
   reviewsRate: string
@@ -43,7 +43,7 @@ export default function AboutDetail({
 
       const {percentage} = data.body.data;
       // eslint-disable-next-line no-nested-ternary
-      const barId = percentage >= medium ? percentage >= high ? "high" : '' : "medium";
+      const barId = percentage >= medium ? percentage >= high ? 'high' : '' : 'medium';
 
       setCircleMeter({circleMeterBar: percentage, circleMeterBarId: barId, reviewsRate: barId});
     })();
