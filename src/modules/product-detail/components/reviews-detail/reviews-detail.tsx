@@ -8,7 +8,12 @@ import UUIDBase64 from '#src/common/uuid-base64.ts';
 import { PercentageOfReviews } from '../about-detail/about-detail';
 import PrimaryButton from '#modules/core/components/button/button.tsx';
 
-export default function ReviewsDetail ({ isPurchased }: { isPurchased: boolean }): React.JSX.Element {
+interface ReviewsDetailProps {
+  isPurchased: boolean;
+  handleModal: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function ReviewsDetail ({ isPurchased, handleModal }: ReviewsDetailProps): React.JSX.Element {
   const { id } = libs.useParams();
   const dividePercentage = 10, high = 80, medium = 50, zero = 0;
   const [circleMeter, setCircleMeter] = libs.useState<PercentageOfReviews>({
@@ -64,7 +69,7 @@ export default function ReviewsDetail ({ isPurchased }: { isPurchased: boolean }
               </div>
             </>
           ) : <span>No hay suficientes reseñas para calcular la puntuación</span>}
-        {isPurchased ? (<PrimaryButton text='¡Valora este juego!' type='button' style={{marginLeft: '40px'}}/>) : null}
+        {isPurchased ? (<PrimaryButton onClick={() => handleModal(true)} text='¡Valora este juego!' type='button' style={{marginLeft: '40px'}}/>) : null}
       </div>
       <div className={Style.reviews}>
         {data.body.data?.map((review) => <ReviewCard  key={review.id} review={review}/>)}

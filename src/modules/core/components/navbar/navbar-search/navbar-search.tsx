@@ -1,5 +1,5 @@
 import * as libs from '#modules/landing/libs/landing-libs';
-import React, { ChangeEvent, useCallback } from "react";
+import React, { ChangeEvent, useCallback } from 'react';
 import SearchIcon from '#assets/icons/search.svg';
 import Style from './navbar-search.module.css';
 import { debounce } from '#src/common/debounce.ts';
@@ -8,8 +8,8 @@ import { useChangeSearchParams } from '#src/hooks/use-change-search-params.ts';
 
 export default function LandingNavbarSearch (): React.JSX.Element {
   const { updateParams, searchParams, deleteParams } = useChangeSearchParams();
-  const [searching, handleSearching] = libs.useState(Boolean(searchParams.has("name")));
-  const [searchValue, setSearchValue] = libs.useState(searchParams.get("name") ?? "");
+  const [searching, handleSearching] = libs.useState(Boolean(searchParams.has('name')));
+  const [searchValue, setSearchValue] = libs.useState(searchParams.get('name') ?? '');
   const navigate = libs.useNavigate();
   const debounceTime = 200;
 
@@ -21,9 +21,9 @@ export default function LandingNavbarSearch (): React.JSX.Element {
   );
 
   const deleteQuerys = () => {
-    deleteParams([{ key: "name" }]);
+    deleteParams([{ key: 'name' }]);
     handleSearching(!searching);
-    setSearchValue("");
+    setSearchValue('');
   };
 
   const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {

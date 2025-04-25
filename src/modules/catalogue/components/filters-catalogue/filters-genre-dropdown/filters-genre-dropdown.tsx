@@ -1,11 +1,11 @@
 /* eslint-disable max-statements */
 /* eslint-disable consistent-return */
 import * as libs from '#modules/catalogue/libs/catalogue-libs';
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import SearchIcon from '#assets/icons/search.svg';
 import Style from './filters-genre-dropdown.module.css';
-import { useOutClick } from "#modules/catalogue/hooks/use-out-click.ts";
-import { useSetGenres } from "#modules/catalogue/hooks/use-set-genres.ts";
+import { useOutClick } from '#modules/catalogue/hooks/use-out-click.ts';
+import { useSetGenres } from '#modules/catalogue/hooks/use-set-genres.ts';
 
 interface IFiltersDropdown {
   name: string;
@@ -14,7 +14,7 @@ interface IFiltersDropdown {
 const FiltersGenreDropdown = ({ name, results }: IFiltersDropdown): React.JSX.Element => {
   const initialPadding = 15, maxGenres = 3;
   const { selectedOptions, handleOptionSelect, handleDeleteOption } = useSetGenres();
-  const [searchValue, setSearchValue] = libs.useState<string>("");
+  const [searchValue, setSearchValue] = libs.useState<string>('');
   const [searchresults, setSearchResults] = libs.useState<string[]>(results);
   const [padding, setPadding] = React.useState<number>(initialPadding);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ const FiltersGenreDropdown = ({ name, results }: IFiltersDropdown): React.JSX.El
           type="text" 
           onChange={handleSearch} 
           value={searchValue}
-          placeholder={selectedOptions.length ? "" : "Generos..."}/>
+          placeholder={selectedOptions.length ? '' : 'Generos...'}/>
         <div className={Style.search_option} ref={dropdownRef}>
           {selectedOptions.map((op, index) => (
             <div className={Style.search_options} key={`${op}-${index}`}>
@@ -82,14 +82,14 @@ const FiltersGenreDropdown = ({ name, results }: IFiltersDropdown): React.JSX.El
             <div className={Style.dropdown_result}>
               <ul className={Style.search_dropdown_ul}>
                 {selectedOptions.length >= maxGenres
-                  ? "You can only select 3 items"
+                  ? 'You can only select 3 items'
                   : <>
                     {searchresults.map(res => (
                       <li 
                         key={res}
                         onClick={() => {
                           handleOptionSelect(res);
-                          setSearchValue("");
+                          setSearchValue('');
                           setSearchResults(results);
                         }}
                         className={selectedOptions.some(currentOp => currentOp === res) ? Style.dropdown_result_select : undefined}>

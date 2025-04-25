@@ -6,10 +6,13 @@ import { PRODUCT_ENDPOINT } from '#src/config/endpoints.ts';
 import { ProductWithIsInWishlistAndIsPurchased } from '#src/common/interfaces/product.interface.ts';
 import React from 'react';
 import UUIDBase64 from '#src/common/uuid-base64.ts';
+import ReviewsModal from './components/reviews-detail/reviews-modal/reviews-modal';
+import ReactDOM from 'react-dom';
 
 
 export default function ProductDetailIndex(): React.JSX.Element {
   const { id } = libs.useParams();
+  const [modal, handleModal] = libs.useState(false);
   const { loading, data } = libs.useFetchData<ProductWithIsInWishlistAndIsPurchased>(PRODUCT_ENDPOINT.GET.findWithIsInWishlist(UUIDBase64.base64ToUuid(id as string)));
   const navigate = libs.useNavigate();
 
@@ -30,8 +33,9 @@ export default function ProductDetailIndex(): React.JSX.Element {
         <Detail.VisualsDetail images={images} trailer={trailer}/>
         <Detail.DescriptionDetail description={description} />
         <Detail.ConfigurationDetail requirements={requirements}/>
-        <Detail.ReviewsDetail isPurchased={data.body.data.purchasedByUser}/>
+        <Detail.ReviewsDetail isPurchased={data.body.data.purchasedByUser} handleModal={handleModal}/>
       </section>
+      {modal && ReactDOM.createPortal(<ReviewsModal handleModal={handleModal}/>, document.getElementById('modal') as HTMLElement)}
     </main>
   );
 }

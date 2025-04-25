@@ -1,17 +1,17 @@
-import Button from "#modules/core/components/button/button.tsx";
-import Input from "#modules/core/components/input/input.tsx";
-import {User} from "#src/common/interfaces/review.interface.ts";
-import {registerSchema, TRegisterSchema} from "#src/common/interfaces/user.interface.ts";
-import {USER_ENDPOINT} from "#src/config/endpoints.ts";
-import {useMutation} from "#src/hooks/use-mutation-data.ts";
-import {zodResolver} from "@hookform/resolvers/zod";
+import Button from '#modules/core/components/button/button.tsx';
+import Input from '#modules/core/components/input/input.tsx';
+import {User} from '#src/common/interfaces/review.interface.ts';
+import {registerSchema, TRegisterSchema} from '#src/common/interfaces/user.interface.ts';
+import {USER_ENDPOINT} from '#src/config/endpoints.ts';
+import {useMutation} from '#src/hooks/use-mutation-data.ts';
+import {zodResolver} from '@hookform/resolvers/zod';
 import React from 'react';
-import {useForm} from "react-hook-form";
-import {Link} from "react-router-dom";
+import {useForm} from 'react-hook-form';
+import {Link} from 'react-router-dom';
 import Style from './auth-register.module.css';
 
 export default function AuthRegister(): React.JSX.Element {
-  const {callMutation} = useMutation<User>(USER_ENDPOINT.POST.register(), {method: "POST"});
+  const {callMutation} = useMutation<User>(USER_ENDPOINT.POST.register(), {method: 'POST'});
   const {register, handleSubmit, formState: {errors}, setError} = useForm<TRegisterSchema>({
     resolver: zodResolver(registerSchema)
   });
@@ -21,10 +21,10 @@ export default function AuthRegister(): React.JSX.Element {
       const payload = {email: data.email, password: data.password, username: data.userName};
       const {body} = await callMutation({body: payload});
       if (body.error) return setError('repeatPassword', {message: body.error.message});
-      else if (body.data) window.location.href = "/";
+      else if (body.data) window.location.href = '/';
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "INTERNAL_ERROR";
-      setError("repeatPassword", {message: errorMessage});
+      const errorMessage = error instanceof Error ? error.message : 'INTERNAL_ERROR';
+      setError('repeatPassword', {message: errorMessage});
     }
 
     return null;
@@ -62,7 +62,7 @@ export default function AuthRegister(): React.JSX.Element {
       </div>
       <div className={Style.register_buttons}>
         <Button type="submit" text="Aceptar"/>
-        <Link to={"/login"}><span>{'<< Atras'}</span></Link>
+        <Link to={'/login'}><span>{'<< Atras'}</span></Link>
       </div>
     </form>
   );

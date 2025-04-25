@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect} from 'react';
 
 export const useOutClick = (ref: React.RefObject<HTMLDivElement>, eventName?: keyof DocumentEventMap) => {
   const [toggle, handleToggle] = React.useState(false);
@@ -7,9 +7,9 @@ export const useOutClick = (ref: React.RefObject<HTMLDivElement>, eventName?: ke
   };
 
   useEffect(() => {
-    document.addEventListener(eventName ?? "click", handleClickOutside);
+    document.addEventListener(eventName ?? 'click', handleClickOutside);
     return () => {
-      document.removeEventListener(eventName ?? "click", handleClickOutside);
+      document.removeEventListener(eventName ?? 'click', handleClickOutside);
     };
   }, []);
   return toggle;
