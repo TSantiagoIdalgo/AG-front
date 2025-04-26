@@ -1,6 +1,6 @@
-import {useOutClick} from '#modules/catalogue/hooks/use-out-click.ts';
+import { useOutClickExec } from '#modules/catalogue/hooks/use-out-click.ts';
 import {User} from '#src/common/interfaces/review.interface.ts';
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
 import Style from './navbar-modal.module.css';
 import { useMutation } from '#src/hooks/use-mutation-data.ts';
@@ -13,14 +13,11 @@ interface INavbarModalProps {
 
 const navbarModal: React.FC<INavbarModalProps> = ({handleModal}): React.JSX.Element => {
   const { callMutation } = useMutation(USER_ENDPOINT.POST.logout());
-  const [firstPaint, setFirstPaint] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  const outClick = useOutClick(containerRef, 'mousemove');
   const navigate = useNavigate();
-  useEffect(() => {
-    if (firstPaint) setFirstPaint(false);
-    else handleModal(outClick);
-  }, [outClick]);
+  useOutClickExec(containerRef, () => {
+    handleModal(false);
+  }, 'mousemove');
 
   const onLogout = async () => {
     await callMutation();

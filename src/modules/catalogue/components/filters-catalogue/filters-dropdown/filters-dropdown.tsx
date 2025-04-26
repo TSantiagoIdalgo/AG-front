@@ -1,14 +1,14 @@
 /* eslint-disable max-statements */
 import SearchIcon from '#assets/icons/search.svg';
-import {useOutClick} from "#modules/catalogue/hooks/use-out-click.ts";
-import {FilterObject, IFiltersDropdown} from "#modules/catalogue/interfaces/catalogue.interface.ts";
+import {useOutClick} from '#modules/catalogue/hooks/use-out-click.ts';
+import {FilterObject, IFiltersDropdown} from '#modules/catalogue/interfaces/catalogue.interface.ts';
 import * as libs from '#modules/catalogue/libs/catalogue-libs';
-import React from "react";
+import React from 'react';
 import Style from './filters-dropdown.module.css';
 
 const FiltersDropdown = ({name, results, type}: IFiltersDropdown): React.JSX.Element => {
   const {searchParams, updateParams, deleteParams} = libs.useChangeSearchParams();
-  const [searchValue, setSearchValue] = libs.useState<string>("");
+  const [searchValue, setSearchValue] = libs.useState<string>('');
   const [searchresults, setSearchResults] = libs.useState<FilterObject[]>(results);
   const [option, selectOption] = React.useState<string | null>(searchParams.get(type));
   const [visualOption, setVisualOption] = React.useState<string | null>(searchParams.get(type));
@@ -49,14 +49,14 @@ const FiltersDropdown = ({name, results, type}: IFiltersDropdown): React.JSX.Ele
 
   const getTitle = () => {
     const params = new URLSearchParams(window.location.search);
-    if (params.has("system") && type === 'system') return params.get("system");
+    if (params.has('system') && type === 'system') return params.get('system');
     else if (visualOption) return visualOption;
     return name;
   };
 
   return (
     <span className={Style.select_content} ref={containerRef}>
-      {option || (location.search.includes("system") && type === "system")
+      {option || (location.search.includes('system') && type === 'system')
         ? <button onClick={handleDeleteOption} type="button" className={Style.select_content_close}>X</button>
         : null}
       <input type="checkbox" checked={toggle} readOnly name={name} className={Style.select_check}/>

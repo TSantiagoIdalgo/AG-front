@@ -98,6 +98,7 @@
             transition: .2s;
             padding: 15px 20px;
             color: #fff;
+            resize: none;
             font-size: 17px;
             font-family: barlow, arial, sans-serif;
             border: 2px solid var(--color-medium);

@@ -6,7 +6,7 @@ import { PRODUCT_ENDPOINT } from '#src/config/endpoints.ts';
 import { ProductWithIsInWishlistAndIsPurchased } from '#src/common/interfaces/product.interface.ts';
 import React from 'react';
 import UUIDBase64 from '#src/common/uuid-base64.ts';
-import ReviewsModal from './components/reviews-detail/reviews-modal/reviews-modal';
+import ReviewsModal from './components/reviews-modal/reviews-modal';
 import ReactDOM from 'react-dom';
 
 
