@@ -30,9 +30,7 @@ export default function ReviewsDetail ({ isPurchased, handleModal }: ReviewsDeta
       else if (avg.body.error) return;
   
       const {percentage} = avg.body.data;
-      // eslint-disable-next-line no-nested-ternary
-      const barId = percentage >= medium ? percentage >= high ? 'high' : '' : 'medium';
-  
+      const barId = percentage >= high && 'high' || percentage >= medium && 'medium' || '';
       setCircleMeter({circleMeterBar: percentage, circleMeterBarId: barId, reviewsRate: barId});
     })();
   }, [data]);

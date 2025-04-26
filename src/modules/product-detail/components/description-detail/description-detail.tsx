@@ -33,7 +33,7 @@ export default function DescriptionDetail({ description }: TDescriptionDetail): 
     });
   };
   return (
-    <section className={showDescription ? Style.description_container_show : Style.description_container} onClick={() => handleShowDescription(!showDescription)}>
+    <section id='description' className={showDescription ? Style.description_container_show : Style.description_container} onClick={() => handleShowDescription(!showDescription)}>
       <div className={Style.headline}>
         <h2>Descripcion</h2>
       </div>

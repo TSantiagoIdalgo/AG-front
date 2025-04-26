@@ -6,6 +6,7 @@ import React from 'react';
 import * as libs from '../../libs/product-detail-libs';
 import AboutDetailInfo from '../about-detail-info/about-detail-info';
 import Style from './about-detail.module.css';
+import { scrollInToView } from '#modules/product-detail/utils/scroll-in-to-view.ts';
 
 type TAboutDetail = Pick<Product, 'description' | 'genres' | 'developer' | 'tags' | 'distributor' | 'release_date' | 'pegi'>
 
@@ -42,12 +43,28 @@ export default function AboutDetail({
       else if (data.body.error) return;
 
       const {percentage} = data.body.data;
-      // eslint-disable-next-line no-nested-ternary
-      const barId = percentage >= medium ? percentage >= high ? 'high' : '' : 'medium';
+      const barId = percentage >= high && 'high' || percentage >= medium && 'medium' || '';
 
       setCircleMeter({circleMeterBar: percentage, circleMeterBarId: barId, reviewsRate: barId});
     })();
   }, [data]);
+
+  const processTextWithLines = (text: string) => {
+    const regex = /<<\s*(?<temp1>https?:\/\/[^\s]+)\s*>>/gu;
+    const lines = text.split(/\r?\n/u);
+
+    return lines.map((line, lineIndex) => {
+      const parts = line.split(regex);
+      return (
+        <div key={lineIndex}>
+          {parts.map((part, index) => {
+            if (regex.test(`<<${part}>>`)) return <span key={`${lineIndex}-${index}`}></span>; 
+            return <p key={`${lineIndex}-${index}`}>{part || '\u00A0'}</p>;
+          })}
+        </div>
+      );
+    });
+  };
 
   return (
     <div className={Style.details}>
@@ -58,9 +75,9 @@ export default function AboutDetail({
           </div>
         </div>
         <div className={Style.text_readable}>
-          {description}
+          {processTextWithLines(description)}
         </div>
-        <span className={Style.show_more}>Leer mas</span>
+        <span onClick={() => scrollInToView('description')} className={Style.show_more}>Leer mas</span>
         <div className={Style.user_tags}>
           <h2>Tags de usuario*:</h2>
           {tags.map((tag) => tag.length > zero &&

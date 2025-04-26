@@ -1,8 +1,8 @@
-import { Product } from "#src/common/interfaces/product.interface.ts";
-import React from "react";
+import { Product } from '#src/common/interfaces/product.interface.ts';
+import React from 'react';
 import Style from './about-detail-info.module.css';
 
-type TAboutDetailInfo = Pick<Product, "genres" | "pegi" | "developer" | "distributor" | 'release_date'>
+type TAboutDetailInfo = Pick<Product, 'genres' | 'pegi' | 'developer' | 'distributor' | 'release_date'>
 
 export default function AboutDetailInfo({ developer, distributor, genres, pegi, release_date}: TAboutDetailInfo): React.JSX.Element {
   const IsMinLength =  1, genresLength = genres.length - IsMinLength;
@@ -29,7 +29,7 @@ export default function AboutDetailInfo({ developer, distributor, genres, pegi, 
     </div>
     <div className={Style.specifics_text}>
       <span className={Style.specifics_text_title}>Genero:</span>
-      <span className={Style.specifics_value_genres}>{genres.map((genre, index) => <i key={genre.name}>{genre.name}{index < genresLength? "," : ""}</i>)}</span>
+      <span className={Style.specifics_value_genres}>{genres.map((genre, index) => <i key={genre.name}>{genre.name}{index < genresLength? ',' : ''}</i>)}</span>
     </div>
   </>
   );
