@@ -22,9 +22,7 @@ export default function ReviewsDetail ({ isPurchased, handleModal }: ReviewsDeta
     reviewsRate: ''
   });
   const { data: avg } = libs.useFetchData<AVGProductReview>(REVIEW_ENDPOINT.GET.avgByProduct(UUIDBase64.base64ToUuid(id as string)));
-  const { loading, data } = libs.useFetchData<Review[]>(REVIEW_ENDPOINT.GET.findByProduct(UUIDBase64.base64ToUuid(id as string)), {
-    query: { recommended: true }
-  });
+  const { loading, data } = libs.useFetchData<Review[]>(REVIEW_ENDPOINT.GET.findByProduct(UUIDBase64.base64ToUuid(id as string)));
 
   libs.useEffect(() => {
     (function getPercentage() {

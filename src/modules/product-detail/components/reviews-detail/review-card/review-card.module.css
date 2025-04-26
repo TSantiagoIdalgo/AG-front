@@ -15,6 +15,13 @@
     max-height: 100%;
 }
 
+.username {
+    position: absolute;
+    color: #777a;
+    right: 20px;
+    top: 20px;
+}
+
 .left {
     align-items: center;
     color: var(--color-light);

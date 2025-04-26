@@ -24,6 +24,7 @@ const ReviewCard = ({review}: { review: Review }): React.JSX.Element => {
   };
   return (
     <figure className={showReview ? Style.review_show : Style.review}>
+      <span className={Style.username}>{review.user.username}</span>
       <div className={Style.left}>
         <a href={`/ancore/user/${review.user.email}`} className={Style.avatar}>
           <img src={UserIcon} alt={review.user.username}/>

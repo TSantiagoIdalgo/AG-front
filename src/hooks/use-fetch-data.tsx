@@ -1,15 +1,15 @@
-import { FetchData, ResponseBody, ResponseData } from "../common/interfaces/fetch-data.interface";
-import { addRequest, removeRequest } from "#src/state/reducers/fetch-queue-slice.ts";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { ErrorResponse } from "../common/interfaces/fetch-data.interface";
-import { IState } from "#src/state/store.ts";
-import { buildUrl } from "#src/common/build-url.ts";
+import { FetchData, ResponseBody, ResponseData } from '../common/interfaces/fetch-data.interface';
+import { addRequest, removeRequest } from '#src/state/reducers/fetch-queue-slice.ts';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { ErrorResponse } from '../common/interfaces/fetch-data.interface';
+import { IState } from '#src/state/store.ts';
+import { buildUrl } from '#src/common/build-url.ts';
 
 
 
 const getError = (error: Error) =>  ({
-  error: "INTERNAL_ERROR",
+  error: 'INTERNAL_ERROR',
   message: error.message,
   status: 500,
   timestamp: new Date()
@@ -33,12 +33,12 @@ export const useFetchData = <T, B = undefined>(
     setData({ ...initState, loading: true });
     dispatch(addRequest(endpoint));
     try {
-      const { method = "GET", body, headers, query, id, params } = fetchData || {};
+      const { method = 'GET', body, headers, query, id, params } = fetchData || {};
       const url = buildUrl(baseUrl, { endpoint, id, params, querys: query });
       const response = await globalThis.fetch(url, {
         body: body ? JSON.stringify(body) : null,
-        credentials: "include",
-        headers: { "Content-Type": "application/json", ...headers },
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json', ...headers },
         method,
       });
       const responseData: ResponseBody<T> = await response.json();

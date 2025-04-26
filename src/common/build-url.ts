@@ -27,7 +27,7 @@ export const buildUrl = (baseURL: string, properties: QueryProperties): string =
     const urlObject = new URL(url, baseURL);
     if (properties?.querys) {
       Object.entries(properties.querys).forEach(([key, value]) => {
-        if (value && !Array.isArray(value)) urlObject.searchParams.append(key, value.toString());
+        if (value !== undefined && !Array.isArray(value)) urlObject.searchParams.append(key, value as string);
         else if (Array.isArray(value)) {
           value.forEach((val) => urlObject.searchParams.append(key, val));
         }
@@ -36,6 +36,6 @@ export const buildUrl = (baseURL: string, properties: QueryProperties): string =
 
     return urlObject.toString();
   } catch (error) {
-    throw new Error(`URL_MALFORMED: ${error instanceof Error ? error.message : ""}`);
+    throw new Error(`URL_MALFORMED: ${error instanceof Error ? error.message : ''}`);
   }
 };

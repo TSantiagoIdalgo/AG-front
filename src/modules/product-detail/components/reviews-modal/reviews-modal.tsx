@@ -5,21 +5,45 @@ import LikeIcon from '#assets/icons/icon-like.svg';
 import DislikeIcon from '#assets/icons/icon-dislike.svg';
 import PrimaryButton from '#modules/core/components/button/button.tsx';
 import { useOutClickExec } from '#modules/catalogue/hooks/use-out-click.ts';
+import { useForm } from 'react-hook-form';
+import { reviewSchema, ReviewSchemaType } from '#modules/product-detail/schemas/review-schema.ts';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '#src/hooks/use-mutation-data.ts';
+import { Review } from '#src/common/interfaces/review.interface.ts';
+import { REVIEW_ENDPOINT } from '#src/config/endpoints.ts';
+import UUIDBase64 from '#src/common/uuid-base64.ts';
 
 interface ReviewsmodalProps {
     handleModal: React.Dispatch<React.SetStateAction<boolean>>
+    productId: string;
 }
 
-const ReviewsModal: React.FC<ReviewsmodalProps> = ({ handleModal }): React.JSX.Element => {
+const ReviewsModal: React.FC<ReviewsmodalProps> = ({ handleModal, productId }): React.JSX.Element => {
   const [recommended, setIsRecommended] = useState<boolean>(true);
+  const { callMutation, isPending } = useMutation<Review>(REVIEW_ENDPOINT.POST.create(UUIDBase64.base64ToUuid(productId)));
+  const {register, handleSubmit, formState: {errors, isValid}, setError} = useForm<ReviewSchemaType>({
+    resolver: zodResolver(reviewSchema)
+  });
   const modalRef = useRef<HTMLDivElement>(null);
   useOutClickExec(modalRef, () => {
     handleModal(false);
   });
+
+  const onCreateReveiw = async (data: ReviewSchemaType) => {
+    try {
+      const payload = { comment: data.description, recommended, title: data.title };
+      await callMutation({ body: payload });
+      handleModal(false);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'INTERNAL_ERROR';
+      setError('description', {message: errorMessage});
+    }
+  };
+
   return (
     <div className={Style.container}>
       <div className={Style.modal} ref={modalRef} role='dialog'>
-        <form>
+        <form onSubmit={handleSubmit(onCreateReveiw)}>
           <div className={Style.avatar}>
             <img src={UserIcon} alt="user" />
           </div>
@@ -33,9 +57,13 @@ const ReviewsModal: React.FC<ReviewsmodalProps> = ({ handleModal }): React.JSX.E
               <img src={DislikeIcon} alt="dislike" id={recommended ? Style.none : Style.active_dislike}/>
             </div>
           </div>
-          <input type='text' className={Style.title_input} placeholder='Titulo de tu reseña'/>
-          <textarea className={Style.textarea} placeholder='Descripcion...'></textarea>
-          <PrimaryButton text='Enviar reseña' type='submit' style={{width: '100%'}}/>
+          <div className={Style.title}>
+            <input {...register('title')} type='text' className={Style.title_input} placeholder='Titulo de tu reseña'/>
+            <span className={Style.title_error}>{errors.title?.message}</span>
+          </div>
+          <textarea {...register('description')} className={Style.textarea} placeholder='Descripcion...'></textarea>
+          {errors.description && <span>{errors.description.message}</span>}
+          <PrimaryButton disabled={!isValid || isPending} text='Enviar reseña' type='submit' style={{width: '100%'}}/>
         </form>
       </div>
     </div>

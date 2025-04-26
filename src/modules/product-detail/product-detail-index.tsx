@@ -35,7 +35,7 @@ export default function ProductDetailIndex(): React.JSX.Element {
         <Detail.ConfigurationDetail requirements={requirements}/>
         <Detail.ReviewsDetail isPurchased={data.body.data.purchasedByUser} handleModal={handleModal}/>
       </section>
-      {modal && ReactDOM.createPortal(<ReviewsModal handleModal={handleModal}/>, document.getElementById('modal') as HTMLElement)}
+      {modal && ReactDOM.createPortal(<ReviewsModal productId={id as string} handleModal={handleModal}/>, document.getElementById('modal') as HTMLElement)}
     </main>
   );
 }
