@@ -1,3 +1,4 @@
+ 
 import * as libs from '../../libs/product-detail-libs';
 import { REVIEW_ENDPOINT } from '#src/config/endpoints.ts';
 import React from 'react';
@@ -11,18 +12,30 @@ import PrimaryButton from '#modules/core/components/button/button.tsx';
 interface ReviewsDetailProps {
   isPurchased: boolean;
   handleModal: React.Dispatch<React.SetStateAction<boolean>>
+  setReviews: React.Dispatch<React.SetStateAction<Review[]>>
+  reviews: Review[]
 }
 
-export default function ReviewsDetail ({ isPurchased, handleModal }: ReviewsDetailProps): React.JSX.Element {
+export default function ReviewsDetail ({ isPurchased, handleModal, reviews, setReviews }: ReviewsDetailProps): React.JSX.Element {
   const { id } = libs.useParams();
+  const [originalReviews, setOriginalReviews] = libs.useState<Review[]>([]);
+  const reviewsChange = JSON.stringify(reviews) !== JSON.stringify(originalReviews);
   const dividePercentage = 10, high = 80, medium = 50, zero = 0;
   const [circleMeter, setCircleMeter] = libs.useState<PercentageOfReviews>({
     circleMeterBar: 0,
     circleMeterBarId: '',
     reviewsRate: ''
   });
-  const { data: avg } = libs.useFetchData<AVGProductReview>(REVIEW_ENDPOINT.GET.avgByProduct(UUIDBase64.base64ToUuid(id as string)));
-  const { loading, data } = libs.useFetchData<Review[]>(REVIEW_ENDPOINT.GET.findByProduct(UUIDBase64.base64ToUuid(id as string)));
+  const { data: avg, refetch } = libs.useFetchData<AVGProductReview>(REVIEW_ENDPOINT.GET.avgByProduct(UUIDBase64.base64ToUuid(id as string)));
+  const { loading, data: reviewsResponse } = libs.useFetchData<Review[]>(REVIEW_ENDPOINT.GET.findByProduct(UUIDBase64.base64ToUuid(id as string)));
+
+  libs.useEffect(() => {
+    if (reviewsResponse?.body.data) {
+      setReviews(reviewsResponse.body.data);
+      setOriginalReviews(reviewsResponse.body.data);
+    }
+    if (reviewsChange) refetch();
+  }, [reviewsResponse, reviewsChange]);
 
   libs.useEffect(() => {
     (function getPercentage() {
@@ -33,7 +46,7 @@ export default function ReviewsDetail ({ isPurchased, handleModal }: ReviewsDeta
       const barId = percentage >= high && 'high' || percentage >= medium && 'medium' || '';
       setCircleMeter({circleMeterBar: percentage, circleMeterBarId: barId, reviewsRate: barId});
     })();
-  }, [data]);
+  }, [avg]);
   
 
   return (
@@ -67,7 +80,7 @@ export default function ReviewsDetail ({ isPurchased, handleModal }: ReviewsDeta
         {isPurchased ? (<PrimaryButton onClick={() => handleModal(true)} text='¡Valora este juego!' type='button' style={{marginLeft: '40px'}}/>) : null}
       </div>
       <div className={Style.reviews}>
-        {data?.body.data?.map((review) => <ReviewCard  key={review.id} review={review}/>)}
+        {reviews.map((review) => <ReviewCard  key={review.id} review={review}/>)}
       </div>
     </section>
   );

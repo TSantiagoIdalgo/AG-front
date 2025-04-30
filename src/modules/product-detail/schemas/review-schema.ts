@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 export const reviewSchema = z.object({
   description: z.string().optional(),
+  recommended: z.boolean(),
   title: z.string().min(3).max(60),
 });
 

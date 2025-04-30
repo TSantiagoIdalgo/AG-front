@@ -64,7 +64,7 @@ export const REVIEW_ENDPOINT = {
     findUserReviews: () => 'review/user',
   },
   PATCH: {
-    update: (reviewId: string) => `review/${reviewId}`,
+    update: () => 'review/{reviewId}',
   },
   POST: {
     create: (productId: string) => `review/${productId}`,

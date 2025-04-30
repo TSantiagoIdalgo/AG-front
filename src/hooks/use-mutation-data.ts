@@ -10,7 +10,7 @@ import {ResponseBody, ResponseData} from '../common/interfaces/fetch-data.interf
 type QueryParams = Record<string, string | number | undefined | boolean | string[]>;
 
 interface FetchData {
-  method?: 'POST' | 'PUT' | 'DELETE';
+  method?: 'POST' | 'PUT' | 'DELETE' | 'GET' | 'PATCH';
   headers?: HeadersInit;
 }
 

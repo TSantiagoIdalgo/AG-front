@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+/* eslint-disable max-statements */
+import React, { useEffect, useRef, useState } from 'react';
 import Style from './reviews-modal.module.css';
 import UserIcon from '#assets/icons/icon-user.svg';
 import LikeIcon from '#assets/icons/icon-like.svg';
@@ -12,44 +13,84 @@ import { useMutation } from '#src/hooks/use-mutation-data.ts';
 import { Review } from '#src/common/interfaces/review.interface.ts';
 import { REVIEW_ENDPOINT } from '#src/config/endpoints.ts';
 import UUIDBase64 from '#src/common/uuid-base64.ts';
-import { useFindUserReview } from '#modules/product-detail/hooks/use-find-user-review.ts';
 
 interface ReviewsmodalProps {
     handleModal: React.Dispatch<React.SetStateAction<boolean>>
     productId: string;
     userReviewed: boolean
+    reviews: Review[],
+    setReviews: React.Dispatch<React.SetStateAction<Review[]>>
 }
 
-const ReviewsModal: React.FC<ReviewsmodalProps> = ({ handleModal, productId, userReviewed }): React.JSX.Element => {
+const ReviewsModal: React.FC<ReviewsmodalProps> = ({ handleModal, productId, userReviewed, reviews, setReviews }): React.JSX.Element => {
+  const [review, setReview] = useState<Review>();
   const [recommended, setIsRecommended] = useState<boolean>(true);
-  const userReview = useFindUserReview(productId, userReviewed);
-  const { callMutation, isPending } = useMutation<Review>(REVIEW_ENDPOINT.POST.create(UUIDBase64.base64ToUuid(productId)));
-  const {register, handleSubmit, formState: {errors, isValid}, setError} = useForm<ReviewSchemaType>({
-    defaultValues: userReview,
+  const modalRef = useRef<HTMLDivElement>(null);
+  const id = UUIDBase64.base64ToUuid(productId);
+  const { callMutation: createReview, isPending: isPendingCreate } = useMutation<Review>(REVIEW_ENDPOINT.POST.create(id));
+  const { callMutation: updateReview, isPending: isPendingUpdate } = useMutation<Review>(REVIEW_ENDPOINT.PATCH.update(), {
+    method: 'PATCH'
+  });
+  const { callMutation: getUserReview } = useMutation<Review>(REVIEW_ENDPOINT.GET.findUserReviewByProductId(id), {
+    method: 'GET'
+  });
+  const getDefaultValues = async () => {
+    const response = await getUserReview<Review>();
+    const userReview = response.body.data as Review;
+    setReview(userReview);
+    if (!userReview) return { description: '', recommended: true , title: '' };
+    return { description: userReview?.comment, recommended: userReview.recommended , title: userReview?.title };
+  };
+  const {register, handleSubmit, formState: {errors, isValid}, setError} = useForm<ReviewSchemaType>({ 
+    defaultValues: getDefaultValues,
     resolver: zodResolver(reviewSchema),
   });
-  
-  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (review) setIsRecommended(review.recommended);
+  }, [review]);
+
   useOutClickExec(modalRef, () => {
     handleModal(false);
     window.history.replaceState(null, '', window.location.pathname + window.location.search);
   });
 
-  const onCreateReveiw = async (data: ReviewSchemaType) => {
+  const onSaveReview = async (data: ReviewSchemaType) => {
     try {
       const payload = { comment: data.description, recommended, title: data.title };
-      await callMutation({ body: payload });
-      handleModal(false);
+
+      if (userReviewed) {
+        const res = await updateReview({ body: payload, params: { reviewId: review?.id } });
+        const updatedReview = res.body.data as Review;
+        const reviewIndex = reviews.findIndex(reviewIteration => reviewIteration.id === updatedReview.id);
+
+        setReviews(prev => {
+          const notFoundIndex = -1;
+          if (reviewIndex !== notFoundIndex) {
+            const updated = structuredClone(prev);
+            updated[reviewIndex] = updatedReview;
+            return updated;
+          }
+          return prev;
+        });
+      } else {
+        const res = await createReview({ body: payload });
+        const newReview = res.body.data as Review;
+        // TODO no hace el concat correctamente
+        setReviews([...reviews, newReview]);
+      }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'INTERNAL_ERROR';
-      setError('description', {message: errorMessage});
+      setError('description', { message: errorMessage });
+    } finally {
+      handleModal(false);
     }
   };
 
   return (
     <div className={Style.container}>
       <div className={Style.modal} ref={modalRef} role='dialog'>
-        <form onSubmit={handleSubmit(onCreateReveiw)}>
+        <form onSubmit={handleSubmit(onSaveReview)}>
           <div className={Style.avatar}>
             <img src={UserIcon} alt="user" />
           </div>
@@ -69,7 +110,11 @@ const ReviewsModal: React.FC<ReviewsmodalProps> = ({ handleModal, productId, use
           </div>
           <textarea {...register('description')} className={Style.textarea} placeholder='Descripcion...'></textarea>
           {errors.description && <span>{errors.description.message}</span>}
-          <PrimaryButton disabled={!isValid || isPending} text='Enviar reseña' type='submit' style={{width: '100%'}}/>
+          <PrimaryButton 
+            disabled={!isValid || isPendingCreate || isPendingUpdate} 
+            text='Enviar reseña' 
+            type='submit' 
+            style={{width: '100%'}}/>
         </form>
       </div>
     </div>
