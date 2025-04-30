@@ -58,8 +58,9 @@ export interface Product {
     pegi: string
 }
 
-export interface ProductWithIsInWishlistAndIsPurchased {
+export interface ProductWithUserProps {
     product: Product;
     inWishlist: boolean;
     purchasedByUser:boolean;
+    userReviewed: boolean
 }

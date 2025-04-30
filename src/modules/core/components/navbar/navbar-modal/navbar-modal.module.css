@@ -11,7 +11,7 @@
 
 .navbar_modal_content {
   width: 350px;
-  height: 425px;
+  height: 505px;
   background-color: transparent;
   position: absolute;
   top: 0;
@@ -19,7 +19,7 @@
 
   .navbar_modal_content_data {
     width: 250px;
-    height: 275px;
+    height: 310px;
     background-color: #000;
     position: absolute;
     top: 80px;

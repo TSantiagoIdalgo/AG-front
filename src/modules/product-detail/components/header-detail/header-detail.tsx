@@ -1,8 +1,8 @@
-import { Product } from "#src/common/interfaces/product.interface.ts";
-import React from "react";
+import { Product } from '#src/common/interfaces/product.interface.ts';
+import React from 'react';
 import Style from './header-detail.module.css';
 
-type ProductDetail = Pick<Product, "backgroundImage" | "name">
+type ProductDetail = Pick<Product, 'backgroundImage' | 'name'>
 
 export default function HeaderDetail ({ backgroundImage, name }: ProductDetail): React.JSX.Element {
   return (

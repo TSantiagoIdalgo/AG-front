@@ -1,0 +1,110 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+    h2 {
+        font-size: 21px;
+        padding-bottom: 20px;
+        color: #fff;
+        font-weight: 400;
+    }
+}
+
+.list_items {
+    --gap: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    justify-content: center;
+    position: relative;
+    
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .item {
+        --columns: 3;
+        background: var(--color-medium-dark);
+        border-radius: 10px;
+        gap: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        min-width: 0;
+        position: relative;
+        width: calc(100% / var(--columns) - var(--gap) + var(--gap) / var(--columns));
+        z-index: 1;
+
+        .cover {
+            display: flex;
+            padding-top: 57.4%;
+            position: relative;
+            transition: transform .3s;
+
+            picture {
+                border-radius: 10px;
+                height: 100%;
+                object-fit: cover;
+                overflow: hidden;
+                position: absolute;
+                top: 0;
+                width: 100%;
+                z-index: 1;
+                transition: .2s;
+            }
+
+            picture img {
+                height: 100%;
+                position: absolute;
+                width: 100%;
+                overflow-clip-margin: content-box;
+                overflow: clip;
+            }
+
+            video {
+                border-radius: 10px;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                overflow: hidden;
+                position: absolute;
+                top: 0;
+                z-index: -1;
+            }
+        }
+
+        .cover:hover {
+            picture {
+                opacity: 0;
+            }
+        }
+
+        .info {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 20px;
+            position: relative;
+
+            .note {
+                width: 30px;
+                height: 30px;
+            }
+            #like {
+                    filter: brightness(0) saturate(100%) invert(71%) sepia(52%) saturate(534%) hue-rotate(51deg) brightness(102%) contrast(87%);
+                }
+            #dislike {
+                filter: brightness(0) saturate(100%) invert(59%) sepia(90%) saturate(6991%) hue-rotate(339deg) brightness(100%) contrast(101%);
+            }
+
+            h2 {
+                font-size: 15px;
+                font-weight: 400;
+                color: #a8a8a8;
+            }
+        }
+    }
+}

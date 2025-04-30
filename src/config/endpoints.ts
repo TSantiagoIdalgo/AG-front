@@ -5,7 +5,7 @@ export const PRODUCT_ENDPOINT = {
   GET: {
     findAll: () => 'product/',
     findById: (productId: string) => `product/${productId}`,
-    findWithIsInWishlist: (productId: string) => `product/wishlist/${productId}`
+    findWithIsInWishlist: (productId: string) => `product/user/${productId}`
   },
   PATCH: {
     update: (productId: string) => `product/update/${productId}`
@@ -60,6 +60,8 @@ export const REVIEW_ENDPOINT = {
     count: () => 'review/count',
     findAll: () => 'review/',
     findByProduct: (productId: string) => `review/product/${productId}`,
+    findUserReviewByProductId: (productId: string) => `review/user/${productId}`, 
+    findUserReviews: () => 'review/user',
   },
   PATCH: {
     update: (reviewId: string) => `review/${reviewId}`,

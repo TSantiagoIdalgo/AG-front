@@ -12,21 +12,27 @@ import { useMutation } from '#src/hooks/use-mutation-data.ts';
 import { Review } from '#src/common/interfaces/review.interface.ts';
 import { REVIEW_ENDPOINT } from '#src/config/endpoints.ts';
 import UUIDBase64 from '#src/common/uuid-base64.ts';
+import { useFindUserReview } from '#modules/product-detail/hooks/use-find-user-review.ts';
 
 interface ReviewsmodalProps {
     handleModal: React.Dispatch<React.SetStateAction<boolean>>
     productId: string;
+    userReviewed: boolean
 }
 
-const ReviewsModal: React.FC<ReviewsmodalProps> = ({ handleModal, productId }): React.JSX.Element => {
+const ReviewsModal: React.FC<ReviewsmodalProps> = ({ handleModal, productId, userReviewed }): React.JSX.Element => {
   const [recommended, setIsRecommended] = useState<boolean>(true);
+  const userReview = useFindUserReview(productId, userReviewed);
   const { callMutation, isPending } = useMutation<Review>(REVIEW_ENDPOINT.POST.create(UUIDBase64.base64ToUuid(productId)));
   const {register, handleSubmit, formState: {errors, isValid}, setError} = useForm<ReviewSchemaType>({
-    resolver: zodResolver(reviewSchema)
+    defaultValues: userReview,
+    resolver: zodResolver(reviewSchema),
   });
+  
   const modalRef = useRef<HTMLDivElement>(null);
   useOutClickExec(modalRef, () => {
     handleModal(false);
+    window.history.replaceState(null, '', window.location.pathname + window.location.search);
   });
 
   const onCreateReveiw = async (data: ReviewSchemaType) => {

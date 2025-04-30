@@ -35,14 +35,13 @@ export default function ReviewsDetail ({ isPurchased, handleModal }: ReviewsDeta
     })();
   }, [data]);
   
-  if (loading || !data?.body) return <p>Loading...</p>;
 
   return (
     <section className={Style.reviews_container}>
       <div className={Style.headline}>
         <h2>Reseñas</h2>
       </div>
-      <div className={Style.review}>
+      <div className={Style.review} id='reviews'>
         {avg?.body.data
           ? (
             <>
@@ -68,7 +67,7 @@ export default function ReviewsDetail ({ isPurchased, handleModal }: ReviewsDeta
         {isPurchased ? (<PrimaryButton onClick={() => handleModal(true)} text='¡Valora este juego!' type='button' style={{marginLeft: '40px'}}/>) : null}
       </div>
       <div className={Style.reviews}>
-        {data.body.data?.map((review) => <ReviewCard  key={review.id} review={review}/>)}
+        {data?.body.data?.map((review) => <ReviewCard  key={review.id} review={review}/>)}
       </div>
     </section>
   );

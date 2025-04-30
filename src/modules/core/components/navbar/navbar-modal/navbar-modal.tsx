@@ -24,14 +24,23 @@ const navbarModal: React.FC<INavbarModalProps> = ({handleModal}): React.JSX.Elem
     window.location.href = '/';
   };
 
+  const onNavigate = (url: string) => {
+    const closeModalTime = 100;
+    navigate(`/user/${url}`);
+    setTimeout(() => {
+      handleModal(false);
+    }, closeModalTime);
+  };
+
   return (
     <div className={Style.navbar_modal}>
       <div ref={containerRef} className={Style.navbar_modal_content}>
         <div className={Style.navbar_modal_content_data}>
           <div className={Style.navbar_modal_info}>
             <span className={Style.text}>Panel de control</span>
-            <span className={Style.text} onClick={() => navigate('/user/my-orders')}>Mis pedidos</span>
-            <span className={Style.text} onClick={() => navigate('/user/wishlist')}>Wishlist</span>
+            <span className={Style.text} onClick={() => onNavigate('my-orders')}>Mis pedidos</span>
+            <span className={Style.text} onClick={() => onNavigate('wishlist')}>Wishlist</span>
+            <span className={Style.text} onClick={() => onNavigate('my-reviews')}>Mis reviews</span>
             <span className={Style.text}>Configuracion</span>
             <span className={Style.spacer}></span>
             <span className={Style.text} onClick={onLogout}>Desconectarse</span>

@@ -1,8 +1,8 @@
-import { Product } from "#src/common/interfaces/product.interface.ts";
-import React from "react";
+import { Product } from '#src/common/interfaces/product.interface.ts';
+import React from 'react';
 import Style from './configuration-detail.module.css';
 
-type TConfigurationDetail = Pick<Product, "requirements">
+type TConfigurationDetail = Pick<Product, 'requirements'>
 
 export default function ConfigurationDetail ({ requirements }: TConfigurationDetail): React.JSX.Element {
 
