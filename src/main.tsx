@@ -5,6 +5,11 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { store } from './state/store.ts';
+import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
+
+ModuleRegistry.registerModules([
+  AllCommunityModule,
+]);
 
 export const eventSource = new EventSource(
   'http://localhost:8080/api/checkout/sse',

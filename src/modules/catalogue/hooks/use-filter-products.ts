@@ -8,20 +8,20 @@ export const useFilterProducts = () => {
   const [searchParams] = libs.useSearchParams();
   const ordersTypes = getOrdersTypes();
   const initValue = 1;
-  const page = parseInt((searchParams.get("page") ?? "1"), 10) - initValue;
+  const page = parseInt((searchParams.get('page') ?? '1'), 10) - initValue;
   const getArrayOrNull = (query: string | string[]) => query.length ? query : null;
 
   const getQueryValues = () => {
-    const orderType = ordersTypes.find(order => order.visualString === searchParams.get("orderBy"));
+    const orderType = ordersTypes.find(order => order.visualString === searchParams.get('orderBy'));
     const query = {
-      genres: getArrayOrNull(searchParams.getAll("genre")),
-      maxPrice: searchParams.get("maxPrice"),
-      minPrice: searchParams.get("minPrice"),
-      name: searchParams.get("name"),
+      genres: getArrayOrNull(searchParams.getAll('genre')),
+      maxPrice: searchParams.get('maxPrice'),
+      minPrice: searchParams.get('minPrice'),
+      name: searchParams.get('name'),
       pageNumber: page,
       pageSize: 60,
-      platform: getArrayOrNull(searchParams.getAll("platform")),
-      system: getArrayOrNull(searchParams.getAll("system"))
+      platform: getArrayOrNull(searchParams.getAll('platform')),
+      system: getArrayOrNull(searchParams.getAll('system'))
     };
 
     if (!orderType) return query;

@@ -27,7 +27,7 @@ export const buildUrl = (baseURL: string, properties: QueryProperties): string =
     const urlObject = new URL(url, baseURL);
     if (properties?.querys) {
       Object.entries(properties.querys).forEach(([key, value]) => {
-        if (value !== undefined && !Array.isArray(value)) urlObject.searchParams.append(key, value as string);
+        if (value !== undefined && value !== null && !Array.isArray(value)) urlObject.searchParams.append(key, value as string);
         else if (Array.isArray(value)) {
           value.forEach((val) => urlObject.searchParams.append(key, val));
         }

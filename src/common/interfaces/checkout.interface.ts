@@ -1,5 +1,24 @@
-import { CartItem } from '#modules/cart/interfaces/cart.interface.ts';
+import { Platform } from './product.interface';
 import { User } from './review.interface';
+
+export interface CheckoutProduct {
+  id: string;
+  name: string;
+  price: number;
+  discount: number;
+  trailer: string;
+  mainImage: string;
+  platforms: Platform[]
+}
+
+export interface CheckoutItem {
+  id: string;
+  product: CheckoutProduct;
+  quantity: number;
+  total: number;
+  subtotal: number;
+  itemIsPaid: boolean;
+}
 
 export interface Checkout {
     'id': string,
@@ -11,7 +30,7 @@ export interface Checkout {
     'user': User;
     'checkoutItems': {
         id: number;
-        cartItem: CartItem
+        cartItem: CheckoutItem
     }[];
     'createdAt': Date
 }

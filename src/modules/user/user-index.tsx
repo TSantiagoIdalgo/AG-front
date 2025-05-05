@@ -16,6 +16,7 @@ export default function UserIndex(): React.JSX.Element {
     case 'my-orders': return <UserComponents.MyOrders/>;
     case 'wishlist': return <UserComponents.Wishlist/>;
     case 'my-reviews': return <UserComponents.UserReviews/>;
+    case 'dashboard': return <UserComponents.Dashboard/>;
     default: return <Navigate to={'/'}/>;
     }
 
