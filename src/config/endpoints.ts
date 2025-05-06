@@ -95,6 +95,7 @@ export const GENRE_ENDPOINT = {
 export const CHECKOUT_ENDPOINT = {
   GET: {
     getAllCheckouts: () => 'api/checkout/',
+    getProductCheckouts: () => 'api/checkout/product',
     getUserCheckouts: () => 'api/checkout/user',
   },
   POST: {

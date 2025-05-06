@@ -34,3 +34,32 @@ export interface Checkout {
     }[];
     'createdAt': Date
 }
+
+
+export interface ProductCheckout {
+    id:        string;
+    name:      string;
+    price:     number;
+    discount:  number;
+    trailer:   string;
+    mainImage: string;
+    stock: number;
+    disabled: boolean
+}
+
+
+export interface ProductWithCheckouts {
+    product:   ProductCheckout;
+    checkouts: Checkout[];
+}
+
+export interface ProductCheckoutItem {
+    id:              string;
+    stripePaymentId: string;
+    subTotal:        number;
+    total:           number;
+    currency:        string;
+    paymentStatus:   string;
+    user:            User;
+    createdAt:       Date;
+}

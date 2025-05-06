@@ -1,0 +1,32 @@
+.last_payment {
+    border-radius: 16px;
+    color: #fff; 
+    font-size: 13px; font-weight: bold; 
+    padding: 0 15px 0 15px; 
+    height: 25px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+#paid {
+    background: rgb(53, 182, 90);
+}
+
+#paid::before {
+    content: "+";
+}
+
+#unpaid {
+    background: #fef08a;
+    color: #a16207;
+}
+
+#canceled {
+    background: #fecaca;
+    color: #b91c1c;
+}
+
+#canceled::before {
+    content: "-";
+}

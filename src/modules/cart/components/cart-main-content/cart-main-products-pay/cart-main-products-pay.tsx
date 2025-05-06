@@ -4,6 +4,7 @@ import UUIDBase64 from '#src/common/uuid-base64.ts';
 import React from 'react';
 import Style from './cart-main-products-pay.module.css';
 import { eventSource } from '#src/main.tsx';
+import { EventTypes } from '#src/common/interfaces/event-types.ts';
 
 const CartMainProductsPay = (): React.JSX.Element => {
   const [cart, setCart] = libs.useState<Cart>();
@@ -11,10 +12,10 @@ const CartMainProductsPay = (): React.JSX.Element => {
     const paymentEntry = (event: MessageEvent<string>) => {
       setCart(JSON.parse(event.data));
     };
-    eventSource.addEventListener('payment', paymentEntry);
+    eventSource.addEventListener(EventTypes.PAYMENT, paymentEntry);
 
     return () => {
-      eventSource.removeEventListener('payment', paymentEntry);
+      eventSource.removeEventListener(EventTypes.PAYMENT, paymentEntry);
     };
   }, []);
 
