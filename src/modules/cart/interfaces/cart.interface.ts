@@ -1,5 +1,7 @@
 import {Product} from '#src/common/interfaces/product.interface.ts';
 
+export type PaymentStatus = 'created' | 'paid' | 'unpaid' | 'canceled'
+
 export interface CartItem {
   id: string;
   product: Product;
@@ -7,6 +9,8 @@ export interface CartItem {
   total: number;
   subtotal: number;
   itemIsPaid: boolean;
+  paidAt: Date;
+  paymentStatus: PaymentStatus
 }
 
 export interface Cart {

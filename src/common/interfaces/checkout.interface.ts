@@ -1,14 +1,20 @@
+import { CartItem } from '#modules/cart/interfaces/cart.interface.ts';
 import { Platform } from './product.interface';
 import { User } from './review.interface';
 
+export type CartItemWithoutProduct = Omit<CartItem, 'product'>;
+
 export interface CheckoutProduct {
-  id: string;
-  name: string;
-  price: number;
-  discount: number;
-  trailer: string;
-  mainImage: string;
-  platforms: Platform[]
+    id:        string;
+    name:      string;
+    price:     number;
+    discount:  number;
+    trailer:   string;
+    mainImage: string;
+    stock: number;
+    disabled: boolean
+    platforms: Platform[]
+    cartItems: CartItemWithoutProduct[]
 }
 
 export interface CheckoutItem {
@@ -45,12 +51,8 @@ export interface ProductCheckout {
     mainImage: string;
     stock: number;
     disabled: boolean
-}
-
-
-export interface ProductWithCheckouts {
-    product:   ProductCheckout;
-    checkouts: Checkout[];
+    platforms: Platform[]
+    cartItems: CartItemWithoutProduct[]
 }
 
 export interface ProductCheckoutItem {

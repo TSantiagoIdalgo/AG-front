@@ -1,11 +1,10 @@
-import { Checkout, ProductWithCheckouts } from '#src/common/interfaces/checkout.interface.ts';
+import { CartItemWithoutProduct } from '#src/common/interfaces/checkout.interface.ts';
 import { parsePrice } from '#src/common/parse-price.ts';
 import React, { useMemo } from 'react';
 import Style from './total-profit.module.css';
 
 interface ITotalProfit {
-  data: ProductWithCheckouts;
-  value: Checkout[]
+  value: CartItemWithoutProduct[]
 }
 
 const TotalProfit = (props: ITotalProfit): React.JSX.Element => {
