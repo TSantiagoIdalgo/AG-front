@@ -4,6 +4,7 @@ import {enableMapSet} from 'immer';
 import fetchQueueSlice, {IFetchQueue} from './reducers/fetch-queue-slice';
 import userReducer from './reducers/user-slice';
 import cartReducer, { ICartSlice } from './reducers/cart-slice';
+import websocketSlice, { IWebsocketSlice } from './reducers/websocket-slice';
 
 export interface IState {
   user: {
@@ -11,7 +12,8 @@ export interface IState {
     loading: boolean;
   },
   fetchQueue: IFetchQueue,
-  userCart: ICartSlice
+  userCart: ICartSlice,
+  websocket: IWebsocketSlice
 }
 
 enableMapSet();
@@ -20,6 +22,7 @@ export const store = configureStore({
   reducer: {
     fetchQueue: fetchQueueSlice,
     user: userReducer,
-    userCart: cartReducer
+    userCart: cartReducer,
+    websocket: websocketSlice
   }
 });

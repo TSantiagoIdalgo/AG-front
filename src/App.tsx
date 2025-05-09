@@ -13,7 +13,7 @@ import ProductDetailIndex from '#modules/product-detail/product-detail-index.tsx
 import UserIndex from '#modules/user/user-index.tsx';
 import Verify from '#modules/verify/verify.tsx';
 import { IState } from '#src/state/store.ts';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { User } from './common/interfaces/review.interface';
@@ -22,6 +22,10 @@ import { useFetchData } from './hooks/use-fetch-data';
 import LandingIndex from './modules/landing/landing-index';
 import CreateProduct from './state/create-product';
 import { getUser } from './state/reducers/user-slice';
+import { EventReceived, EventTypes } from './common/interfaces/event-types';
+import { ProductCheckout } from './common/interfaces/checkout.interface';
+import { Cart } from '#modules/cart/interfaces/cart.interface.ts';
+import { setNewPayment, setNewPaymentReceived } from './state/reducers/websocket-slice';
 
 export default function App(): React.JSX.Element {
   const { loading, data } = useFetchData<User>(USER_ENDPOINT.GET.findById());
@@ -31,7 +35,27 @@ export default function App(): React.JSX.Element {
   React.useEffect(() => {
     dispatch(getUser(data?.body.data));
   }, [data]);
+  useEffect(() => {
+    const socket = new WebSocket('ws://localhost:8080/ws');
 
+    const handlers: Record<string, (message: unknown) => void> = {
+      [EventTypes.NEW_PAYMENT_RECEIVED]: (message) => {
+        const newPayment = message as ProductCheckout;
+        dispatch(setNewPaymentReceived(newPayment));
+      },
+      [EventTypes.PAYMENT]: (message) => {
+        const payment = message as Cart;
+        dispatch(setNewPayment(payment));
+      }
+    };
+
+    socket.onmessage = (event: MessageEvent) => {
+      const message = JSON.parse(event.data) as EventReceived<unknown>;
+      const handler = handlers[message.type];
+      handler?.(message.data);
+    };
+    return () => socket.close();
+  }, []);
   if (loading) return <p></p>;
   
   return (

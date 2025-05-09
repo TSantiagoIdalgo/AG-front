@@ -11,13 +11,6 @@ ModuleRegistry.registerModules([
   AllCommunityModule,
 ]);
 
-export const eventSource = new EventSource(
-  'http://localhost:8080/api/checkout/sse',
-  {
-    withCredentials: true
-  }
-);
-
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

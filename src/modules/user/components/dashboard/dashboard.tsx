@@ -1,21 +1,22 @@
+/* eslint-disable max-statements */
 import React, { useEffect, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { ColDef, ColGroupDef } from 'node_modules/ag-grid-community/dist/types/src/entities/colDef';
 import { useFetchData } from '#src/hooks/use-fetch-data.tsx';
-import { CheckoutProduct, ProductCheckout } from '#src/common/interfaces/checkout.interface.ts';
+import { ProductCheckout } from '#src/common/interfaces/checkout.interface.ts';
 import { CHECKOUT_ENDPOINT } from '#src/config/endpoints.ts';
 import ChartCellRenderer from './cell-render/cell-render';
 import ImageCellRenderer from './image-cell-render/image-cell-render';
 import BooleanCellRender from './boolean-cell-render/boolean-cell-render';
 import TotalProfit from './total-profit/total-profit';
 import LastPayment from './last-payment-cell/last-payment-cell';
-import { eventSource } from '#src/main.tsx';
-import { EventTypes } from '#src/common/interfaces/event-types.ts';
+import { useSelector } from 'react-redux';
+import { IState } from '#src/state/store.ts';
 
 const Dashboard = (): React.JSX.Element => { 
   const [checkouts, setCheckouts] = useState<ProductCheckout[]>([]);
-  const [newPayment, setNewPayment] = useState<CheckoutProduct>();
+  const { newPaymentReceived } = useSelector((state: IState) => state.websocket);
   const { data, loading } = useFetchData<ProductCheckout[]>(CHECKOUT_ENDPOINT.GET.getProductCheckouts(), {
     query: { pageNumber: 0, pageSize: 100 }
   });
@@ -30,24 +31,34 @@ const Dashboard = (): React.JSX.Element => {
     { cellRenderer: TotalProfit, field: 'cartItems', headerClass: 'Total profit', headerName: 'Total profit' }
   ];
 
+
   useEffect(() => {
-    const paymentEntry = (event: MessageEvent<string>) => {
-      setNewPayment(JSON.parse(event.data));
-      
-    };
+    if (newPaymentReceived) {
+      if (checkouts.some(checkout => checkout.id === newPaymentReceived.id)) {
+        const notFound = -1;
+        const checkoutClone = structuredClone(checkouts);
+        const checkoutIndex = checkoutClone.findIndex(checkout => checkout.id === newPaymentReceived.id);
+        if (checkoutIndex !== notFound) {
+          const mergedItems = checkoutClone[checkoutIndex].cartItems.concat(newPaymentReceived.cartItems);
+          const sortedItems = mergedItems.sort((itemA, itemB) => {
+            const dateItemA = new Date(itemA.paidAt);
+            const dateItemB = new Date(itemB.paidAt);
+            return dateItemA.getTime() - dateItemB.getTime();
+          });
 
-    eventSource.addEventListener(EventTypes.NEW_PAYMENT_RECEIVED, paymentEntry);
-
-    return () => {
-      eventSource.removeEventListener(EventTypes.NEW_PAYMENT_RECEIVED, paymentEntry);
-    };
-  }, []);
-
-
+          checkoutClone[checkoutIndex].cartItems = sortedItems;
+          setCheckouts(checkoutClone);
+        }
+      } else {
+        setCheckouts(prev => [...prev, newPaymentReceived]);
+      }
+    }
+  }, [newPaymentReceived]);
 
   useEffect(() => {
     if (data?.body.data) setCheckouts(data.body.data);
   }, [data?.body]);
+  
 
   if (!data?.body || loading) return <p>Loading...</p>;
   return (

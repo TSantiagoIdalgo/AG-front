@@ -3,21 +3,16 @@ import * as libs from '#modules/cart/libs/cart-libs.ts';
 import UUIDBase64 from '#src/common/uuid-base64.ts';
 import React from 'react';
 import Style from './cart-main-products-pay.module.css';
-import { eventSource } from '#src/main.tsx';
-import { EventTypes } from '#src/common/interfaces/event-types.ts';
+import { useSelector } from 'react-redux';
+import { IState } from '#src/state/store.ts';
 
 const CartMainProductsPay = (): React.JSX.Element => {
   const [cart, setCart] = libs.useState<Cart>();
-  libs.useEffect(() => {
-    const paymentEntry = (event: MessageEvent<string>) => {
-      setCart(JSON.parse(event.data));
-    };
-    eventSource.addEventListener(EventTypes.PAYMENT, paymentEntry);
+  const { newPayment } = useSelector((state: IState) => state.websocket);
 
-    return () => {
-      eventSource.removeEventListener(EventTypes.PAYMENT, paymentEntry);
-    };
-  }, []);
+  libs.useEffect(() => {
+    if (newPayment) setCart(newPayment);
+  },[newPayment]);
 
   return (
     <div className={Style.cart_activation}>
@@ -28,29 +23,31 @@ const CartMainProductsPay = (): React.JSX.Element => {
           cart.items.map((item) => {
             const base64 = new UUIDBase64(item.product.id);
             const firstPlatform = 0;
-            const id = crypto.randomUUID();
-            return (
-              <figure key={item.id} className={Style.cart_item}>
-                <div className={Style.item_container}>
-                  <div className={Style.cart_item_flex}>
-                    <a href={`/ancore/${base64.uuidToBase64()}`}>
-                      <img
-                        src={item.product.mainImage}
-                        alt={item.product.name}
-                      />
-                    </a>
-                    <div className={Style.information}>
-                      <span className={Style.title}>{item.product.name}</span>
-                      <div className={Style.type}>
-                        {item.product.platforms[firstPlatform].name}
+            const quantity = Array.from({ length: item.quantity }, (_unknown, index) => index);
+            return quantity.map((index) => {
+              const id = crypto.randomUUID();
+              return (
+                <figure key={`${index}-${item.id}}`} className={Style.cart_item}>
+                  <div className={Style.item_container}>
+                    <div className={Style.cart_item_flex}>
+                      <a href={`/ancore/${base64.uuidToBase64()}`}>
+                        <img
+                          src={item.product.mainImage}
+                          alt={item.product.name}
+                        />
+                      </a>
+                      <div className={Style.information}>
+                        <span className={Style.title}>{item.product.name}</span>
+                        <div className={Style.type}>
+                          {item.product.platforms[firstPlatform].name}
+                        </div>
                       </div>
                     </div>
+                    <div className={Style.code}>Activation code: {id}</div>
                   </div>
-
-                  <div className={Style.code}>Activation code: {id}</div>
-                </div>
-              </figure>
-            );
+                </figure>
+              );
+            });
           })
         ) : (
           <p>LOADING...</p>
