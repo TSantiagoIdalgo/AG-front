@@ -22,19 +22,20 @@ export const useDashboardData = () => {
     const checkoutIndex = checkoutClone.findIndex(checkout => checkout.id === paymentId);
     if (checkoutIndex !== notFound) {
       const mergedItems = checkoutClone[checkoutIndex].cartItems.concat(cartItems);
+      
       const sortedItems = mergedItems.sort((itemA, itemB) => {
         const dateItemA = new Date(itemA.paidAt);
         const dateItemB = new Date(itemB.paidAt);
         return dateItemA.getTime() - dateItemB.getTime();
       });
-
       checkoutClone[checkoutIndex].cartItems = sortedItems;
-      setProductCheckouts(productCheckouts);
+      setProductCheckouts(checkoutClone);
     }
   };
-
   useEffect(() => {
+
     if (newPaymentReceived) {
+
       if (productCheckouts.some(checkout => checkout.id === newPaymentReceived.id)) {
         updateCheckoutInfo(newPaymentReceived.id, newPaymentReceived.cartItems);
       } else {

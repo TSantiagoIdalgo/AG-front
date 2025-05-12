@@ -1,6 +1,6 @@
 import {Product} from '#src/common/interfaces/product.interface.ts';
 
-export type PaymentStatus = 'created' | 'paid' | 'unpaid' | 'canceled'
+export type PaymentStatus = 'paid' | 'unpaid' | 'canceled'
 
 export interface CartItem {
   id: string;

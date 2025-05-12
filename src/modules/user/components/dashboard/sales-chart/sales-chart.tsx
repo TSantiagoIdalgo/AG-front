@@ -39,7 +39,7 @@ export const SalesChart: React.FC<SalesChartProps> = ({ checkouts }): React.JSX.
           <YAxis />
           <Tooltip content={<DashboardTooltip/>}/>
           <Legend />
-          <Line type="monotone" dataKey="Sales" stroke="#ff5400"/>
+          <Line type="monotone" dataKey="Total profit" stroke="#ff5400"/>
         </LineChart>
       </ResponsiveContainer>
     </article>

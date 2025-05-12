@@ -14,13 +14,12 @@ const ChartCellRenderer: React.FC<IChartCellCheckout> = ({ value }): React.JSX.E
     case 'paid': return '#8884d8';
     case 'unpaid': return '#fef08a';
     case 'canceled': return '#b91c1c';
-    case 'created': return '#48e';
     default: return '#8884d8';
     }
   };
   
   return (
-    <BarChart width={200} height={60} data={value}>
+    <BarChart width={150} height={60} data={value}>
       <Tooltip content={<CustomTooltip/>}/>
       <Bar dataKey="total" >
         {value.map(checkout => {

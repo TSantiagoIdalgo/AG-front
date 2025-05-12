@@ -4,9 +4,10 @@ import { months } from '../components/dashboard/sales-chart/sales-chart';
 
 export const useCalculateDashboardData = (checkouts: Checkout[]) => {
   const groupedData = useMemo(() => {
+    const checkoutFiltered = checkouts.filter(checkout => checkout.checkoutItems.every(item => item.cartItem.itemIsPaid));
     const currentMonthIndex = new Date().getMonth();
     const fixedPrice = 2, initValue = 0, percentage = 100, prevCheckout = 1, prevMonth = 1;
-    const grouped = Object.groupBy(checkouts, ({ createdAt }) =>
+    const grouped = Object.groupBy(checkoutFiltered, ({ createdAt }) =>
       months[new Date(createdAt).getMonth()]
     );
 
@@ -29,7 +30,7 @@ export const useCalculateDashboardData = (checkouts: Checkout[]) => {
       previousMonth: grouped[previousMonth]?.reduce((acc, checkout) => acc + checkout.total, initValue) ?? initValue
     };
 
-    const itemsGrouped = Object.entries(completeGrouped).map(([month, sales], index, arr) => { 
+    const itemsGrouped = Object.entries(completeGrouped).map(([month, sales], index, arr) => {
       const currentSales = sales.length;
       const currentProfit = sales.reduce((sum, sale) => sum + sale.total, initValue);
 
@@ -37,24 +38,24 @@ export const useCalculateDashboardData = (checkouts: Checkout[]) => {
       const previousSales = previous ? previous[prevCheckout].length : initValue;
       const previousProfit = previous ? previous[prevCheckout].reduce((sum, sale) => sum + sale.total, initValue) : initValue;
 
-      const salesDifference = currentSales - previousSales;
-      const growthRate = previousSales > initValue
-        ? ((salesDifference) / previousSales) * percentage
-        : initValue;
+      const profitDifference = currentProfit - previousProfit;
 
-      const profitDifference = previousProfit > initValue
+      const growthRate = previousProfit > initValue
         ? ((currentProfit - previousProfit) / previousProfit) * percentage
         : initValue;
-        
+
       return {
         'Growth rate': Number(growthRate.toFixed(fixedPrice)),
+        'Profit diff': profitDifference,
         Sales: currentSales,
-        'Sales diff': salesDifference,
+        'Sales diff': (currentProfit - previousProfit),
+        'Sales quantity diff': currentSales - previousSales,
         'Total profit': currentProfit,
         month,
-        salesPriceDiff: Number(profitDifference.toFixed(fixedPrice)),
+
       };
     });
+
 
 
     return { itemsGrouped, monthSales };

@@ -19,7 +19,7 @@ const ProductSales: React.FC<ProductSalesProps> = ({ productCheckouts, loading }
   const columnDefs: (ColDef<ProductCheckout> | ColGroupDef<ProductCheckout>)[] = [
     { cellRenderer: ImageCellRenderer, field: 'mainImage', headerName: '', width: 80},
     { field: 'name', flex: 1, headerName: 'Producto'},
-    { cellRenderer: ChartCellRenderer, field: 'cartItems', headerName: 'Ventas (Ultimos 6 meses)',},
+    { cellRenderer: ChartCellRenderer, field: 'cartItems', headerName: 'Ventas (Ultimos 6 meses)', maxWidth: 200},
     { cellRenderer: BooleanCellRender, field: 'stock', headerName: 'En stock', maxWidth: 100, suppressAutoSize: true },
     { cellRenderer: BooleanCellRender, field: 'disabled', headerName: 'Deshabilitado', maxWidth: 125, suppressAutoSize: true, type: 'boolean' },
     { cellRenderer: LastPayment, field: 'cartItems', headerName: 'Ultimo pago', maxWidth: 125, suppressAutoSize: true },

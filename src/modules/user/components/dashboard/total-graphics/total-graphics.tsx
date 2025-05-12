@@ -13,9 +13,10 @@ interface TotalGraphicsProps {
 
 const TotalGraphics: React.FC<TotalGraphicsProps> = ({ checkouts }): React.JSX.Element => {
   const groupedData = useCalculateDashboardData(checkouts);
-  const previousMotnhData = groupedData.itemsGrouped[new Date().getMonth() - 1];
+  const previousMonthData = groupedData.itemsGrouped[new Date().getMonth() - 1];
   const currentMonthData = groupedData.itemsGrouped[new Date().getMonth()];
   if (!checkouts.length) return <p>loading...</p>;
+
   return (
     <article className={Style.container}>
       <div className={Style.users}>
@@ -25,7 +26,7 @@ const TotalGraphics: React.FC<TotalGraphicsProps> = ({ checkouts }): React.JSX.E
         <h2>Ventas</h2>
         <span>{currentMonthData.Sales}</span>
         <br />
-        <span>{currentMonthData['Sales diff']}</span>
+        <span>{currentMonthData['Sales quantity diff']}</span>
         <br />
         <span>Desde el mes pasado</span>
       </div>
@@ -33,7 +34,7 @@ const TotalGraphics: React.FC<TotalGraphicsProps> = ({ checkouts }): React.JSX.E
         <h2>Ganancias</h2>
         <span>{parsePrice(currentMonthData['Total profit'])}</span>
         <br />
-        <span>{currentMonthData.salesPriceDiff}</span>
+        <span>{parsePrice(currentMonthData['Sales diff'])}</span>
         <br />
         <span>Desde el mes pasado</span>
       </div>
@@ -41,9 +42,9 @@ const TotalGraphics: React.FC<TotalGraphicsProps> = ({ checkouts }): React.JSX.E
         <h2>Crecimiento</h2>
         <span>{currentMonthData['Growth rate']}%</span>
         <br />
-        <span>{currentMonthData['Growth rate'] - previousMotnhData['Growth rate']}%</span>
+        <span>{(currentMonthData['Growth rate'] - previousMonthData['Growth rate']).toFixed(2)}%</span>
         <br />
-        <span>Desde el mes pasado</span>
+        <span>Tasa de crecimiento desde el mes pasado</span>
       </div>
     </article>
   );
