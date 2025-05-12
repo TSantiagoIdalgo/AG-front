@@ -1,41 +1,20 @@
+import ProductSales from './product-sales/product-sales';
 import React from 'react';
-import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { ColDef, ColGroupDef } from 'node_modules/ag-grid-community/dist/types/src/entities/colDef';
-import { ProductCheckout } from '#src/common/interfaces/checkout.interface.ts';
-import ChartCellRenderer from './cell-render/cell-render';
-import ImageCellRenderer from './image-cell-render/image-cell-render';
-import BooleanCellRender from './boolean-cell-render/boolean-cell-render';
-import TotalProfit from './total-profit/total-profit';
-import LastPayment from './last-payment-cell/last-payment-cell';
+import Style from './dashboard.module.css';
 import { useDashboardData } from '#modules/user/hooks/useDashboardData.ts';
+import { SalesChart } from './sales-chart/sales-chart';
+import TotalGraphics from './total-graphics/total-graphics';
 
-const Dashboard = (): React.JSX.Element => { 
-  const { checkouts, loading } = useDashboardData();
-  const columnDefs: (ColDef<ProductCheckout> | ColGroupDef<ProductCheckout>)[] = [
-    { cellRenderer: ImageCellRenderer, field: 'mainImage', headerName: '', width: 80},
-    { field: 'name', flex: 1, headerName: 'Product'},
-    { cellRenderer: ChartCellRenderer, field: 'cartItems', flex: 1, headerName: 'Sales (last 6 months)'},
-    { cellRenderer: BooleanCellRender, field: 'stock', headerName: 'In stock', maxWidth: 100, suppressAutoSize: true },
-    { cellRenderer: BooleanCellRender, field: 'disabled', headerName: 'Is disabled', maxWidth: 105, suppressAutoSize: true, type: 'boolean' },
-    { cellRenderer: LastPayment, field: 'cartItems', headerName: 'Last Payment' },
-    { cellRenderer: TotalProfit, field: 'cartItems', headerClass: 'Total profit', headerName: 'Total profit' }
-  ];
-
-  if (!checkouts.length || loading) return <p>Loading...</p>;
+export default function Dashboard(): React.JSX.Element {
+  const { productCheckouts, loading, checkouts} = useDashboardData();
+  if (!checkouts.length || !productCheckouts.length) return <p>Loading...</p>;
   return (
-    <div className="ag-theme-alpine" style={{ marginTop: '60px', width: '100%' }}>
-      <AgGridReact
-        rowData={checkouts}
-        columnDefs={columnDefs}
-        rowHeight={60}
-        domLayout="autoHeight"  
-        defaultColDef={{
-          cellClass: 'ag-center-cols-cell'
-        }}
-      />
-    </div>
+    <main className={Style.container}>
+      <section className={Style.sales_charts}>
+        <TotalGraphics checkouts={checkouts} loading={loading} productCheckouts={productCheckouts}/>
+        <SalesChart checkouts={checkouts} loading={loading}/>
+      </section>
+      <ProductSales productCheckouts={productCheckouts} loading={loading}/>
+    </main>
   );
-};
-
-export default Dashboard;
+}

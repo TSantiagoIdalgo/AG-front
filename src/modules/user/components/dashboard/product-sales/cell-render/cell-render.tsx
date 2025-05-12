@@ -20,7 +20,7 @@ const ChartCellRenderer: React.FC<IChartCellCheckout> = ({ value }): React.JSX.E
   };
   
   return (
-    <BarChart width={150} height={60} data={value}>
+    <BarChart width={200} height={60} data={value}>
       <Tooltip content={<CustomTooltip/>}/>
       <Bar dataKey="total" >
         {value.map(checkout => {

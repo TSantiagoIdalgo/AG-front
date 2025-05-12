@@ -37,7 +37,7 @@ const navbarModal: React.FC<INavbarModalProps> = ({handleModal}): React.JSX.Elem
       <div ref={containerRef} className={Style.navbar_modal_content}>
         <div className={Style.navbar_modal_content_data}>
           <div className={Style.navbar_modal_info}>
-            <span className={Style.text}>Panel de control</span>
+            <span className={Style.text} onClick={() => onNavigate('dashboard')}>Panel de control</span>
             <span className={Style.text} onClick={() => onNavigate('my-orders')}>Mis pedidos</span>
             <span className={Style.text} onClick={() => onNavigate('wishlist')}>Wishlist</span>
             <span className={Style.text} onClick={() => onNavigate('my-reviews')}>Mis reviews</span>

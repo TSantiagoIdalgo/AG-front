@@ -1,0 +1,62 @@
+.sales { 
+    background-color: #fff; 
+    padding: 30px;
+    width: 50%;
+    border-radius: 12px;
+    h2 {
+        font-weight: 100;
+        color: #1d1d1d;
+        margin-left: 5%;
+    }
+
+    .sales_months {
+        display: flex;
+        margin-left: 10%;
+        margin-top: 10px;
+        gap: 20%;
+        padding: 10px;
+
+        .previous_sales,
+        .current_sales {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .current_sales_month_title,
+        .previous_sales_month_title {
+            color: var(--color-light);
+        }
+
+        .previous_sales_month,
+        .current_sales_month {
+            font-size: 2rem;
+            position: relative;
+            padding-left: 22px;
+            font-weight: 100;
+        }
+        .current_sales_month::before {
+            content: '';
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background-color: red;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .previous_sales_month::before {
+            content: '';
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background-color: var(--color-very-light);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+    }
+}
