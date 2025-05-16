@@ -65,8 +65,9 @@
     bottom: 2px;
     color: #fff;
     display: flex;
-    font-size: 21px;
+    font-size: 1.8rem;
     height: 56px;
+    font-weight: 100;
     left: calc(50% - 28px);
     padding: 0;
     position: absolute;
@@ -84,10 +85,4 @@
 
 .plus:hover {
     background-color: var(--color-medium-dark);
-}
-
-.plus::after {
-    content: "+";
-    position: relative;
-    top: -2px;
 }

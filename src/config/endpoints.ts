@@ -35,9 +35,10 @@ export const USER_ENDPOINT = {
     remove: (userId: string) => `user/${userId}`
   },
   GET: {
+    countClients: () => 'user/count',
     findById: (userId?: string) => `user/find/${userId}`,
     // Utiliza una query ?token=${value} para verificar a un usuario
-    verifyUser: () => 'user/verify'
+    verifyUser: () => 'user/verify',
   },
   PATCH: {
     update: (userId: string) => `user/${userId}`

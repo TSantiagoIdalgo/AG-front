@@ -1,5 +1,5 @@
 import * as LandingComponents from './components/landing-components';
-import React from "react";
+import React from 'react';
 
 
 const Spacer = () => <div style={{backgroundColor: 'var(--color-dark)', height: '60px', width: '100%'}}/>;
@@ -7,9 +7,9 @@ export default function LandingIndex (): React.JSX.Element {
   return (
     <div>
       <main style={{width: '100%'}}>
-        <LandingComponents.ComponentCarrousel orderbyWishList/>
+        <LandingComponents.ComponentCarrousel orderByWishList/>
         <LandingComponents.RenderSections tittle='Tendencias' filter={{ 
-          orderbyWishList: true, 
+          orderByWishList: true, 
           pageNumber: 0,
           pageSize: 9 
         }}/>

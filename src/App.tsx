@@ -66,8 +66,8 @@ export default function App(): React.JSX.Element {
         <Route path="/" element={<LandingIndex />} />
         <Route path="/:id" element={<ProductDetailIndex />} />
         <Route path="/catalogue" element={<CatalogueIndex />} />
+        <Route path="/create/product" element={<CreateProduct />} />
         <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
-          <Route path="/create/product" element={<CreateProduct />} />
         </Route>
         {!user && (
           <>

@@ -1,18 +1,21 @@
-import Button from "#modules/core/components/button/button.tsx";
-import Input from "#modules/core/components/input/input.tsx";
-import {User} from "#src/common/interfaces/review.interface.ts";
-import {loginSchema, signInSchema} from "#src/common/interfaces/user.interface.ts";
-import {USER_ENDPOINT} from "#src/config/endpoints.ts";
-import {useMutation} from "#src/hooks/use-mutation-data.ts";
-import {zodResolver} from "@hookform/resolvers/zod";
+import Button from '#modules/core/components/button/button.tsx';
+import Input from '#modules/core/components/input/input.tsx';
+import {User} from '#src/common/interfaces/review.interface.ts';
+import {loginSchema, signInSchema} from '#src/common/interfaces/user.interface.ts';
+import {USER_ENDPOINT} from '#src/config/endpoints.ts';
+import {useMutation} from '#src/hooks/use-mutation-data.ts';
+import {zodResolver} from '@hookform/resolvers/zod';
 import React from 'react';
-import {useForm} from "react-hook-form";
-import {Link} from "react-router-dom";
+import {useForm} from 'react-hook-form';
+import {Link} from 'react-router-dom';
 import Style from './auth-login.module.css';
+import { useDispatch } from 'react-redux';
+import { getUser } from '#src/state/reducers/user-slice.ts';
 
 
 export default function AuthLogin(): React.JSX.Element {
-  const {callMutation} = useMutation<User>(USER_ENDPOINT.POST.login(), {method: "POST"});
+  const dispatch = useDispatch();
+  const {callMutation} = useMutation<User>(USER_ENDPOINT.POST.login(), {method: 'POST'});
   const {register, handleSubmit, formState: {errors}, setError} = useForm<signInSchema>({
     resolver: zodResolver(loginSchema)
   });
@@ -21,9 +24,15 @@ export default function AuthLogin(): React.JSX.Element {
     try {
       const responseBody = await callMutation({body: data});
       if (responseBody.body.error) return setError('password', {message: responseBody.body.error.message});
-      else if (responseBody.body.data) window.location.href = "/";
+      else if (responseBody.body.data) {
+        const onRedirectTime = 150;
+        dispatch(getUser(responseBody.body.data));
+        setTimeout(() => {
+          window.location.href = '/';
+        }, onRedirectTime);
+      }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "INTERNAL_ERROR";
+      const errorMessage = error instanceof Error ? error.message : 'INTERNAL_ERROR';
       setError('password', {message: errorMessage});
     }
 
@@ -48,10 +57,10 @@ export default function AuthLogin(): React.JSX.Element {
           style={{width: '430px'}}/>
         <Button type='submit' text='Login' style={{width: '100%'}}/>
         <div className={Style.buttons}>
-          <Link to={"/register"}>
+          <Link to={'/register'}>
             <span>¿No tienes una cuenta?</span>
           </Link>
-          <Link to={"/forgot-password"}>
+          <Link to={'/forgot-password'}>
             <span>¿Has olvidado la contraseña?</span>
           </Link>
         </div>

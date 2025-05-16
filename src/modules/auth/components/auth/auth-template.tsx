@@ -16,7 +16,7 @@ const AuthTemplate: React.FC<IAuthTemplate> = ({children}) => (
       {children}
     </section>
     <section className={Style.container_sections}>
-      <Link to={"/"}>
+      <Link to={'/'}>
         <div className={Style.close}>X</div>
       </Link>
       <div className={Style.wallpaper}></div>

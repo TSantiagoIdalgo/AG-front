@@ -5,7 +5,7 @@ import Style from './configuration-detail.module.css';
 type TConfigurationDetail = Pick<Product, 'requirements'>
 
 export default function ConfigurationDetail ({ requirements }: TConfigurationDetail): React.JSX.Element {
-
+  if (!requirements.length) return <p></p>;
   return (
     <section className={Style.requirements_container}>
       <div className={Style.headline}>

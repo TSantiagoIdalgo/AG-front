@@ -1,8 +1,8 @@
 import {useGetBanners} from '#modules/landing/hooks/use-get-banners.ts';
 import {GetAllProductsProps} from '#modules/landing/interfaces/landing.js';
-import UUIDBase64 from "#src/common/uuid-base64.ts";
+import UUIDBase64 from '#src/common/uuid-base64.ts';
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 import Style from './component-carrousel.module.css';
 
 export default function ComponentCarrousel(orderBy: Partial<GetAllProductsProps>): React.JSX.Element {

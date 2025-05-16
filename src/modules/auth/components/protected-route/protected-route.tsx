@@ -1,6 +1,6 @@
 import {IState} from '#src/state/store.ts';
-import React from "react";
-import {Navigate, Outlet} from "react-router-dom";
+import React from 'react';
+import {Navigate, Outlet} from 'react-router-dom';
 import * as libs from '../../libs/auth-libs';
 
 interface ProtectedRouteProps {

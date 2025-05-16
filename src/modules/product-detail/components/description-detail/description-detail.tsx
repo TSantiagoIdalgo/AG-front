@@ -33,13 +33,15 @@ export default function DescriptionDetail({ description }: TDescriptionDetail): 
     });
   };
   return (
-    <section id='description' className={showDescription ? Style.description_container_show : Style.description_container} onClick={() => handleShowDescription(!showDescription)}>
+    <section id='description' className={showDescription ? Style.description_container_show : Style.description_container}>
       <div className={Style.headline}>
         <h2>Descripcion</h2>
       </div>
       <span className={Style.readable}>
         {processTextWithLines(description)}
-        {!showDescription && <div className={Style.plus}></div>}
+        <div className={Style.plus} onClick={() => handleShowDescription(!showDescription)}>
+          {showDescription ? '-' : '+'}
+        </div>
       </span>
     </section>
   );

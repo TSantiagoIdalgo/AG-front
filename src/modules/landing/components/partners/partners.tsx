@@ -12,22 +12,20 @@ export default function Partners (): React.JSX.Element {
   const { loading, data } = useFetchData<CountResponse>(REVIEW_ENDPOINT.GET.count());
   
   return (
-    <div>
+    <div className={Style.partners}>
       <section className={Style.container}>
         <figure className={Style.content}>
           <picture>
-            <img src="https://www.instant-gaming.com/themes/igv2/modules/streamerBanner/images/partners-avatar2-es.png" loading='lazy' alt="avatar" />
+            <img src="https://www.instant-gaming.com/themes/igv2/modules/feedbackBox/images/partners-avatar2-es.png" loading='lazy' alt="avatar" />
           </picture>
         </figure>
         <div className={Style.text}>
-          <img src="https://www.instant-gaming.com/themes/igv2/modules/streamerBanner/images/stars-rating2.svg" alt="stars" />
+          <img src="https://www.instant-gaming.com/themes/igv2/modules/feedbackBox/images/stars-rating2.svg" alt="stars" />
           <div className={Style.commnent}>
             <b className={Style.comment_b}>Instant Gaming es una plataforma increíble para comprar tus juegos de PC, PlayStation, Xbox y Switch más baratos. ¡Con entrega inmediata 24/7, juega al instante al precio más bajo!</b>
-            <br />
-            <br />
           </div>
           <a href="#" title='Comentarios de usuarios' className={Style.button}>
-            <span>{ loading || data ? data?.body.data?.count : "..." }</span>
+            <span>{ loading || data ? data?.body.data?.count : '...' }</span>
             <span>reseñas de usuarios</span>
           </a>
         </div>
