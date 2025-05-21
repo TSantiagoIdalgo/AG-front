@@ -8,7 +8,7 @@ import { store } from './state/store.ts';
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 
 ModuleRegistry.registerModules([
-  AllCommunityModule,
+  AllCommunityModule
 ]);
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

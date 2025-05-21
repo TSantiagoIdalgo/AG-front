@@ -10,7 +10,6 @@ interface LastPaymentProps {
 const LastPayment = (props: LastPaymentProps): React.JSX.Element => {
   const firstCheckout = 1, lastCheckout = props.value.length - firstCheckout;
   const checkout = props.value[lastCheckout];
-  console.log(checkout);
   return (
     <div className={Style.last_payment} id={Style[checkout.paymentStatus]}>
       {parsePrice(checkout.total)}

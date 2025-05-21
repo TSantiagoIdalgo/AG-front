@@ -21,7 +21,6 @@ const ProductSales: React.FC<ProductSalesProps> = ({ productCheckouts, loading }
     { field: 'name', flex: 1, headerName: 'Producto'},
     { cellRenderer: ChartCellRenderer, field: 'cartItems', headerName: 'Ventas (Ultimos 6 meses)', maxWidth: 200},
     { cellRenderer: BooleanCellRender, field: 'stock', headerName: 'En stock', maxWidth: 100, suppressAutoSize: true },
-    { cellRenderer: BooleanCellRender, field: 'disabled', headerName: 'Deshabilitado', maxWidth: 125, suppressAutoSize: true, type: 'boolean' },
     { cellRenderer: LastPayment, field: 'cartItems', headerName: 'Ultimo pago', maxWidth: 125, suppressAutoSize: true },
     { cellRenderer: TotalProfit, field: 'cartItems', headerClass: 'Total profit', headerName: 'Ganancia total', maxWidth: 125, suppressAutoSize: true  }
   ];

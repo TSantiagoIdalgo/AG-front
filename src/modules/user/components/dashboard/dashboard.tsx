@@ -4,9 +4,10 @@ import Style from './dashboard.module.css';
 import { useDashboardData } from '#modules/user/hooks/useDashboardData.ts';
 import { SalesChart } from './sales-chart/sales-chart';
 import TotalGraphics from './total-graphics/total-graphics';
+import ProductsTable from './products-table/products-table';
 
 export default function Dashboard(): React.JSX.Element {
-  const { productCheckouts, loading, checkouts} = useDashboardData();
+  const { productCheckouts, loading, checkouts, pageableProducts} = useDashboardData();
   if (!checkouts.length || !productCheckouts.length) return <p>Loading...</p>;
   return (
     <main className={Style.container}>
@@ -15,6 +16,7 @@ export default function Dashboard(): React.JSX.Element {
         <SalesChart checkouts={checkouts} loading={loading}/>
       </section>
       <ProductSales productCheckouts={productCheckouts} loading={loading}/>
+      <ProductsTable products={pageableProducts}/>
     </main>
   );
 }

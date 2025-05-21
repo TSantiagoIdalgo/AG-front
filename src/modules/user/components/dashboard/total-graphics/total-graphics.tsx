@@ -24,71 +24,80 @@ const TotalGraphics: React.FC<TotalGraphicsProps> = ({ checkouts }): React.JSX.E
   const currentMonthData = groupedData.itemsGrouped[new Date().getMonth()];
   if (!checkouts.length) return <p>loading...</p>;
 
+  const booleansProperties = {
+    growRate: (currentMonthData['Growth rate'] - previousMonthData['Growth rate']) > 0 ,
+    profit: currentMonthData['Sales diff'] > 0 ,
+    sales: currentMonthData['Sales quantity diff'] > 0,
+  };
+
   return (
     <article className={Style.container}>
       <div className={Style.users}>
         <div className={Style.content}>
           <h2 className={Style.title}>Clientes</h2>
-          <span>{data?.body.data}</span>
+          <span className={Style.data}>{data?.body.data}</span>
         </div>
       </div>
       <div className={Style.sales}>
         <div className={Style.content}>
           <h2 className={Style.title}>Ventas</h2>
-          <span>{currentMonthData.Sales}</span>
-          <span>{currentMonthData['Sales quantity diff'] > 0 ? (
-            <>
-              <ImArrowUp/>
-              {currentMonthData['Sales quantity diff']}
-            </>
-          ): (
-            <>
-              <ImArrowDown/>
-              {currentMonthData['Sales quantity diff']}
-            </>
-          )}
+          <span className={Style.data}>{currentMonthData.Sales}
+            <span className={booleansProperties.sales ? Style.active : Style.inactive}>{booleansProperties.sales ? (
+              <>
+                <ImArrowUp fontSize={15} style={{marginTop: '3px'}}/>
+                <span>{currentMonthData['Sales quantity diff']}</span>
+              </>
+            ): (
+              <>
+                <ImArrowUp fontSize={15} style={{marginTop: '3px'}}/>
+                <span>{currentMonthData['Sales quantity diff']}</span>
+              </>
+            )}
+            </span>
           </span>
-          <span>Desde el mes pasado</span>
+          <span className={Style.description}>Desde el mes pasado</span>
         </div>
       </div>
       <div className={Style.earnings}>
         <div className={Style.content}>
           <h2 className={Style.title}>Ganancias</h2>
-          <span>{parsePrice(currentMonthData['Total profit'])}</span>
-          <span>{currentMonthData['Sales diff'] > 0 
-            ? (
-              <>
-                <ImArrowUp/>
-                <span>{parsePrice(currentMonthData['Sales diff'])}</span>
-              </>
-            )
-            : (
-              <>
-                <ImArrowDown/>
-                <span>{parsePrice(currentMonthData['Sales diff'])}</span>
-              </>
-            )}</span>
-          <span>Desde el mes pasado</span>
+          <span className={Style.data}>{parsePrice(currentMonthData['Total profit'])}
+            <span className={booleansProperties.profit ? Style.active_profit : Style.inactive_profit}>{booleansProperties.profit
+              ? (
+                <>
+                  <ImArrowUp fontSize={15} style={{marginTop: '3px'}}/>
+                  <span>{parsePrice(currentMonthData['Sales diff'])}</span>
+                </>
+              )
+              : (
+                <>
+                  <ImArrowDown fontSize={15} style={{marginTop: '3px'}}/>
+                  <span>{parsePrice(currentMonthData['Sales diff'])}</span>
+                </>
+              )}</span>
+          </span>
+          <span className={Style.description}>Desde el mes pasado</span>
         </div>
       </div>
       <div className={Style.growth}>
         <div className={Style.content}>
           <h2 className={Style.title}>Crecimiento</h2>
-          <span>{currentMonthData['Growth rate']}%</span>
-          <span>{(currentMonthData['Growth rate'] - previousMonthData['Growth rate']) > 0 
-            ? (
-              <>
-                <ImArrowUp/>
-                <span>{(currentMonthData['Growth rate'] - previousMonthData['Growth rate']).toFixed(2)}</span>
-              </>
-            )
-            : (
-              <>
-                <ImArrowDown/>
-                <span>{(currentMonthData['Growth rate'] - previousMonthData['Growth rate']).toFixed(2)}</span>
-              </>
-            )}</span>
-          <span>Tasa de crecimiento desde el mes pasado</span>
+          <span className={Style.data}>{currentMonthData['Growth rate']}%
+            <span className={booleansProperties.growRate ? Style.active_growrate : Style.inactive_growrate}>{(currentMonthData['Growth rate'] - previousMonthData['Growth rate']) > 0 
+              ? (
+                <>
+                  <ImArrowUp/>
+                  <span>{(currentMonthData['Growth rate'] - previousMonthData['Growth rate']).toFixed(2)}%</span>
+                </>
+              )
+              : (
+                <>
+                  <ImArrowDown/>
+                  <span>{(currentMonthData['Growth rate'] - previousMonthData['Growth rate']).toFixed(2)}%</span>
+                </>
+              )}</span>
+          </span>
+          <span className={Style.description}>Tasa de crecimiento desde el mes pasado</span>
         </div>
       </div>
     </article>

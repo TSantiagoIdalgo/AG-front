@@ -41,3 +41,58 @@
     color: #666;
     font-weight: 100;
 }
+
+.data {
+    font-size: 2rem;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: min-content;
+    position: relative;
+}
+
+.active_growrate,
+.inactive_growrate,
+.active_profit,
+.inactive_profit,
+.inactive,
+.active {
+    display: flex;
+    gap: 2px;
+    margin-left: 10px;
+    color: #35b65aad;
+    position: absolute;
+    top: 0;
+    right: -33px;
+    font-size: 20px;
+}
+
+.inactive {
+    color: #ff005dd8;
+}
+
+.description {
+    margin-left: 10px;
+    margin-top: 10px;
+    color: #666;
+}
+
+.inactive_profit,
+.active_profit {
+    top: -15px;
+    right: -33px;
+}
+
+.inactive_profit {
+
+    color: #ff005dd8;
+}
+
+.inactive_growrate {
+    top: -15px;
+    color: #ff005dd8;
+
+}
+
+.active_growrate {
+    top: -15px;
+}

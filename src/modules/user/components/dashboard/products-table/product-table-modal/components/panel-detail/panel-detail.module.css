@@ -1,0 +1,296 @@
+.content_panel {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.content_img {
+    border-radius: 10px;
+    max-width: 616px;
+    max-height: 353px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.content_info {
+    align-items: center;
+    backdrop-filter: blur(60px) saturate(100%);
+    -webkit-backdrop-filter: blur(60px) saturate(100%);
+    /* background-color: transparent; */
+    /* background-image: linear-gradient(1turn, var(--color-dark) 0, rgba(39, 39, 39, 0) 70%); */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 60px;
+    min-height: 353px;
+    padding: 20px 20px 0;
+    width: 100%;
+    z-index: 3;
+}
+
+.name {
+    font-size: 31px;
+    margin: 0;
+    text-align: center;
+    color: #fff;
+    font-weight: 100;
+}
+
+.subinfos {
+    align-items: center;
+    background-color: hsla(0, 0%, 6%, .3);
+    border-radius: 100px;
+    display: flex;
+    font-size: 13px;
+    justify-content: center;
+    margin: 10px;
+    min-height: 50px;
+    padding: 7px 20px;
+
+    a {
+        color: #fff;
+        cursor: pointer;
+    }
+
+    a:hover {
+        color: var(--color)
+    }
+}
+
+.spacer {
+    background-color: hsla(0, 0%, 100%, .15);
+    height: 20px;
+    margin: 0 10px;
+    width: 1px;
+}
+
+.instock {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+
+    img {
+        width: 15px;
+        height: 15px;
+        filter: brightness(0) saturate(100%) invert(87%) sepia(87%) saturate(556%) hue-rotate(36deg) brightness(86%) contrast(91%);
+    }
+
+    span {
+        color: #fff;
+        font-size: 14px;
+    }
+}
+
+.nostock {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+
+    img {
+        width: 15px;
+        height: 15px;
+        filter: brightness(0) saturate(100%) invert(19%) sepia(62%) saturate(7414%) hue-rotate(337deg) brightness(105%) contrast(106%);
+    }
+
+    span {
+        color: #fff;
+        font-size: 14px;
+    }
+}
+
+.select_platform {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+    z-index: 100;
+}
+
+.platfrom_select,
+.platform {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    width: 50%;
+    height: 52px;
+    outline: none;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: #ffffff0d;
+    color: #fff;
+    border: 1px solid #777;
+    cursor: pointer;
+    position: relative;
+
+    .selected {
+        width: 100%;
+        height: 100%;
+        margin-top: 15px;
+    }
+}
+
+.platfrom_select {
+    border-radius: 7px 7px 0 0;
+    border-color: var(--color);
+    background-color: #ff55001e;
+}
+
+.platform:hover {
+    border-color: var(--color);
+    background-color: #ff55001e;
+}
+
+.platform_options {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    color: #fff;
+    margin-left: 10px;
+    position: absolute;
+    top: 42px;
+    left: -10px;
+    width: 100%;
+    border: 1px solid var(--color);
+    border-radius: 0 0 7px 7px;
+
+    span {
+        width: 100%;
+        height: 40px;
+        padding: 12px;
+        background-color: var(--color-ultra-dark);
+        border-bottom: 1px solid #444;
+        font-weight: 100;
+    }
+
+    span:last-child {
+        border-bottom: none;
+        border-radius: 0 0 7px 7px;
+    }
+}
+
+.platform_options span:hover {
+    color: var(--color)
+}
+
+.selectedPlatform {
+    color: var(--color)
+}
+
+.amount {
+    display: flex;
+    margin: 10px;
+    gap: 15px;
+    align-items: baseline;
+}
+
+.amount_retail {
+    font-size: 19px;
+    text-decoration: line-through;
+    color: #fff;
+
+    img {
+        filter: brightness(0) saturate(100%) invert(96%) sepia(97%) saturate(0%) hue-rotate(33deg) brightness(105%) contrast(103%);
+        width: 15px;
+        height: 15px;
+        transform: rotate(45deg);
+        margin-left: 5px;
+        z-index: -1;
+    }
+
+    span {
+        margin-left: 5px;
+    }
+}
+
+.amount_discounted {
+    color: var(--color);
+    font-size: 19px;
+}
+
+.amount_total {
+    font-size: 40px;
+    padding-top: 10px;
+    color: #fff;
+}
+
+.buttons {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.buttons_favorite_active,
+.buttons_favorite {
+    align-items: center;
+    appearance: none;
+    -webkit-appearance: none;
+    background: var(--fire-gradient);
+    border: 0;
+    border-radius: 7px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 17px;
+    font-weight: 700;
+    height: 56px;
+    justify-content: center;
+    padding: 0 25px;
+    text-align: center;
+    white-space: normal;
+
+    img {
+        flex: 0 0 25px;
+        height: 25px;
+        width: 25px;
+        filter: brightness(0) saturate(100%) invert(96%) sepia(97%) saturate(0%) hue-rotate(33deg) brightness(105%) contrast(103%);
+
+    }
+}
+
+.buttons_favorite_active {
+    background: rgba(255, 10, 78, .2) !important;
+    img {
+        filter: brightness(0) saturate(100%) invert(16%) sepia(80%) saturate(5614%) hue-rotate(337deg) brightness(105%) contrast(103%);
+    }
+}
+
+.buttons_add {
+    align-items: center;
+    appearance: none;
+    -webkit-appearance: none;
+    background: var(--fire-gradient);
+    border: 0;
+    border-radius: 7px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 17px;
+    font-weight: 700;
+    height: 56px;
+    justify-content: center;
+    padding: 0 25px;
+    text-align: center;
+    white-space: normal;
+    width: 100%;
+    gap: 10px;
+
+    img {
+        filter: brightness(0) saturate(100%) invert(96%) sepia(97%) saturate(0%) hue-rotate(33deg) brightness(105%) contrast(103%);
+        width: 25px;
+        height: 25px;
+    }
+}
+
+.buttons_add:hover,
+.buttons_favorite:hover {
+    background: var(--fire-gradient-hover);
+}

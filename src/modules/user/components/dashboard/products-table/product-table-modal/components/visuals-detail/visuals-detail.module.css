@@ -1,0 +1,62 @@
+.visuals_container {
+    width: 100%;
+    padding-bottom: 100px;
+}
+
+.headline {
+    align-items: center;
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    max-width: 1200px;
+    width: 100%;
+
+    h2 {
+        font-size: 1.9rem;
+        color: #fff;
+        font-weight: 400;
+    }
+}
+
+.trailer {
+    margin-bottom: 30px;
+    padding-bottom: 50%;
+    position: relative;
+
+    video {
+        border-radius: 10px;
+        height: 100%;
+        object-fit: cover;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
+
+.screenshots {
+    display: flex;
+    margin: -15px;
+}
+
+.screenshots_wide {
+    display: flex;
+    margin: 15px;
+    width: calc(50% - 30px);
+    border-radius: 7px;
+}
+
+.thumber_images {
+    flex-wrap: wrap;
+    width: 50%;
+    aspect-ratio: 16 / 9;
+
+    img {
+        margin: 15px;
+        aspect-ratio: 16 / 9;
+        border-radius: 7px;
+        object-fit: cover;
+    }
+}
