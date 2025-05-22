@@ -42,6 +42,8 @@
     color: var(--color-light);
     line-height: 23px;
     width: 100%;
+    white-space: pre-wrap;
+  line-height: 1.6;
 
     p {
         display: block;

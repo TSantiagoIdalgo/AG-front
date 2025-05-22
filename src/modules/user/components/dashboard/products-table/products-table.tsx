@@ -8,7 +8,7 @@ import { ColDef, ColGroupDef } from 'node_modules/ag-grid-community/dist/types/s
 import { FaEdit } from 'react-icons/fa';
 import Style from './products.module.css';
 
-import ProductModalIndex from './product-table-modal/product-detail-index';
+import ProductModalIndex from './product-table-modal/product-modal-detail-index';
 import BooleanCellRender from '../product-sales/boolean-cell-render/boolean-cell-render';
 interface ProductsProps {
     products?: DataResponse<Product>

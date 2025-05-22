@@ -1,8 +1,9 @@
-import Style from './product-detail-index.module.css';
+import Style from './product-modal-detail-index.module.css';
 import * as Detail from './components/product-detail-components';
 import { Product } from '#src/common/interfaces/product.interface.ts';
 import React, { useRef, useState } from 'react';
 import { useOutClickExec } from '#modules/catalogue/hooks/use-out-click.ts';
+import 'react-quill/dist/quill.snow.css';
 
 interface ProductModalProps {
   product: Product;
@@ -10,7 +11,8 @@ interface ProductModalProps {
 }
 
 export default function ProductModalIndex({ product, setProduct }: ProductModalProps): React.JSX.Element {
-  const [productState, setProductState] = useState(product);
+  const [productState, setProductState] = useState<Product | undefined>(product);
+  if (!productState) return <p>Loading...</p>;
   const productWasChange = JSON.stringify(product) !== JSON.stringify(productState);
   const { backgroundImage, name, description, developer, tags, genres, release_date, distributor, pegi, trailer, images, requirements, id } = productState;
   const containerRef = useRef<HTMLElement>(null);
@@ -30,7 +32,7 @@ export default function ProductModalIndex({ product, setProduct }: ProductModalP
         </section>
       </main>
       <div className={Style.close}>
-        <button>Cancelar</button>
+        <button onClick={() => setProductState(undefined)}>Cancelar</button>
         <button disabled={!productWasChange}>Aceptar</button>  
       </div>  
     </div>
