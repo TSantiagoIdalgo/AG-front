@@ -3,7 +3,6 @@ import * as Detail from './components/product-detail-components';
 import { Product } from '#src/common/interfaces/product.interface.ts';
 import React, { useRef, useState } from 'react';
 import { useOutClickExec } from '#modules/catalogue/hooks/use-out-click.ts';
-import 'react-quill/dist/quill.snow.css';
 
 interface ProductModalProps {
   product: Product;

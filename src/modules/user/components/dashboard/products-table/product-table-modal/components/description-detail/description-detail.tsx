@@ -1,3 +1,4 @@
+ 
 import * as libs from '../../libs/product-detail-libs';
 import { Product } from '#src/common/interfaces/product.interface.ts';
 import React from 'react';
@@ -50,6 +51,47 @@ export default function DescriptionModalDetail({ description }: TDescriptionDeta
     setRawText(restoredText);
     setEditing(false);
   };
+  /*Const extractTextWithMarkersPreservingOrder = (html: string): string => {
+    const container = document.createElement('div');
+    container.innerHTML = html;
+  
+    const traverse = (node: Node): string => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        return (node.textContent || '').replace(/\n/gu, '');
+      }
+  
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        const el = node as HTMLElement;
+  
+        if (el.tagName === 'IMG') {
+          return `<< ${el.getAttribute('src')} >>`;
+        }
+  
+        if (el.tagName === 'BR') {
+          return '\n';
+        }
+        let result = '';
+        for (const child of Array.from(el.childNodes)) {
+          result += traverse(child);
+        }
+  
+        if (['P', 'DIV'].includes(el.tagName)) {
+          result += '\n';
+        }
+  
+        return result;
+      }
+  
+      return '';
+    };
+  
+    let output = '';
+    for (const child of Array.from(container.childNodes)) {
+      output += traverse(child);
+    }
+  
+    return output.trimEnd();
+  };*/
   
   return (
     <section id='description' className={showDescription ? Style.description_container_show : Style.description_container}>
@@ -58,13 +100,13 @@ export default function DescriptionModalDetail({ description }: TDescriptionDeta
       </div>
       <span className={Style.readable}>
         <div
-          id='descripcion'
           ref={divRef}
           contentEditable={editing}
           dangerouslySetInnerHTML={{ __html: processTextToHtml(rawText) }}
           onClick={() => setEditing(true)}
           onBlur={handleBlur}
           suppressContentEditableWarning
+          className={Style.editable}
           style={{
             border: editing ? '1px dashed blue' : '1px solid gray',
             cursor: editing ? 'text' : 'pointer',
