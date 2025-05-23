@@ -26,7 +26,7 @@ export default function ProductModalIndex({ product, setProduct }: ProductModalP
           <Detail.PanelModalDetail inWishlist={false} product={productState}/>
           <Detail.AboutModalDetail id={id} description={description} developer={developer} genres={genres} tags={tags} distributor={distributor} release_date={release_date} pegi={pegi}/>
           <Detail.VisualsModalDetail images={images} trailer={trailer}/>
-          <Detail.DescriptionModalDetail description={description} />
+          <Detail.DescriptionModalDetail description={description} setProductState={setProductState}/>
           <Detail.ConfigurationModalDetail requirements={requirements}/>
         </section>
       </main>
