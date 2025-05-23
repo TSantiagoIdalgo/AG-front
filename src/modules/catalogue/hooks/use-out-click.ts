@@ -22,7 +22,7 @@ export const useOutClickExec = (
 ) => {
   const [firstInteraction, setFirstInteraction] = useState(false);
   const handleClickOutside = (event: Event) => {
-    if ((event.target as HTMLElement).closest('button')) return;
+    if ((event.target as HTMLElement).closest('button') || (event.target as HTMLElement).closest('input')) return;
     if (ref.current && !ref.current.contains(event.target as Node)) {
       onOutsideClick();
     }

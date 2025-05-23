@@ -18,12 +18,19 @@ export default function ProductModalIndex({ product, setProduct }: ProductModalP
   useOutClickExec(containerRef, () => {
     setProduct(undefined);
   });
+
+  const onCancelEdit = () => {
+    const cancelTime = 100;
+    setTimeout(() => {
+      setProduct(undefined);
+    }, cancelTime);
+  };
   return (
     <div className={Style.container}>
       <main className={Style.product_modal_index} ref={containerRef}>
         <Detail.HeaderModalDetail backgroundImage={backgroundImage} name={name}/>
         <section className={Style.panel_modal_section}>
-          <Detail.PanelModalDetail inWishlist={false} product={productState}/>
+          <Detail.PanelModalDetail product={productState} setProductState={setProductState}/>
           <Detail.AboutModalDetail id={id} description={description} developer={developer} genres={genres} tags={tags} distributor={distributor} release_date={release_date} pegi={pegi}/>
           <Detail.VisualsModalDetail images={images} trailer={trailer}/>
           <Detail.DescriptionModalDetail description={description} setProductState={setProductState}/>
@@ -31,7 +38,7 @@ export default function ProductModalIndex({ product, setProduct }: ProductModalP
         </section>
       </main>
       <div className={Style.close}>
-        <button onClick={() => setProductState(undefined)}>Cancelar</button>
+        <button onClick={onCancelEdit}>Cancelar</button>
         <button disabled={!productWasChange}>Aceptar</button>  
       </div>  
     </div>

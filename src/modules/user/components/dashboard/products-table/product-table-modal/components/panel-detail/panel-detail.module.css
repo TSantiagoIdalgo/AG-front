@@ -38,6 +38,9 @@
     text-align: center;
     color: #fff;
     font-weight: 100;
+    background: transparent;
+    outline: none;
+    border: none;
 }
 
 .subinfos {
@@ -206,11 +209,25 @@
     span {
         margin-left: 5px;
     }
+    .price {
+        margin-left: 5px;
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-size: 19px;
+        text-decoration: line-through;
+    }
 }
 
 .amount_discounted {
+
     color: var(--color);
-    font-size: 19px;
+    .discount {
+        background: transparent;
+        border: none;
+        color: var(--color);
+        font-size: 19px;
+    }
 }
 
 .amount_total {
@@ -293,4 +310,12 @@
 .buttons_add:hover,
 .buttons_favorite:hover {
     background: var(--fire-gradient-hover);
+}
+
+.editStock {
+    width: 40px;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: #fff;
 }
