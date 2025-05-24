@@ -105,6 +105,8 @@ export const PlatformEditable: React.FC<PlatformEditableProps> = ({
     event.preventDefault();
     onAddOrRemovePlatform(addNewPlatform);
     setAllPlatformSaved((prev) => [...(prev as Platform[]), addNewPlatform]);
+    setNewPlatform({ disabled: false, name: '', platform: '' });
+    handleAddingNewPlatform(false);
   };
   
   return (
@@ -163,7 +165,7 @@ export const PlatformEditable: React.FC<PlatformEditableProps> = ({
                       value={addNewPlatform.name} 
                       onChange={(event) => setNewPlatform(prev => ({ ...prev, name: event.target.value}))}/>
                   </div>
-                  <button><SiVerizon fontSize={15}/></button>
+                  <button disabled={addNewPlatform.platform.length <= 3 || addNewPlatform.name.length <= 3}><SiVerizon fontSize={15}/></button>
                 </form>
               )
               : <IoMdAdd
