@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { Product } from '#src/common/interfaces/product.interface.ts';
+import { Platform, Product } from '#src/common/interfaces/product.interface.ts';
 import { DataResponse } from '#src/common/interfaces/pageable-data.interface.ts';
 import { AgGridReact } from 'ag-grid-react';
 import ImageCellRenderer from '../product-sales/image-cell-render/image-cell-render';
@@ -10,12 +10,16 @@ import Style from './products.module.css';
 
 import ProductModalIndex from './product-table-modal/product-modal-detail-index';
 import BooleanCellRender from '../product-sales/boolean-cell-render/boolean-cell-render';
+import { useFetchData } from '#src/hooks/use-fetch-data.tsx';
+import { PLATFORM_ENDPOINT } from '#src/config/endpoints.ts';
 interface ProductsProps {
     products?: DataResponse<Product>
 }
 
 const ProductsTable: React.FC<ProductsProps> = ({ products }): React.JSX.Element => {
   const fixedPrice = 2;
+  const { data: platforms } = useFetchData<Platform[]>(PLATFORM_ENDPOINT.GET.findAll());
+
   const [product, setProduct] = useState<Product | undefined>();
   const columnDefs = useMemo(() => [
     {
@@ -55,7 +59,7 @@ const ProductsTable: React.FC<ProductsProps> = ({ products }): React.JSX.Element
           cellClass: 'ag-center-cols-cell'
         }}
       />
-      {product && ReactDOM.createPortal(<ProductModalIndex product={product} setProduct={setProduct}/>, document.getElementById('modal') as HTMLElement)}
+      {product && ReactDOM.createPortal(<ProductModalIndex platforms={platforms?.body.data} product={product} setProduct={setProduct}/>, document.getElementById('modal') as HTMLElement)}
     </div>
   );
 };

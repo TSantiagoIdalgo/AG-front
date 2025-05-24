@@ -1,4 +1,4 @@
-/* eslint-disable max-statements */
+ 
 import IconCheck from '#assets/icons/icon-check.svg';
 import IconClose from '#assets/icons/icon-close.svg';
 import {Platform, Product} from '#src/common/interfaces/product.interface.ts';
@@ -6,28 +6,26 @@ import React from 'react';
 import * as libs from '../../libs/product-detail-libs';
 import Style from './panel-detail.module.css';
 import { RenderDiscount, RenderPrice } from './prices';
+import { PlatformEditable } from './platform';
 
-interface PanelModalDetailProps { product: Product, setProductState: React.Dispatch<React.SetStateAction<Product | undefined>> }
+interface PanelModalDetailProps { 
+  product: Product, 
+  setProductState: React.Dispatch<React.SetStateAction<Product | undefined>>;
+  allPlatforms?: Platform[]
+}
 
 const calculateTotalPrice = (discount: number, price: number): number => {
   const initValue = 100;
   return (initValue - discount) * price / initValue;
 };
-export default function PanelModalDetail({product, setProductState}: PanelModalDetailProps): React.JSX.Element {
+export default function PanelModalDetail({product, setProductState, allPlatforms}: PanelModalDetailProps): React.JSX.Element {
   const {platforms, mainImage, name, stock, price, discount} = product;
-  const fixedPrice = 2, minStock = 1, timeToRefresh = 80;
+  const fixedPrice = 2, minStock = 1;
   const inStock = stock >= minStock;
- 
   const platformFind = platforms.find(platform => !platform.disabled);
-  const [onSelectPlatform, handleOnSelectPlatfrom] = libs.useState(false);
   const [editInfo, handleEditInfo] = libs.useState(false);
   const [selectedPlatform, setSelectedPlatform] = libs.useState<Platform | undefined>(platformFind);
-  const selectPlatform = (platform: Platform) => {
-    setSelectedPlatform(platform);
-    setTimeout(() => {
-      handleOnSelectPlatfrom(false);
-    }, timeToRefresh);
-  };
+  
   const onChangeValues = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name: targetName, value } = event.target;
     setProductState((prev) => ({ ...prev, [targetName]: Number.isNaN(value) ? value : Number(value) }) as Product);
@@ -44,7 +42,7 @@ export default function PanelModalDetail({product, setProductState}: PanelModalD
       <div className={Style.content_info}>
         <input className={Style.name} value={name} name='name' onChange={onChangeValues}/>
         <div className={Style.subinfos}>
-          <a href="#">{selectedPlatform?.name}</a>
+          <a href="#">{selectedPlatform ? selectedPlatform?.name : ''}</a>
           <div className={Style.spacer}></div>
           <div onClick={() => onEditValue(handleEditInfo, true)}>
             {inStock ? (
@@ -65,20 +63,12 @@ export default function PanelModalDetail({product, setProductState}: PanelModalD
           </div>
           
         </div>
-        <div className={Style.select_platform}>
-          <div className={onSelectPlatform ? Style.platfrom_select : Style.platform}>
-            <span onClick={() => handleOnSelectPlatfrom(!onSelectPlatform)}
-              className={Style.selected}>{selectedPlatform?.platform}</span>
-            {onSelectPlatform && (
-              <div className={Style.platform_options}>
-                {platforms.map(plat => <span
-                  onClick={() => selectPlatform(plat)}
-                  className={selectedPlatform?.name === plat.name ? Style.selectedPlatform : Style.none}
-                  key={plat.name}>{plat.platform}</span>)}
-              </div>
-            )}
-          </div>
-        </div>
+        <PlatformEditable 
+          allPlatforms={allPlatforms} 
+          platforms={platforms} 
+          setSelectedPlatform={setSelectedPlatform} 
+          selectedPlatform={selectedPlatform} 
+          setProductState={setProductState}/>
         <div className={Style.amount}>
           <RenderPrice onChangeValues={onChangeValues} price={price}/>
           <RenderDiscount onChangeValues={onChangeValues} price={discount}/>
