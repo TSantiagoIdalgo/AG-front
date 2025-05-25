@@ -1,10 +1,17 @@
 import {Product} from '#src/common/interfaces/product.interface.ts';
-import React from 'react';
+import React, { useState } from 'react';
 import AboutDetailInfo from '../about-detail-info/about-detail-info';
 import Style from './about-detail.module.css';
 import { scrollInToView } from '#modules/product-detail/utils/scroll-in-to-view.ts';
+import { IoMdAdd } from 'react-icons/io';
+import { IoRemove } from 'react-icons/io5';
+import RightClick from './right-click';
+import AddNewTag from './add-new-tag';
 
-type TAboutDetail = Pick<Product, 'description' | 'genres' | 'developer' | 'tags' | 'distributor' | 'release_date' | 'pegi' | 'id'>
+
+type TAboutDetail = Pick<Product, 'description' | 'genres' | 'developer' | 'tags' | 'distributor' | 'release_date' | 'pegi' | 'id' | 'franchise'> & {
+  setProductState: React.Dispatch<React.SetStateAction<Product | undefined>>
+}
 
 export interface PercentageOfReviews {
   circleMeterBar: number;
@@ -19,11 +26,15 @@ export default function AboutModalDetail({
   tags,
   distributor,
   release_date,
-  pegi
+  pegi,
+  franchise,
+  setProductState
 }: TAboutDetail): React.JSX.Element {
-  const  maxTag = 5, zero = 0;
-
-
+  const [isAddingTag, setIsAddingTag] = useState(false);
+  const [selectedTag, setSelectedTag] = useState('');
+  const [maxTag, setMaxTag] = useState(5);
+  const zero = 0;
+  
   const processTextWithLines = (text: string) => {
     const regex = /<<\s*(?<temp1>https?:\/\/[^\s]+)\s*>>/gu;
     const lines = text.split(/\r?\n/u);
@@ -40,6 +51,10 @@ export default function AboutModalDetail({
       );
     });
   };
+  const handleContextMenu = (e: React.MouseEvent, tag: string) => {
+    e.preventDefault();
+    setSelectedTag(tag);
+  };
 
   return (
     <div className={Style.details}>
@@ -55,13 +70,21 @@ export default function AboutModalDetail({
         <span onClick={() => scrollInToView('description')} className={Style.show_more}>Leer mas</span>
         <div className={Style.user_tags}>
           <h2>Tags de usuario*:</h2>
-          {tags.map((tag) => tag.length > zero &&
-            <a href={`/ancore/catalogue?name=${tag}`} title={tag} key={tag}>{tag}</a>).slice(zero, maxTag)}
-          {tags.length > maxTag && <a href="#" className={Style.more_tags}>...</a>}
+          {tags.map((tag) => tag.length > zero && (
+            <div key={tag} className={Style.tag_content}>
+              <a onContextMenu={(event) => handleContextMenu(event, tag)} href={`/ancore/catalogue?name=${tag}`} title={tag}>{tag}</a>
+              {selectedTag === tag && <RightClick selectedTag={selectedTag} setSelectedTag={setSelectedTag} setProductState={setProductState} tags={tags}/>}
+            </div>
+          )).slice(zero, maxTag)}
+          {tags.length > maxTag && <a className={Style.more_tags} onClick={() => setTimeout(() => setMaxTag(tags.length), 100)}>...</a>}
+          {isAddingTag && <AddNewTag setMaxTag={setMaxTag} setProductState={setProductState} tags={tags}/>}
+          <button className={Style.add_new_tag} onClick={() => setTimeout(() => setIsAddingTag(!isAddingTag), 100)}>
+            {isAddingTag ? <IoRemove/> : <IoMdAdd />}
+          </button>
         </div>
       </section>
       <section className={Style.specifics}>
-        <AboutDetailInfo developer={developer} distributor={distributor} genres={genres} pegi={pegi}
+        <AboutDetailInfo franchise={franchise} setProductState={setProductState} developer={developer} distributor={distributor} genres={genres} pegi={pegi}
           release_date={release_date}/>
       </section>
     </div>

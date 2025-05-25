@@ -40,6 +40,7 @@ export interface Product {
     id:              string;
     name:            string;
     description:     string;
+    franchise: string;
     platforms:       Platform[];
     developer:       string;
     genres:          Genre[];
