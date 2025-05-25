@@ -13,11 +13,75 @@
     max-width: 1200px;
     width: 100%;
 
+    .headline_buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        .create_requirements {
+            padding: 10px;
+            border-radius: 6px;
+            outline: none;
+            font-size: 1rem;
+            background: transparent;
+            color: var(--color-light);
+            cursor: pointer;
+            border: 1px solid var(--color-light);
+        }
+        
+        .create_requirements:hover {
+            border-color: var(--color-very-light);
+            color: var(--color-very-light);
+        }
+
+        .headline_undo {
+            padding: 10px;
+            border-radius: 6px;
+            outline: none;
+            font-size: 1rem;
+            background: transparent;
+            color: var(--color-light);
+            cursor: pointer;
+            border: 1px solid var(--color-light);
+        }
+
+        .headline_undo:hover {
+            border-color: var(--color-very-light);
+            color: var(--color-very-light);
+        }
+    }
+
     h2 {
         font-size: 1.9rem;
         color: #fff;
         font-weight: 400;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .headline_remove {
+            margin-top: 2px;
+            cursor: pointer;
+            transition: color 100ms ease-in;
+        }
+        .headline_remove:hover {
+            color: var(--color-light);
+        }
     }
+}
+
+.type_row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: min-content;
+    padding: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.type_row:hover {
+    background-color: var(--color-very-dark);
 }
 
 .specs_container {

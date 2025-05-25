@@ -19,6 +19,7 @@ export default function ProductModalIndex({ product, setProduct, platforms }: Pr
   useOutClickExec(containerRef, () => {
     setProduct(undefined);
   });
+
   const onCancelEdit = () => {
     const cancelTime = 100;
     setTimeout(() => {
@@ -34,7 +35,7 @@ export default function ProductModalIndex({ product, setProduct, platforms }: Pr
           <Detail.AboutModalDetail franchise={franchise} setProductState={setProductState} id={id} description={description} developer={developer} genres={genres} tags={tags} distributor={distributor} release_date={release_date} pegi={pegi}/>
           <Detail.VisualsModalDetail images={images} trailer={trailer}/>
           <Detail.DescriptionModalDetail description={description} setProductState={setProductState}/>
-          <Detail.ConfigurationModalDetail requirements={requirements}/>
+          <Detail.ConfigurationModalDetail setProductState={setProductState} requirements={requirements}/>
         </section>
       </main>
       <div className={Style.close}>
