@@ -49,6 +49,7 @@ export const RenderDiscount: React.FC<RenderPriceProps> = ({ onChangeValues, pri
   libs.useEffect(() => {
     const span = spanRef.current;
     const input = inputRef.current;
+    if (Number(input?.value) === 100) return;
     const newWith = 20;
     if (span && input) {
       input.style.width = `${span.offsetWidth + newWith}px`;

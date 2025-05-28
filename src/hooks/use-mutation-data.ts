@@ -1,4 +1,4 @@
-/* eslint-disable max-statements */
+ 
 
 import {buildUrl} from '#src/common/build-url.ts';
 import {addRequest, removeRequest} from '#src/state/reducers/fetch-queue-slice.ts';

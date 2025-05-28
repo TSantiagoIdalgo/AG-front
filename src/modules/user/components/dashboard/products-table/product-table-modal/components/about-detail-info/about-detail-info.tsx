@@ -8,10 +8,9 @@ type TAboutDetailInfo = Pick<Product, 'genres' | 'pegi' | 'developer' | 'distrib
 
 export default function AboutDetailInfo({ developer, distributor, genres, pegi, release_date, setProductState, franchise }: TAboutDetailInfo) {
   const formatDate = (dateTime: string) => {
-    const date = new Date(dateTime);
-    return new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
+    const date = new Date(`${dateTime  }T12:00:00`);
+    return new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
   };
-
   const [editing, setEditing] = useState({
     developer: false,
     distributor: false,

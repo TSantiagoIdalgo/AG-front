@@ -22,7 +22,7 @@ const calculateTotalPrice = (discount: number, price: number): number => {
 
 export default function PanelModalDetail({product, setProductState, allPlatforms}: PanelModalDetailProps): React.JSX.Element {
 
-  const {platforms, mainImage, name, stock, price, discount} = product;
+  const {platforms, mainImage, name: productName, stock, price, discount} = product;
   const fixedPrice = 2, minStock = 1;
   const inStock = stock >= minStock;
   const platformFind = platforms.find(platform => !platform.disabled);
@@ -31,7 +31,7 @@ export default function PanelModalDetail({product, setProductState, allPlatforms
   
   const onChangeValues = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name: targetName, value } = event.target;
-    setProductState((prev) => ({ ...prev, [targetName]: Number.isNaN(value) ? value : Number(value) }) as Product);
+    setProductState((prev) => ({ ...prev, [targetName]: Number.isNaN(value) || targetName === 'name' ? value : Number(value) }) as Product);
   };
 
   const onEditValue = (setter: React.Dispatch<React.SetStateAction<boolean>>, value: boolean) => {
@@ -47,7 +47,7 @@ export default function PanelModalDetail({product, setProductState, allPlatforms
     <div className={Style.content_panel}>
       <DropzoneComponent defaultImage={mainImage} styleImage={Style.content_img} onAfterDrop={onDropImage}/>
       <div className={Style.content_info}>
-        <input className={Style.name} value={name} name='name' onChange={onChangeValues}/>
+        <input className={Style.name} type='text' value={productName} name='name' onChange={onChangeValues}/>
         <div className={Style.subinfos}>
           <a href="#">{selectedPlatform ? selectedPlatform?.name : ''}</a>
           <div className={Style.spacer}></div>
