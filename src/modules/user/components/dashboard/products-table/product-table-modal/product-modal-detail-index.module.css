@@ -52,5 +52,19 @@
         height: 40px;
         width: 120px;
         cursor: pointer;
+        background: #101010;
+        color: #fff;
+        border: 2px solid var(--color-light);
+        border-radius: 6px;
+        outline: none;
+        transition: border 150ms ease-in-out;
+    }
+
+    button:disabled {
+        border: 2px solid var(--color-dark);
+    }
+
+    button:hover:not(:disabled) {
+        border-color: var(--color);
     }
 }
