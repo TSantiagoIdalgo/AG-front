@@ -114,3 +114,23 @@ g {
 .ag-theme-alpine .ag-header-cell-label {
     justify-content: center;
 }
+
+.dropzone_drop {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.dropzone_on_drop {
+  position: absolute;
+  background-color: transparent;
+  left: 5%;
+  top: 5%;
+  height: 90%;
+  width: 90%;
+  border-radius: 12px;
+  border: 6px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

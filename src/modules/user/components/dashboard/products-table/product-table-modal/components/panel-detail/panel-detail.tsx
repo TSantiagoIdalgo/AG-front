@@ -7,6 +7,7 @@ import * as libs from '../../libs/product-detail-libs';
 import Style from './panel-detail.module.css';
 import { RenderDiscount, RenderPrice } from './prices';
 import { PlatformEditable } from './platform';
+import DropzoneComponent from '#modules/core/components/dropzone/dropzone.tsx';
 
 interface PanelModalDetailProps { 
   product: Product, 
@@ -18,7 +19,9 @@ const calculateTotalPrice = (discount: number, price: number): number => {
   const initValue = 100;
   return (initValue - discount) * price / initValue;
 };
+
 export default function PanelModalDetail({product, setProductState, allPlatforms}: PanelModalDetailProps): React.JSX.Element {
+
   const {platforms, mainImage, name, stock, price, discount} = product;
   const fixedPrice = 2, minStock = 1;
   const inStock = stock >= minStock;
@@ -36,9 +39,13 @@ export default function PanelModalDetail({product, setProductState, allPlatforms
     setTimeout(() => { setter(value);}, time_to_init_edit);
   };
 
+  const onDropImage = (image: unknown) => {
+    setProductState(prev => ({ ...prev,  mainImage: image}) as Product);
+  };
+
   return (
     <div className={Style.content_panel}>
-      <img className={Style.content_img} src={mainImage} alt={name}/>
+      <DropzoneComponent defaultImage={mainImage} styleImage={Style.content_img} onAfterDrop={onDropImage}/>
       <div className={Style.content_info}>
         <input className={Style.name} value={name} name='name' onChange={onChangeValues}/>
         <div className={Style.subinfos}>
