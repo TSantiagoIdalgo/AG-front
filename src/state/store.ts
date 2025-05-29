@@ -9,7 +9,6 @@ import websocketSlice, { IWebsocketSlice } from './reducers/websocket-slice';
 export interface IState {
   user: {
     data: User;
-    loading: boolean;
   },
   fetchQueue: IFetchQueue,
   userCart: ICartSlice,

@@ -13,14 +13,11 @@ import ProductDetailIndex from '#modules/product-detail/product-detail-index.tsx
 import UserIndex from '#modules/user/user-index.tsx';
 import Verify from '#modules/verify/verify.tsx';
 import { IState } from '#src/state/store.ts';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { User } from './common/interfaces/review.interface';
 import { USER_ENDPOINT } from './config/endpoints';
-import { useFetchData } from './hooks/use-fetch-data';
 import LandingIndex from './modules/landing/landing-index';
-import CreateProduct from './state/create-product';
 import { getUser } from './state/reducers/user-slice';
 import { EventReceived, EventTypes } from './common/interfaces/event-types';
 import { ProductCheckout } from './common/interfaces/checkout.interface';
@@ -28,13 +25,32 @@ import { Cart } from '#modules/cart/interfaces/cart.interface.ts';
 import { setNewPayment, setNewPaymentReceived } from './state/reducers/websocket-slice';
 
 export default function App(): React.JSX.Element {
-  const { loading, data } = useFetchData<User>(USER_ENDPOINT.GET.findById());
+  const [loading, setLoading] = useState(false);
+  const [firstPageLoaded, setFirstPageLoaded] = useState(true);
   const { data: user } = useSelector((state: IState) => state.user);
   const dispatch = useDispatch();
   const location = useLocation();
-  React.useEffect(() => {
-    dispatch(getUser(data?.body.data));
-  }, [data]);
+  React.useLayoutEffect(() => {
+    const getUserData = async () => {
+      setLoading(true);
+      try {
+        const response = await globalThis.fetch(`${import.meta.env.VITE_API_URL}/${USER_ENDPOINT.GET.findById()}`, {
+          credentials: 'include',
+          method: 'GET',
+        });
+        const userData = await response.json();
+        dispatch(getUser(userData.body?.data));
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+      } finally {
+        setLoading(false);
+        setFirstPageLoaded(false);
+      }
+    };
+    getUserData();
+    // 
+  }, []);
   useEffect(() => {
     const socket = new WebSocket('ws://localhost:8080/ws');
 
@@ -54,7 +70,6 @@ export default function App(): React.JSX.Element {
       const handler = handlers[message.type];
       handler?.(message.data);
     };
-    return () => socket.close();
   }, []);
   if (loading) return <p></p>;
   
@@ -66,9 +81,6 @@ export default function App(): React.JSX.Element {
         <Route path="/" element={<LandingIndex />} />
         <Route path="/:id" element={<ProductDetailIndex />} />
         <Route path="/catalogue" element={<CatalogueIndex />} />
-        <Route path="/create/product" element={<CreateProduct />} />
-        <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
-        </Route>
         {!user && (
           <>
             <Route path="/verify" element={<Verify />} />
@@ -90,13 +102,12 @@ export default function App(): React.JSX.Element {
             />
           </>
         )}
-        {user ? (
-          <Route path="/user">
-            <Route path="cart" element={<CartIndex />} />
-            <Route path="activation" element={<CartActivationIndex />} />
-            <Route path="*" element={<UserIndex />} />
-          </Route>
-        ) : null}
+        <Route path="/user" element={<ProtectedRoute firstPageLoaded={firstPageLoaded} loading={loading} roles={['ROLE_USER', 'ROLE_ADMIN']}/>}>
+          <Route path="cart" element={<CartIndex />} />
+          <Route path="activation" element={<CartActivationIndex />} />
+          <Route path="*" element={<UserIndex />} />
+        </Route>
+        ) 
       </Routes>
       {!location.pathname.includes('user') && <PreFooter />}
       <Footer />

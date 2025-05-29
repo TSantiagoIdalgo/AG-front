@@ -21,15 +21,15 @@ import VrCh from '#assets/characters/category-vr.png';
 import arrowLeft from '#assets/icons/icon-arrow.svg';
 
 const categoriesData = [
-  { bgUrl: AccionBg, chUrl: AccionCh, title: "Accion" },
-  { bgUrl: ArcadeBg, chUrl: ArcadeCh, title: "Arcade" },
-  { bgUrl: AventureBg, chUrl: AventureCh, title: "Aventure" },
-  { bgUrl: StrategyBg, chUrl: StrategyCh, title: "Estrategia" },
-  { bgUrl: FpsBg, chUrl: FpsCh, title: "FPS" },
-  { bgUrl: FightBg, chUrl: FightCh, title: "Lucha" },
-  { bgUrl: RpgBg, chUrl: RpgCh, title: "RPG" },
-  { bgUrl: SpBg, chUrl: SpCh, title: "Un solo jugador" },
-  { bgUrl: VrBg, chUrl: VrCh, title: "VR" }
+  { bgUrl: AccionBg, chUrl: AccionCh, title: 'Accion' },
+  { bgUrl: ArcadeBg, chUrl: ArcadeCh, title: 'Arcade' },
+  { bgUrl: AventureBg, chUrl: AventureCh, title: 'Aventure' },
+  { bgUrl: StrategyBg, chUrl: StrategyCh, title: 'Estrategia' },
+  { bgUrl: FpsBg, chUrl: FpsCh, title: 'FPS' },
+  { bgUrl: FightBg, chUrl: FightCh, title: 'Lucha' },
+  { bgUrl: RpgBg, chUrl: RpgCh, title: 'RPG' },
+  { bgUrl: SpBg, chUrl: SpCh, title: 'Un solo jugador' },
+  { bgUrl: VrBg, chUrl: VrCh, title: 'VR' }
 ];
 
 export default function Categories(): React.JSX.Element {
@@ -41,12 +41,12 @@ export default function Categories(): React.JSX.Element {
       </div>
       <div className={Style.categories_list}>
         {categoriesData.map((item, index) => (
-          <figure key={index} style={{backgroundImage: `url(${item.bgUrl})`}} className={Style.category_container}>
+          <a href={`/ancore/catalogue?name=${item.title.toUpperCase()}`} key={index} style={{backgroundImage: `url(${item.bgUrl})`}} className={Style.category_container}>
             <div className={Style.category_content}>
               <div>{item.title}</div>
               <div className={Style.category_content_cover} style={{backgroundImage: `url(${item.chUrl})`}}></div>
             </div>
-          </figure>
+          </a>
         ))}
       </div>
     </section>
