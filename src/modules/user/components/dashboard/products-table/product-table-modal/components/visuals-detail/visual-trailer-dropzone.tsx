@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import Style from './visuals-detail.module.css';
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { Product } from '#src/common/interfaces/product.interface.ts';
+import VideoNotFound from '#assets/background/video-not-found.png';
 
 interface VisualTrailerDropzoneProps { trailer: string, setProductState: React.Dispatch<React.SetStateAction<Product | undefined>> }
 
@@ -18,7 +19,9 @@ const VisualTrailerDropzone = ({ trailer, setProductState }: VisualTrailerDropzo
   return (
     <div className={Style.trailer}  {...getRootProps()} >
       <input {...getInputProps()}/>
-      <video src={acceptedFiles[0] ? URL.createObjectURL(acceptedFiles[0]) : trailer} controls></video>
+      {trailer 
+        ? <video src={acceptedFiles[0] ? URL.createObjectURL(acceptedFiles[0]) : trailer} controls></video>
+        : <img src={VideoNotFound} alt='not-found'/>}
       {isDragActive && <span className="dropzone_on_drop">
         <IoCloudUploadOutline fontSize={100} color='#fff'/>
       </span>}

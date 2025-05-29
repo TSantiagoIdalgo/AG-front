@@ -7,6 +7,7 @@
         color: var(--color-light);
     }
 
+    .specifics_value_not_value,
     .specifics_value {
         width: 50%;
         font-size: .9rem;
@@ -14,10 +15,16 @@
         cursor: pointer;
     }
 
+    .specifics_value_not_value,
     .specifics_value:hover {
         color: var(--color);
     }
 
+    .specifics_value_not_value {
+        border: 1px solid var(--color-light);
+    }
+
+    .specifics_value_genres_not_value,
     .specifics_value_genres {
         color: #fff;
         cursor: pointer;
@@ -32,6 +39,11 @@
         i:hover {
             color: var(--color);
         }
+    }
+
+    .specifics_value_genres_not_value {
+        width: 50%;
+        border: 1px solid var(--color-light);
     }
 }
 

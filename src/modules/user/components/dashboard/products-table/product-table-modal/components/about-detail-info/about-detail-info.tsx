@@ -2,13 +2,13 @@ import { Product } from '#src/common/interfaces/product.interface.ts';
 import React, { useState } from 'react';
 import Style from './about-detail-info.module.css';
 
-type TAboutDetailInfo = Pick<Product, 'genres' | 'pegi' | 'developer' | 'distributor' | 'release_date' | 'franchise'> & {
+type TAboutDetailInfo = Partial<Pick<Product, 'genres' | 'pegi' | 'developer' | 'distributor' | 'release_date' | 'franchise'>> & {
   setProductState: React.Dispatch<React.SetStateAction<Product | undefined>>
 }
 
-export default function AboutDetailInfo({ developer, distributor, genres, pegi, release_date, setProductState, franchise }: TAboutDetailInfo) {
-  const formatDate = (dateTime: string) => {
-    const date = new Date(`${dateTime  }T12:00:00`);
+export default function AboutDetailInfo({ developer, distributor, genres = [], pegi, release_date, setProductState, franchise }: TAboutDetailInfo) {
+  const formatDate = (dateTime?: string) => {
+    const date = new Date(dateTime ? `${dateTime  }T12:00:00` : new Date());
     return new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
   };
   const [editing, setEditing] = useState({
@@ -69,7 +69,7 @@ export default function AboutDetailInfo({ developer, distributor, genres, pegi, 
           />
         ) : (
           <span
-            className={Style.specifics_value}
+            className={developer ? Style.specifics_value : Style.specifics_value_not_value}
             onClick={() => setTimeout(() => setEditing(prev => ({ ...prev, developer: true })), 100)}
           >{developer}</span>
         )}
@@ -86,7 +86,7 @@ export default function AboutDetailInfo({ developer, distributor, genres, pegi, 
           />
         ) : (
           <span
-            className={Style.specifics_value}
+            className={distributor ? Style.specifics_value : Style.specifics_value_not_value}
             onClick={() => setTimeout(() => setEditing(prev => ({ ...prev, distributor: true })), 100)}
           >{distributor}</span>
         )}
@@ -121,7 +121,7 @@ export default function AboutDetailInfo({ developer, distributor, genres, pegi, 
           />
         ) : (
           <span
-            className={Style.specifics_value_genres}
+            className={localGenres ? Style.specifics_value_genres : Style.specifics_value_genres_not_value}
             onClick={() => setTimeout(() => setEditing(prev => ({ ...prev, genres: true })), 100)}
           >{localGenres}</span>
         )}
@@ -137,7 +137,7 @@ export default function AboutDetailInfo({ developer, distributor, genres, pegi, 
           />
         ) : (
           <span
-            className={Style.specifics_value}
+            className={franchise ? Style.specifics_value : Style.specifics_value_not_value}
             onClick={() => setTimeout(() => setEditing(prev => ({ ...prev, franchise: true })), 100)}
           >{franchise}</span>
         )}

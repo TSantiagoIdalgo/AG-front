@@ -34,6 +34,16 @@
         top: 0;
         width: 100%;
     }
+
+    img {
+        border-radius: 10px;
+        height: 100%;
+        object-fit: cover;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
 }
 
 .screenshots {

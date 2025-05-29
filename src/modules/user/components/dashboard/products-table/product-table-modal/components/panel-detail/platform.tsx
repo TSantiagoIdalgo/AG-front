@@ -8,15 +8,15 @@ import { SiVerizon } from 'react-icons/si';
 
 interface PlatformEditableProps {
     allPlatforms?: Platform[];
-    platforms: Platform[];
+    platforms?: Platform[];
     selectedPlatform?: Platform;
     setSelectedPlatform: React.Dispatch<React.SetStateAction<Platform | undefined>>;
     setProductState: React.Dispatch<React.SetStateAction<Product | undefined>>;
   }
   
 export const PlatformEditable: React.FC<PlatformEditableProps> = ({
-  allPlatforms,
-  platforms,
+  allPlatforms = [],
+  platforms = [],
   selectedPlatform,
   setSelectedPlatform,
   setProductState
@@ -33,6 +33,10 @@ export const PlatformEditable: React.FC<PlatformEditableProps> = ({
   const [isAddingNewPlatform, handleAddingNewPlatform] = libs.useState(false);
   const containerRef = libs.useRef<HTMLDivElement>(null);
   
+  libs.useEffect(() => {
+    if (allPlatforms) setAllPlatformSaved(allPlatforms);
+  }, [allPlatforms]);
+
   useOutClickExec(containerRef, () => {
     setAddPlatformOpen(false);
     setPlatformSelectorOpen(false);
@@ -45,18 +49,18 @@ export const PlatformEditable: React.FC<PlatformEditableProps> = ({
   
   const onAddOrRemovePlatform = (newPlatform: Platform) => {
     setProductState((prev) => {
-      if (!prev) return prev;
-  
-      const alreadyExists = prev.platforms.some(
+      const prevPlatforms = prev?.platforms ?? [];
+
+      const alreadyExists = prevPlatforms.some(
         (p) => p.name === newPlatform.name && p.platform === newPlatform.platform
       );
   
       let updatedPlatforms: Platform[];
   
       if (!alreadyExists) {
-        updatedPlatforms = [...prev.platforms, newPlatform];
-      } else if (prev.platforms.length > 1) {
-        updatedPlatforms = prev.platforms.filter(
+        updatedPlatforms = [...prevPlatforms, newPlatform];
+      } else if (prevPlatforms.length > 1) {
+        updatedPlatforms = prevPlatforms.filter(
           (p) => !(p.name === newPlatform.name && p.platform === newPlatform.platform)
         );
       } else {
@@ -74,7 +78,7 @@ export const PlatformEditable: React.FC<PlatformEditableProps> = ({
       return {
         ...prev,
         platforms: updatedPlatforms,
-      };
+      } as Product;
     });
   };
   

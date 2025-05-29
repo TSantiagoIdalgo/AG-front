@@ -1,23 +1,24 @@
 import Style from './product-modal-detail-index.module.css';
 import * as Detail from './components/product-detail-components';
 import { Platform, Product } from '#src/common/interfaces/product.interface.ts';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useOutClickExec } from '#modules/catalogue/hooks/use-out-click.ts';
 import { useUpdateProduct } from '#modules/user/hooks/use-update-product.ts';
+import { DataResponse } from '#src/common/interfaces/pageable-data.interface.ts';
 
 interface ProductModalProps {
-  product: Product;
+  product?: Product;
   setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>;
-  platforms?: Platform[]
+  platforms?: Platform[];
+  setPageableProducts: React.Dispatch<React.SetStateAction<DataResponse<Product> | undefined>>
+  type: 'UPDATE' | 'CREATE'
 }
 
 
-export default function ProductModalIndex({ product, setProduct, platforms }: ProductModalProps): React.JSX.Element {
-  const [productState, setProductState] = useState<Product | undefined>(product);
-  const { onUpdateProduct, isPending } = useUpdateProduct(product.id, setProduct);
-  if (!productState) return <p>Loading...</p>;
+export default function ProductModalIndex({ product, setProduct, platforms, type, setPageableProducts }: ProductModalProps): React.JSX.Element {
+  const { onUpdateProduct, isPending, onCreateProduct, productState, setProductState } = useUpdateProduct(product, setProduct);
   const productWasChange = JSON.stringify(product) !== JSON.stringify(productState);
-  const { backgroundImage, name, description, developer, tags, genres, release_date, distributor, pegi, trailer, images, requirements, id, franchise } = productState;
+  const { backgroundImage, name, description, developer, tags, genres, release_date, distributor, pegi, trailer, images, requirements, id, franchise } = productState || {};
   const containerRef = useRef<HTMLElement>(null);
   useOutClickExec(containerRef, () => {
     setProduct(undefined);
@@ -27,6 +28,16 @@ export default function ProductModalIndex({ product, setProduct, platforms }: Pr
     setTimeout(() => {
       setProduct(undefined);
     }, cancelTime);
+  };
+  const onSubmit = async () => {
+    if (!productState) return;
+    switch(type) {
+    case 'CREATE': await onCreateProduct(productState, setPageableProducts);
+      break;
+    case 'UPDATE': await onUpdateProduct(productState, setPageableProducts);
+      break;
+    default: throw new Error('INVALID_TYPE_FUNCTION');
+    }
   };
   return (
     <div className={Style.container}>
@@ -42,7 +53,7 @@ export default function ProductModalIndex({ product, setProduct, platforms }: Pr
       </main>
       <div className={Style.close}>
         <button onClick={onCancelEdit}>Cancelar</button>
-        <button disabled={!productWasChange || isPending} onClick={() => onUpdateProduct(productState)}>Aceptar</button>  
+        <button disabled={!productWasChange || isPending} onClick={onSubmit}>Aceptar</button>  
       </div>  
     </div>
   );

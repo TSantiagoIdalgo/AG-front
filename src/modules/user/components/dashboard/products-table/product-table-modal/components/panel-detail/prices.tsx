@@ -4,10 +4,10 @@ import * as libs from '../../libs/product-detail-libs';
 import IconTag from '#assets/icons/icon-tag.svg';
 
 interface RenderPriceProps {
-    price: number, onChangeValues: (event: React.ChangeEvent<HTMLInputElement>) => void
+    price?: number, onChangeValues: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const RenderPrice: React.FC<RenderPriceProps> = ({ onChangeValues, price }): React.JSX.Element => {
+export const RenderPrice: React.FC<RenderPriceProps> = ({ onChangeValues, price = 0 }): React.JSX.Element => {
   const spanRef = libs.useRef<HTMLSpanElement>(null);
   const inputRef = libs.useRef<HTMLInputElement>(null);
   libs.useEffect(() => {

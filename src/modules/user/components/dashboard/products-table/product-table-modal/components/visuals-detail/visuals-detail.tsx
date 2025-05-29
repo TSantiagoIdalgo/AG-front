@@ -5,17 +5,18 @@ import { useDropzone } from 'react-dropzone';
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { VisualImageDropzone } from './visual-image-dropzone';
 import VisualTrailerDropzone from './visual-trailer-dropzone';
+import NotFoundImage from '#assets/background/not-found-without-text.png';
 
-type TVisualDetail = Pick<Product, 'trailer' | 'images'> & {
+type TVisualDetail = Partial<Pick<Product, 'trailer' | 'images'>> & {
   setProductState: React.Dispatch<React.SetStateAction<Product | undefined>>
 }
 
-export default function VisualsModalDetail({ images, trailer, setProductState }: TVisualDetail): React.JSX.Element {
+export default function VisualsModalDetail({ images = [], trailer, setProductState }: TVisualDetail): React.JSX.Element {
   const onDrop = useCallback(() => undefined, []);
   const { getRootProps, getInputProps, isDragActive, acceptedFiles  } = useDropzone({accept: { 'image/*': [] },  multiple: false, onDrop});
-  const firstImage = 0, spliceImage = 1;
-  const image = images[firstImage];
-
+  const firstImage = 0, minLength = 5, spliceImage = 1;
+  const image = images[firstImage] ? images[firstImage] : NotFoundImage;
+  const skeletonImages = images.concat(Array(Math.max(0, minLength - images.length)).fill(''));
   useEffect(() => {
     if (acceptedFiles[0]) {
       const imagesClone = structuredClone(images);
@@ -31,7 +32,7 @@ export default function VisualsModalDetail({ images, trailer, setProductState }:
         <h2>Visuales</h2>
       </div>
 
-      <VisualTrailerDropzone setProductState={setProductState} trailer={trailer}/>
+      <VisualTrailerDropzone setProductState={setProductState} trailer={trailer || ''}/>
       <div className={Style.screenshots}>
         <div {...getRootProps()} className={Style.screenshots_drop}>
           <input {...getInputProps()}/>
@@ -41,7 +42,7 @@ export default function VisualsModalDetail({ images, trailer, setProductState }:
           </span>}
         </div>
         <div className={Style.thumber_images}>
-          {images.map((currentImage, index) => <VisualImageDropzone setProductState={setProductState} index={index} mainImage={currentImage} key={index}/>).slice(spliceImage)}
+          {skeletonImages.map((currentImage, index) => <VisualImageDropzone setProductState={setProductState} index={index} mainImage={currentImage} key={index}/>).slice(spliceImage)}
         </div>
       </div>
     </section>

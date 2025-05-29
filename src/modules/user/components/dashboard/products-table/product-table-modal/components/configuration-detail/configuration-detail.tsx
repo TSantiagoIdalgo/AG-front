@@ -6,11 +6,11 @@ import ConfigurationsRender from './configurations-render';
 import { MdDelete } from 'react-icons/md';
 import { LiaUndoSolid } from 'react-icons/lia';
 
-type TConfigurationDetail = Pick<Product, 'requirements'> & {
+type TConfigurationDetail = Partial<Pick<Product, 'requirements'>> & {
   setProductState: React.Dispatch<React.SetStateAction<Product | undefined>>
 }
 
-export default function ConfigurationModalDetail({ requirements, setProductState }: TConfigurationDetail) {
+export default function ConfigurationModalDetail({ requirements = [], setProductState }: TConfigurationDetail) {
   const [prevRequirements, setPrevRequirements] = useState<Requirements[]>([]);
   const handleAddDefaults = () => {
     const generateId = () => Math.floor(Math.random() * 1000000);

@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 import { CartItemWithoutProduct, Checkout, ProductCheckout } from '#src/common/interfaces/checkout.interface.ts';
 import { DataResponse } from '#src/common/interfaces/pageable-data.interface.ts';
 import { Product } from '#src/common/interfaces/product.interface.ts';
@@ -57,5 +56,5 @@ export const useDashboardData = () => {
     if (products?.body.data && !pageableProducts?.content.length) setPageableProducts(products.body.data);
   }, [productCheckout?.body, checkoutsData?.body]);
 
-  return { checkouts, loading: productCheckoutLoading || checkoutLoading || productsLoading, pageableProducts, productCheckouts };
+  return { checkouts, loading: productCheckoutLoading || checkoutLoading || productsLoading, pageableProducts, productCheckouts, setPageableProducts };
 };

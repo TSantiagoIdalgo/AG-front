@@ -3,7 +3,7 @@ import React from 'react';
 import Style from './header-detail.module.css';
 import DropzoneComponent from '#modules/core/components/dropzone/dropzone.tsx';
 
-type ProductDetail = Pick<Product, 'backgroundImage' | 'name'> & {
+type ProductDetail = Partial<Pick<Product, 'backgroundImage' | 'name'>> & {
   setProductState: React.Dispatch<React.SetStateAction<Product | undefined>>
 }
 

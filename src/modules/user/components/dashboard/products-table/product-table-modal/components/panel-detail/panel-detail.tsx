@@ -10,7 +10,7 @@ import { PlatformEditable } from './platform';
 import DropzoneComponent from '#modules/core/components/dropzone/dropzone.tsx';
 
 interface PanelModalDetailProps { 
-  product: Product, 
+  product?: Product, 
   setProductState: React.Dispatch<React.SetStateAction<Product | undefined>>;
   allPlatforms?: Platform[]
 }
@@ -21,11 +21,10 @@ const calculateTotalPrice = (discount: number, price: number): number => {
 };
 
 export default function PanelModalDetail({product, setProductState, allPlatforms}: PanelModalDetailProps): React.JSX.Element {
-
-  const {platforms, mainImage, name: productName, stock, price, discount} = product;
+  const {platforms, mainImage, name: productName, stock, price, discount} = product || {};
   const fixedPrice = 2, minStock = 1;
-  const inStock = stock >= minStock;
-  const platformFind = platforms.find(platform => !platform.disabled);
+  const inStock = (stock || 0) >= minStock;
+  const platformFind = platforms?.find(platform => !platform.disabled);
   const [editInfo, handleEditInfo] = libs.useState(false);
   const [selectedPlatform, setSelectedPlatform] = libs.useState<Platform | undefined>(platformFind);
   
@@ -79,7 +78,7 @@ export default function PanelModalDetail({product, setProductState, allPlatforms
         <div className={Style.amount}>
           <RenderPrice onChangeValues={onChangeValues} price={price}/>
           <RenderDiscount onChangeValues={onChangeValues} price={discount}/>
-          <span className={Style.amount_total}>{calculateTotalPrice(discount, price).toFixed(fixedPrice)}€</span>
+          <span className={Style.amount_total}>{calculateTotalPrice((discount || 0), (price || 0)).toFixed(fixedPrice)}€</span>
         </div>
       </div>
     </div>

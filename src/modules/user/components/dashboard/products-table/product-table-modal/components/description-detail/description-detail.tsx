@@ -1,11 +1,9 @@
-/* eslint-disable max-statements */
- 
 import * as libs from '../../libs/product-detail-libs';
 import { Product } from '#src/common/interfaces/product.interface.ts';
 import React from 'react';
 import Style from './description-details.module.css';
 interface DescriptionModalDetailProps {
-  description: string;
+  description?: string;
   setProductState: React.Dispatch<React.SetStateAction<Product | undefined>>
 }
 
@@ -106,7 +104,7 @@ export default function DescriptionModalDetail({ description, setProductState }:
         <div
           ref={divRef}
           contentEditable={editing}
-          dangerouslySetInnerHTML={{ __html: processTextToHtml(rawText) }}
+          dangerouslySetInnerHTML={{ __html: processTextToHtml(rawText || '') }}
           onClick={() => setEditing(true)}
           onBlur={handleBlur}
           suppressContentEditableWarning

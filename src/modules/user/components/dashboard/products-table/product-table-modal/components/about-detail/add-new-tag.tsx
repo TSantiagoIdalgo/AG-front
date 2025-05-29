@@ -8,13 +8,17 @@ interface AddNewTagProps {
     tags: string[]
 }
 
-const AddNewTag: React.FC<AddNewTagProps> = ({ setMaxTag, setProductState, tags }): React.JSX.Element => {
+const AddNewTag: React.FC<AddNewTagProps> = ({ setMaxTag, setProductState, tags=[] }): React.JSX.Element => {
   const spanRef = useRef<HTMLSpanElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [newTag, setNewTag] = useState('');
   const onCreateTag = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === ',' && !tags.some(tag => tag === newTag.toUpperCase())) {
-      setProductState((prev) => ({ ...prev, tags: [...(prev?.tags as string[]), newTag.toUpperCase()]}) as Product);
+      setProductState((prev) => {
+        if (prev) return { ...prev, tags: [...(prev.tags || []), newTag.toUpperCase()]};
+        
+        return { tags: [newTag.toUpperCase()] } as Product;
+      });
       setTimeout(() => {
         setNewTag('');
         setMaxTag(tags.length + 1);

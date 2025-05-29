@@ -9,7 +9,7 @@ import RightClick from './right-click';
 import AddNewTag from './add-new-tag';
 
 
-type TAboutDetail = Pick<Product, 'description' | 'genres' | 'developer' | 'tags' | 'distributor' | 'release_date' | 'pegi' | 'id' | 'franchise'> & {
+type TAboutDetail = Partial<Pick<Product, 'description' | 'genres' | 'developer' | 'tags' | 'distributor' | 'release_date' | 'pegi' | 'id' | 'franchise'>> & {
   setProductState: React.Dispatch<React.SetStateAction<Product | undefined>>
 }
 
@@ -23,7 +23,7 @@ export default function AboutModalDetail({
   description,
   developer,
   genres,
-  tags,
+  tags = [],
   distributor,
   release_date,
   pegi,
@@ -65,19 +65,19 @@ export default function AboutModalDetail({
           </div>
         </div>
         <div className={Style.text_readable}>
-          {processTextWithLines(description)}
+          {processTextWithLines(description || '')}
         </div>
         <span onClick={() => scrollInToView('description')} className={Style.show_more}>Leer mas</span>
         <div className={Style.user_tags}>
           <h2>Tags de usuario*:</h2>
-          {tags.map((tag) => tag.length > zero && (
+          {tags?.map((tag) => tag.length > zero && (
             <div key={tag} className={Style.tag_content}>
               <a onContextMenu={(event) => handleContextMenu(event, tag)} href={`/ancore/catalogue?name=${tag}`} title={tag}>{tag}</a>
               {selectedTag === tag && <RightClick selectedTag={selectedTag} setSelectedTag={setSelectedTag} setProductState={setProductState} tags={tags}/>}
             </div>
           )).slice(zero, maxTag)}
-          {tags.length > maxTag && <a className={Style.more_tags} onClick={() => setTimeout(() => setMaxTag(tags.length), 100)}>...</a>}
-          {isAddingTag && <AddNewTag setMaxTag={setMaxTag} setProductState={setProductState} tags={tags}/>}
+          {(tags?.length || 0) > maxTag && <a className={Style.more_tags} onClick={() => setTimeout(() => setMaxTag(tags?.length || 0), 100)}>...</a>}
+          {isAddingTag && <AddNewTag setMaxTag={setMaxTag} setProductState={setProductState} tags={tags || []}/>}
           <button className={Style.add_new_tag} onClick={() => setTimeout(() => setIsAddingTag(!isAddingTag), 100)}>
             {isAddingTag ? <IoRemove/> : <IoMdAdd />}
           </button>
