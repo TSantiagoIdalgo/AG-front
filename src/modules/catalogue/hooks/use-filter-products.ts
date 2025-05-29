@@ -14,6 +14,8 @@ export const useFilterProducts = () => {
   const getQueryValues = () => {
     const orderType = ordersTypes.find(order => order.visualString === searchParams.get('orderBy'));
     const query = {
+      developer: searchParams.get('developer'),
+      distributor: searchParams.get('distributor'),
       genres: getArrayOrNull(searchParams.getAll('genre')),
       maxPrice: searchParams.get('maxPrice'),
       minPrice: searchParams.get('minPrice'),
@@ -37,5 +39,5 @@ export const useFilterProducts = () => {
     refetch();
   }, [searchParams]);
 
-  return { data: data?.body.data, loading  };
+  return { data: data?.body.data, loading, searchParams  };
 };

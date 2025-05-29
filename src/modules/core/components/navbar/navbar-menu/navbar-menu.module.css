@@ -24,6 +24,7 @@
   gap: 28px;
 
   .navbar_menu_trendings_a {
+    cursor: pointer;
     color: #fff;
     font-size: 15px;
     opacity: .6;

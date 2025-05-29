@@ -1,5 +1,3 @@
-/* eslint-disable no-magic-numbers */
- 
 export const scrollInToView = (elementId: string, yOffset: number = -80, maxAttempts = 10) => {
   let attempts = 0;
   const interval = setInterval(() => {

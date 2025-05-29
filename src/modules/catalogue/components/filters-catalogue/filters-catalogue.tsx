@@ -5,7 +5,7 @@ import { FilterObject } from '../../interfaces/catalogue.interface';
 import FiltersDropdown from './filters-dropdown/filters-dropdown';
 import FiltersGenreDropdown from './filters-genre-dropdown/filters-genre-dropdown';
 import FiltersPrice from './filters-price/filters-price';
-import React from "react";
+import React from 'react';
 import Style from './filters-catalogue.module.css';
 import { getOrdersTypes } from '#modules/catalogue/hooks/get-orders-types.ts';
 
@@ -13,7 +13,7 @@ export default function FiltersCatalogue(): React.JSX.Element {
   const { data: genres } = libs.useFetchData<Genre[]>(GENRE_ENDPOINT.GET.findAll());
   const { data: platform } = libs.useFetchData<Platform[]>(PLATFORM_ENDPOINT.GET.findAll());
   const ordersTypes = getOrdersTypes();
-  const skeleton = Array.from({ length: 10 }, () => "");
+  const skeleton = Array.from({ length: 10 }, () => '');
 
   const platformSet = new Set(platform?.body.data?.map((plat) => plat.name) || skeleton);
   const systemSet = new Set(platform?.body.data?.map((sys) => sys.platform) || skeleton);

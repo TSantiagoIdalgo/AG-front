@@ -25,11 +25,12 @@
         display: flex;
         gap: 6px;
 
-        i {
+        a {
+            color: #fff;
             font-style: normal;
         }
 
-        i:hover {
+        a:hover {
             color: var(--color);
         }
     }

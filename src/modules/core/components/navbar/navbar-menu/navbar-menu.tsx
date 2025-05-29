@@ -1,30 +1,31 @@
-import PcLogo from "#assets/icons/icon-pc.svg";
-import PlayStationLogo from "#assets/icons/icon-play.svg";
-import SwitchLogo from "#assets/icons/icon-swt.svg";
-import XboxLogo from "#assets/icons/icon-xbx.svg";
-import { useScroll } from "#modules/core/hooks/use-scroll.ts";
-import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import LandingNavbarSearch from "../navbar-search/navbar-search";
-import Style from "./navbar-menu.module.css";
+import PcLogo from '#assets/icons/icon-pc.svg';
+import PlayStationLogo from '#assets/icons/icon-play.svg';
+import SwitchLogo from '#assets/icons/icon-swt.svg';
+import XboxLogo from '#assets/icons/icon-xbx.svg';
+import { useScroll } from '#modules/core/hooks/use-scroll.ts';
+import React from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import LandingNavbarSearch from '../navbar-search/navbar-search';
+import Style from './navbar-menu.module.css';
+import { scrollInToView } from '#modules/product-detail/utils/scroll-in-to-view.ts';
 
 interface ILinkComponent {
   img: string;
-  span: "PC" | "PlayStation" | "Xbox" | "Nintendo";
+  span: 'PC' | 'PlayStation' | 'Xbox' | 'Nintendo';
   to: string;
 }
 
 const LinkComponent = ({ img, span, to }: ILinkComponent) => {
   const location = useLocation();
   const colorHover = {
-    Nintendo: "#ff151f",
-    PC: "#ff5400",
-    PlayStation: "#0970d8",
-    Xbox: "#107c10",
+    Nintendo: '#ff151f',
+    PC: '#ff5400',
+    PlayStation: '#0970d8',
+    Xbox: '#107c10',
   };
   const bgColor = location.search.includes(span)
     ? colorHover[span]
-    : "transparent";
+    : 'transparent';
   return (
     <div className={Style.navbar_menu_products_nav}>
       <NavLink
@@ -45,7 +46,16 @@ const LinkComponent = ({ img, span, to }: ILinkComponent) => {
 export default function NavbarMenu(): React.JSX.Element {
   const initScroll = 100;
   const { scrollY } = useScroll();
+  const navigate = useNavigate();
   const isScrolling = scrollY >= initScroll;
+
+  const onNavigateOptions = (to: string) => {
+    const isInLanding = window.location.pathname.split('/').length <= 2;
+    if (isInLanding) return scrollInToView(to);
+    navigate('/');
+    return setTimeout(() => scrollInToView(to), 100);
+  };
+
   return (
     <header className={Style.navbar_menu}>
       <nav
@@ -55,18 +65,15 @@ export default function NavbarMenu(): React.JSX.Element {
             : Style.navbar_menu_trendings
         }
       >
-        <a href="#" className={Style.navbar_menu_trendings_a}>
+        <span onClick={() => onNavigateOptions('tendencies')} className={Style.navbar_menu_trendings_a}>
           Tendencias
-        </a>
-        <a href="#" className={Style.navbar_menu_trendings_a}>
-          Reservas
-        </a>
-        <a href="#" className={Style.navbar_menu_trendings_a}>
-          Proximas salidas
-        </a>
-        <a href="#" className={Style.navbar_menu_trendings_a}>
-          Soporte 24/7
-        </a>
+        </span>
+        <span onClick={() => onNavigateOptions('recommended')} className={Style.navbar_menu_trendings_a}>
+          Recomendados
+        </span>
+        <span onClick={() => onNavigateOptions('best-sellers')} className={Style.navbar_menu_trendings_a}>
+          Mas vendidos
+        </span>
       </nav>
       <div
         className={

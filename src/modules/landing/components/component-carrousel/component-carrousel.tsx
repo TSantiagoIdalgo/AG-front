@@ -7,7 +7,11 @@ import Style from './component-carrousel.module.css';
 
 export default function ComponentCarrousel(orderBy: Partial<GetAllProductsProps>): React.JSX.Element {
   const product = useGetBanners(orderBy);
-  if (!product) return <div/>;
+  if (!product) return (
+    <figure className={Style.card}>
+      <span className={Style.card_img}></span>
+    </figure>
+  );
   const uuidBase64 = new UUIDBase64(product.id);
 
   const parsePrice = (price: number, discount: number) => {

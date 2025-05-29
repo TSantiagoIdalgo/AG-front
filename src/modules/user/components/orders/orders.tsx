@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import { Checkout } from '#src/common/interfaces/checkout.interface.ts';
 import { CHECKOUT_ENDPOINT } from '#src/config/endpoints.ts';
 import React from 'react';

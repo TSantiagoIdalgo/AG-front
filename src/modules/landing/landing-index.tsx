@@ -8,7 +8,7 @@ export default function LandingIndex (): React.JSX.Element {
     <div>
       <main style={{width: '100%'}}>
         <LandingComponents.ComponentCarrousel orderByWishList/>
-        <LandingComponents.RenderSections tittle='Tendencias' filter={{ 
+        <LandingComponents.RenderSections tittle='Tendencias' id='tendencies' filter={{ 
           orderByWishList: true, 
           pageNumber: 0,
           pageSize: 9 
@@ -16,7 +16,7 @@ export default function LandingIndex (): React.JSX.Element {
         <Spacer/>
         <LandingComponents.TrustPanel/>
         <Spacer/>
-        <LandingComponents.RenderSections tittle='Te recomendamos' filter={{ 
+        <LandingComponents.RenderSections tittle='Te recomendamos' id='recommended' filter={{ 
           orderByRecommendation: true, 
           pageNumber: 0,
           pageSize: 6
@@ -24,7 +24,7 @@ export default function LandingIndex (): React.JSX.Element {
         <Spacer/>
         <LandingComponents.Partners/>
         <Spacer/>
-        <LandingComponents.RenderSections tittle='Mas vendidos' filter={{ 
+        <LandingComponents.RenderSections tittle='Mas vendidos' id='best-sellers' filter={{ 
           orderByCheckoutCount: true, 
           pageNumber: 0,
           pageSize: 6

@@ -32,7 +32,7 @@ const CartMainContentCard: React.FC<ICartMainContentCard> = ({
   refetch
 }) => {
   const firstPlatform = 0;
-  const {onDecreaseItem, onIncreaseItem, onRemoveItem} = useQuantityItem(productId, refetch);
+  const {onDecreaseItem, onIncreaseItem, onRemoveItem, onMoveToWishlist} = useQuantityItem(productId, refetch);
   const base64 = new UUIDBase64(productId);
   const parsePrice = () => {
     const fixedPrice = 2, total = 100;
@@ -52,7 +52,7 @@ const CartMainContentCard: React.FC<ICartMainContentCard> = ({
           <div className={Style.type}>{productPlatforms[firstPlatform].name}</div>
           <div className={Style.actions}>
             <img src={DeleteIcon} className={Style.deleteItem} onClick={onRemoveItem} alt="delete"/>
-            <span className={Style.moveToWishlist}>Mover a la lista de deseos</span>
+            <span className={Style.moveToWishlist} onClick={onMoveToWishlist}>Mover a la lista de deseos</span>
           </div>
         </div>
         <div className={Style.price_container}>

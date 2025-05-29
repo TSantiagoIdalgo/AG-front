@@ -7,7 +7,7 @@ type TAboutDetailInfo = Pick<Product, 'genres' | 'pegi' | 'developer' | 'distrib
 export default function AboutDetailInfo({ developer, distributor, genres, pegi, release_date}: TAboutDetailInfo): React.JSX.Element {
   const IsMinLength =  1, genresLength = genres.length - IsMinLength;
   const formatDate = (dateTime: string) => {
-    const date = new Date(dateTime);
+    const date = new Date(`${dateTime  }T12:00:00` );
     return new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
   };
   return (<>
@@ -17,11 +17,11 @@ export default function AboutDetailInfo({ developer, distributor, genres, pegi, 
     </div>
     <div className={Style.specifics_text}>
       <span className={Style.specifics_text_title}>Desarrollador:</span>
-      <span className={Style.specifics_value}>{developer}</span>
+      <a href={`/ancore/catalogue?developer=${developer}`} className={Style.specifics_value}>{developer}</a>
     </div>
     <div className={Style.specifics_text}>
       <span className={Style.specifics_text_title}>Distribuidor:</span>
-      <span className={Style.specifics_value}>{distributor}</span>
+      <a href={`/ancore/catalogue?distributor=${distributor}`} className={Style.specifics_value}>{distributor}</a>
     </div>
     <div className={Style.specifics_text}>
       <span className={Style.specifics_text_title}>Fecha de lanzamiento:</span>
@@ -29,7 +29,7 @@ export default function AboutDetailInfo({ developer, distributor, genres, pegi, 
     </div>
     <div className={Style.specifics_text}>
       <span className={Style.specifics_text_title}>Genero:</span>
-      <span className={Style.specifics_value_genres}>{genres.map((genre, index) => <i key={genre.name}>{genre.name}{index < genresLength? ',' : ''}</i>)}</span>
+      <span className={Style.specifics_value_genres}>{genres.map((genre, index) => <a href={`/ancore/catalogue?genre=${genre.name}`} key={genre.name}>{genre.name}{index < genresLength? ',' : ''}</a>)}</span>
     </div>
   </>
   );

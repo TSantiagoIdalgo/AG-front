@@ -8,16 +8,21 @@ interface IMainCatalogue {
   products?: Product[];
   totalElements: number;
   loading: boolean;
+  searchParams: URLSearchParams
 }
 
-const MainCatalogue: React.FC<IMainCatalogue> = ({ totalElements, products, loading }): React.JSX.Element => {
+const MainCatalogue: React.FC<IMainCatalogue> = ({ totalElements, products, loading, searchParams }): React.JSX.Element => {
   const skeleton = Array.from({ length: 60 }, (_unknow, index) => index);
-
+  const getTitle = () => {
+    if (searchParams.has('developer')) return `Desarrollador ${searchParams.get('developer')}`;
+    else if (searchParams.has('distributor')) return `Distribuidor ${searchParams.get('distributor')}`;
+    return `${totalElements} Resultados`;
+  };
   return (
     (
       <main className={Style.mainContent}>
         <div className={Style.wrapper}>
-          <h2 className={Style.cuantity_results}>{totalElements} Results</h2>
+          <h2 className={Style.cuantity_results}>{getTitle()}</h2>
           <div className={Style.items}>
             {loading
               ? skeleton.map((index) => <SkeletonCard key={index}/>)

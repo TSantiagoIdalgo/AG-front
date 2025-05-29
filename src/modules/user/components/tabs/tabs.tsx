@@ -1,12 +1,11 @@
 import ArrowIcon from '#assets/icons/icon-arrow.svg';
 import DashboardIcon from '#assets/icons/icon-dashboard.svg';
-import SettingIcon from '#assets/icons/icon-settings.svg';
 import * as libs from '#modules/user/libs/user-libs.ts';
 import React from 'react';
 import Style from './tabs.module.css';
 import { IState } from '#src/state/store.ts';
 
-export type TUserPaths = 'my-orders' | 'wishlist' | 'dashboard' | 'library' | 'my-reviews' | 'setting'
+export type TUserPaths = 'my-orders' | 'wishlist' | 'dashboard' | 'my-reviews'
 
 export default function UserTabs(): React.JSX.Element {
   const { data: user } = libs.useSelector((state: IState) => state.user);
@@ -33,12 +32,7 @@ export default function UserTabs(): React.JSX.Element {
       <li>
         <p onClick={() => navigate('/user/my-reviews')} id={includesPath('my-reviews') ? Style.active : Style.none}>Reviews</p>
       </li>
-      <li className={Style.setting}>
-        <p onClick={() => navigate('/user/setting')} id={includesPath('setting') ? Style.active : Style.none}>
-          <img src={SettingIcon} alt="setting"/>
-          <span>Configuracion</span>
-        </p>
-      </li>
+    
     </ul>
   );
 }

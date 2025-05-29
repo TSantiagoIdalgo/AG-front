@@ -1,12 +1,13 @@
-import {Cart} from "#modules/cart/interfaces/cart.interface.ts";
-import {CART_ENDPOINT} from "#src/config/endpoints.ts";
-import {useMutation} from "#src/hooks/use-mutation-data.ts";
+import {Cart} from '#modules/cart/interfaces/cart.interface.ts';
+import {CART_ENDPOINT, WISHLIST_ENDPOINT} from '#src/config/endpoints.ts';
+import {useMutation} from '#src/hooks/use-mutation-data.ts';
 
 export const useQuantityItem = (productId: string, refetch: () => Promise<void>) => {
+  const { callMutation: addToWishlist } = useMutation(WISHLIST_ENDPOINT.POST.addProductToWishlist(productId));
   const {callMutation: decrease} = useMutation<Cart>(CART_ENDPOINT.POST.decreaseProduct());
   const {callMutation: increase} = useMutation<Cart>(CART_ENDPOINT.POST.increaseProduct());
   const {callMutation: remove} = useMutation<Cart>(CART_ENDPOINT.DELETE.remove(), {
-    method: "DELETE",
+    method: 'DELETE',
   });
 
   const onDecreaseItem = async () => {
@@ -25,5 +26,14 @@ export const useQuantityItem = (productId: string, refetch: () => Promise<void>)
     await refetch();
   };
 
-  return {onDecreaseItem, onIncreaseItem, onRemoveItem};
+  const onMoveToWishlist = async () => {
+    try {
+      await addToWishlist();
+      await onRemoveItem();
+    } catch {
+      await onRemoveItem();
+    }
+  };
+
+  return {onDecreaseItem, onIncreaseItem, onMoveToWishlist, onRemoveItem};
 };

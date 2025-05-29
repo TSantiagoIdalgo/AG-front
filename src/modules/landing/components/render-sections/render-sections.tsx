@@ -11,10 +11,11 @@ import Style from './render-sections.module.css';
 
 interface RenderCadsProps {
   filter: Partial<GetAllProductsProps>;
-  tittle: string
+  tittle: string;
+  id?: string
 }
 
-export default function RenderSections({tittle, filter}: RenderCadsProps): React.JSX.Element {
+export default function RenderSections({tittle, filter, id}: RenderCadsProps): React.JSX.Element {
   const {data, loading, error} = libs.useFetchData<DataResponse<Product>>(PRODUCT_ENDPOINT.GET.findAll(), {
     query: {...filter}
   });
@@ -22,7 +23,7 @@ export default function RenderSections({tittle, filter}: RenderCadsProps): React
   if (error) return <p>{error.message}</p>;
   const skeleton = Array.from({length: filter.pageSize as number}, (_unkown, index) => index);
   return (
-    <section className={Style.trends} id={tittle}>
+    <section className={Style.trends} id={id}>
       <section className={Style.trends_render}>
         <div className={Style.trends_title}>
           <h2 className={Style.title}>{tittle}</h2>

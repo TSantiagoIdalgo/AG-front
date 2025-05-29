@@ -21,7 +21,6 @@ const calculateTotalPrice = (discount: number, price: number): number => {
 };
 
 // TODO component refactor
-// eslint-disable-next-line max-statements
 export default function PanelDetail({product, inWishlist}: { product: Product, inWishlist: boolean }): React.JSX.Element {
   const {platforms, mainImage, name, stock, price, discount} = product;
   const fixedPrice = 2, minStock = 1, timeToRefresh = 80;
