@@ -38,7 +38,7 @@ export default function ProductDetailIndex(): React.JSX.Element {
   if (loading || !data?.body.data) return <p>Loading...</p>;
 
   const { backgroundImage, name, description, developer, tags, genres, release_date, distributor, pegi, trailer, images, requirements } = data.body.data.product;
-  
+
   return (
     <main className='product-detail-index'>
       <Detail.HeaderDetail backgroundImage={backgroundImage} name={name}/>
@@ -48,7 +48,7 @@ export default function ProductDetailIndex(): React.JSX.Element {
         <Detail.VisualsDetail images={images} trailer={trailer}/>
         <Detail.DescriptionDetail description={description} />
         <Detail.ConfigurationDetail requirements={requirements}/>
-        <Detail.ReviewsDetail reviews={reviews} setReviews={setReviews} isPurchased={data.body.data.purchasedByUser} handleModal={handleModal}/>
+        <Detail.ReviewsDetail userReviewed={data.body.data.userReviewed} reviews={reviews} setReviews={setReviews} isPurchased={data.body.data.purchasedByUser} handleModal={handleModal}/>
       </section>
       {modal && ReactDOM.createPortal(<ReviewsModal reviews={reviews} setReviews={setReviews}  userReviewed={data.body.data.userReviewed} productId={id as string} handleModal={handleModal}/>, document.getElementById('modal') as HTMLElement)}
     </main>

@@ -15,6 +15,7 @@ const MyOrders = (): React.JSX.Element => {
   if (loading || !data?.body) return <p>LOADING...</p>;
   else if (!data.body.data) return <div className={Style.notice}>No tienes compras en este momento</div>;
   const checkouts = data.body.data;
+
   return (
     <div className={Style.orders}>
       <div className={Style.spacer}></div>
@@ -22,7 +23,9 @@ const MyOrders = (): React.JSX.Element => {
       <Masonry breakpointCols={{ 768: 1, default: 2 }} className={Style.checkout_container} columnClassName={Style.checkout_container_column}>
         {checkouts.map(({ id, paymentStatus, total, subTotal, checkoutItems, createdAt }) => (
           <div key={id} className={Style.checkout}>
-            <span className={Style.status}><span>{paymentStatus.at(0)?.toUpperCase().concat(paymentStatus.slice(1, paymentStatus.length))}</span></span>
+            <span className={paymentStatus === 'paid' ? Style.status : Style.bad_status}>
+              <span>{paymentStatus.at(0)?.toUpperCase().concat(paymentStatus.slice(1, paymentStatus.length))}</span>
+            </span>
             <div className={Style.items}>
               {checkoutItems.map(({ cartItem }) => <OrderCard key={cartItem.id} item={cartItem}/>)}
             </div>
@@ -36,7 +39,7 @@ const MyOrders = (): React.JSX.Element => {
                 <span>{parsePrice(total)}</span>
               </div>
             </div>
-            <button className={Style.checkout_view}>View order</button>
+            <a href={`/ancore/order/${id}`} className={Style.checkout_view}>View order</a>
             <div className={Style.checkout_date}>
               <p>{new Intl.DateTimeFormat('es-AR', { dateStyle: 'full' }).format(new Date(createdAt))}</p>
             </div>

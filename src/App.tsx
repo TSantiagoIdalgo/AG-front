@@ -15,7 +15,7 @@ import Verify from '#modules/verify/verify.tsx';
 import { IState } from '#src/state/store.ts';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { USER_ENDPOINT } from './config/endpoints';
 import LandingIndex from './modules/landing/landing-index';
 import { getUser } from './state/reducers/user-slice';
@@ -23,6 +23,7 @@ import { EventReceived, EventTypes } from './common/interfaces/event-types';
 import { ProductCheckout } from './common/interfaces/checkout.interface';
 import { Cart } from '#modules/cart/interfaces/cart.interface.ts';
 import { setNewPayment, setNewPaymentReceived } from './state/reducers/websocket-slice';
+import OrderDetail from '#modules/order-detail/order-detail.tsx';
 
 export default function App(): React.JSX.Element {
   const [loading, setLoading] = useState(false);
@@ -49,7 +50,6 @@ export default function App(): React.JSX.Element {
       }
     };
     getUserData();
-    // 
   }, []);
   useEffect(() => {
     const socket = new WebSocket('ws://localhost:8080/ws');
@@ -78,6 +78,7 @@ export default function App(): React.JSX.Element {
       {(!location.pathname.includes('cart') &&
         !location.pathname.includes('activation')) && <Navbar />}
       <Routes>
+        <Route path='*' element={<Navigate to={'/'}/>}/>
         <Route path="/" element={<LandingIndex />} />
         <Route path="/:id" element={<ProductDetailIndex />} />
         <Route path="/catalogue" element={<CatalogueIndex />} />
@@ -107,7 +108,9 @@ export default function App(): React.JSX.Element {
           <Route path="activation" element={<CartActivationIndex />} />
           <Route path="*" element={<UserIndex />} />
         </Route>
-        ) 
+        <Route element={<ProtectedRoute firstPageLoaded={firstPageLoaded} loading={loading} roles={['ROLE_USER', 'ROLE_ADMIN']}/>}>
+          <Route path='/order/:id' element={<OrderDetail/>}/>
+        </Route> 
       </Routes>
       {!location.pathname.includes('user') && <PreFooter />}
       <Footer />

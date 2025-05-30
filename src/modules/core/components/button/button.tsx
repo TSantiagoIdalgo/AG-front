@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import Style from './button.module.css';
 
 export interface IButton {

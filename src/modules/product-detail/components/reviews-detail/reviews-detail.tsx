@@ -13,10 +13,11 @@ interface ReviewsDetailProps {
   isPurchased: boolean;
   handleModal: React.Dispatch<React.SetStateAction<boolean>>
   setReviews: React.Dispatch<React.SetStateAction<Review[]>>
-  reviews: Review[]
+  reviews: Review[];
+  userReviewed: boolean
 }
 
-export default function ReviewsDetail ({ isPurchased, handleModal, reviews, setReviews }: ReviewsDetailProps): React.JSX.Element {
+export default function ReviewsDetail ({ isPurchased, handleModal, reviews, setReviews, userReviewed }: ReviewsDetailProps): React.JSX.Element {
   const { id } = libs.useParams();
   const [originalReviews, setOriginalReviews] = libs.useState<Review[]>([]);
   const reviewsChange = JSON.stringify(reviews) !== JSON.stringify(originalReviews);
@@ -48,7 +49,20 @@ export default function ReviewsDetail ({ isPurchased, handleModal, reviews, setR
     })();
   }, [avg]);
   
-
+  const purchasedWithoutReview = isPurchased 
+    ? <PrimaryButton 
+      onClick={() => handleModal(true)} 
+      text='¡Valora este juego!' 
+      type='button' 
+      style={{marginLeft: '40px'}}/> 
+    : null;
+  const purchaseAndReviewed = isPurchased && userReviewed 
+    ? <PrimaryButton 
+      onClick={() => handleModal(true)} 
+      text='¡Cambiar mi reseña!' 
+      type='button' 
+      style={{background: 'transparent', borderColor: '#666', borderWidth: '1px', marginLeft: '40px'}}/>
+    : purchasedWithoutReview;
   return (
     <section className={Style.reviews_container}>
       <div className={Style.headline}>
@@ -77,7 +91,7 @@ export default function ReviewsDetail ({ isPurchased, handleModal, reviews, setR
               </div>
             </>
           ) : <span>No hay suficientes reseñas para calcular la puntuación</span>}
-        {isPurchased ? (<PrimaryButton onClick={() => handleModal(true)} text='¡Valora este juego!' type='button' style={{marginLeft: '40px'}}/>) : null}
+        {purchaseAndReviewed}
       </div>
       <div className={Style.reviews}>
         {reviews.map((review) => <ReviewCard  key={review.id} review={review}/>)}

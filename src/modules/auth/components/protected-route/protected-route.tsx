@@ -15,7 +15,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({roles, loading, f
   if (firstPageLoaded) return null;
   if (loading && !firstPageLoaded) return null;
   if (!data) return <Navigate to="/login"/>;
-  if (roles && !data.roles.some((userRoles) => roles.some((role) => userRoles.name === role))) return <Navigate to="/unauthorized"/>;
+  if (roles && !data.roles.some((userRoles) => roles.some((role) => userRoles.name === role))) return <Navigate to="/"/>;
 
   return <Outlet/>;
 };

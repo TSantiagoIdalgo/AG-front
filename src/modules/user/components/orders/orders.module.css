@@ -61,6 +61,7 @@
     border: 2px solid var(--color-medium);
     position: relative;
 
+    .bad_status,
     .status {
         position: absolute;
         top: 0;
@@ -74,6 +75,11 @@
         justify-content: center;
         align-items: center;
         border-radius: 0px 12px 0 12px;
+    }
+
+    .bad_status {
+        background-color: #d432322f;
+        color: #d43232;
     }
 
     .items {
@@ -142,6 +148,7 @@
     margin-left: 20px;
     margin-right: 20px;
     border-radius: 6px;
+    text-align: center;
 }
 
 .checkout_view:hover {
