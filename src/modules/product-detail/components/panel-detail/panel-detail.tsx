@@ -14,19 +14,19 @@ import {useMutation} from '../../libs/product-detail-libs';
 import Style from './panel-detail.module.css';
 import { useUserCartCount } from '#modules/core/hooks/use-user-cart-count.ts';
 import { debounce } from '#src/common/debounce.ts';
+import PanelModal from './panel-modal/panel-modal';
 
 const calculateTotalPrice = (discount: number, price: number): number => {
   const initValue = 100;
   return (initValue - discount) * price / initValue;
 };
 
-// TODO component refactor
 export default function PanelDetail({product, inWishlist}: { product: Product, inWishlist: boolean }): React.JSX.Element {
   const {platforms, mainImage, name, stock, price, discount} = product;
   const fixedPrice = 2, minStock = 1, timeToRefresh = 80;
   const inStock = stock >= minStock;
   const debounceTime = 300;
-  const { refetch } = useUserCartCount();
+  const { refetch, newItemSetted, cart } = useUserCartCount();
   const platformFind = platforms.find(platform => !platform.disabled);
   const [onSelectPlatform, handleOnSelectPlatfrom] = libs.useState(false);
   const {callMutation} = useMutation<Cart>(CART_ENDPOINT.POST.increaseProduct());
@@ -36,7 +36,6 @@ export default function PanelDetail({product, inWishlist}: { product: Product, i
   const { callMutation: removeFromWishlist } = useMutation(WISHLIST_ENDPOINT.DELETE.removeProductFromWishlist(product.id), {
     method: 'DELETE'
   });
-
   const selectPlatform = (platform: Platform) => {
     setSelectedPlatform(platform);
     setTimeout(() => {
@@ -111,6 +110,7 @@ export default function PanelDetail({product, inWishlist}: { product: Product, i
           </div>
         </div>
       </div>
+      {newItemSetted && <PanelModal getUserCart={refetch} cart={cart}/>}
     </div>
   );
 }

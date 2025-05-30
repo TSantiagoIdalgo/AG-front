@@ -1,3 +1,4 @@
+/* eslint-disable no-negated-condition */
 import ArrowIcon from '#assets/icons/icon-arrow.svg';
 import DeleteIcon from '#assets/icons/icon-delete.svg';
 import {useQuantityItem} from '#modules/cart/hooks/use-quantity-item.ts';
@@ -16,7 +17,9 @@ interface ICartMainContentCard {
   productDiscount: number;
   quantity: number;
   productStock: number;
+  style?: React.CSSProperties;
   refetch: () => Promise<void>;
+  notRenderWishlist?: boolean
 }
 
 const CartMainContentCard: React.FC<ICartMainContentCard> = ({
@@ -28,6 +31,8 @@ const CartMainContentCard: React.FC<ICartMainContentCard> = ({
   productPrice,
   productDiscount,
   quantity,
+  style,
+  notRenderWishlist,
   productStock,
   refetch
 }) => {
@@ -42,7 +47,7 @@ const CartMainContentCard: React.FC<ICartMainContentCard> = ({
   };
 
   return (
-    <figure key={itemId} className={Style.cart_item}>
+    <figure style={style} key={itemId} className={Style.cart_item}>
       <div className={Style.item_container}>
         <a href={`/ancore/${base64.uuidToBase64()}`}>
           <img src={productMainImage} alt={productName}/>
@@ -52,7 +57,7 @@ const CartMainContentCard: React.FC<ICartMainContentCard> = ({
           <div className={Style.type}>{productPlatforms[firstPlatform].name}</div>
           <div className={Style.actions}>
             <img src={DeleteIcon} className={Style.deleteItem} onClick={onRemoveItem} alt="delete"/>
-            <span className={Style.moveToWishlist} onClick={onMoveToWishlist}>Mover a la lista de deseos</span>
+            {!notRenderWishlist ? <span className={Style.moveToWishlist} onClick={onMoveToWishlist}>Mover a la lista de deseos</span> : null}
           </div>
         </div>
         <div className={Style.price_container}>

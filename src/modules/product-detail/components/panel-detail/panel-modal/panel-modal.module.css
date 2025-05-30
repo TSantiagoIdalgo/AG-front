@@ -1,0 +1,96 @@
+.panel_modal {
+  position: fixed;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  .panel_content {
+    width: 100%;
+    max-width: 450px;
+    height: 100%;
+    max-height: 95vh;
+    background-color: var(--color-medium);
+    position: absolute;
+    border-radius: 10px;
+    top: 25px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    animation-name: show_panel;
+    animation-duration: .2s;
+    animation-fill-mode: forwards;
+  }
+}
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #a8a8a8a8;
+
+    p {
+        font-size: 21px;
+        span {
+            font-size: 15px;
+            color: #a8a8a8a8;
+        }
+    }
+}
+
+.items {
+    height: calc(95vh - 226px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.bottom_panel {
+    height: 170px;
+    position: absolute;
+    width: 100%;
+    background: var(--color-very-dark);
+    border-radius: 0 0 10px 10px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    bottom: 0;
+    padding: 30px;
+
+    .total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.5rem;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+}
+
+@keyframes show_panel {
+    from {
+        right: -100vw;
+    }
+
+    to {
+        right: 20px;
+    }
+}

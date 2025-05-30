@@ -5,6 +5,7 @@ import React from 'react';
 import Style from './cart-main-products-pay.module.css';
 import { useSelector } from 'react-redux';
 import { IState } from '#src/state/store.ts';
+import { generateGameKey } from '#src/hooks/generate-game-key.ts';
 
 const CartMainProductsPay = (): React.JSX.Element => {
   const [cart, setCart] = libs.useState<Cart>();
@@ -25,7 +26,7 @@ const CartMainProductsPay = (): React.JSX.Element => {
             const firstPlatform = 0;
             const quantity = Array.from({ length: item.quantity }, (_unknown, index) => index);
             return quantity.map((index) => {
-              const id = crypto.randomUUID();
+              const id = generateGameKey();
               return (
                 <figure key={`${index}-${item.id}}`} className={Style.cart_item}>
                   <div className={Style.item_container}>
