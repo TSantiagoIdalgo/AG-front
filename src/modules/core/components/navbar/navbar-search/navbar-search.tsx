@@ -4,6 +4,7 @@ import SearchIcon from '#assets/icons/search.svg';
 import Style from './navbar-search.module.css';
 import { debounce } from '#src/common/debounce.ts';
 import { useChangeSearchParams } from '#src/hooks/use-change-search-params.ts';
+import { useMediaWidth } from '#src/hooks/useMediaWidth.ts';
 
 
 export default function LandingNavbarSearch (): React.JSX.Element {
@@ -11,6 +12,7 @@ export default function LandingNavbarSearch (): React.JSX.Element {
   const [searching, handleSearching] = libs.useState(Boolean(searchParams.has('name')));
   const [searchValue, setSearchValue] = libs.useState(searchParams.get('name') ?? '');
   const navigate = libs.useNavigate();
+  const { isBelowWidth } = useMediaWidth(1024);
   const debounceTime = 200;
 
   const debouncedUpdate = libs.useRef(
@@ -33,7 +35,7 @@ export default function LandingNavbarSearch (): React.JSX.Element {
   }, []);
 
   return (
-    <div className={Style.navbar_menu_query}>
+    <div className={isBelowWidth ? Style.navbar_menu_query_response : Style.navbar_menu_query}>
       <input type="text" 
         autoComplete='off'
         onChange={onSearchChange}

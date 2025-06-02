@@ -8,6 +8,7 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import LandingNavbarSearch from '../navbar-search/navbar-search';
 import Style from './navbar-menu.module.css';
 import { scrollInToView } from '#modules/product-detail/utils/scroll-in-to-view.ts';
+import { useMediaWidth } from '#src/hooks/useMediaWidth.ts';
 
 interface ILinkComponent {
   img: string;
@@ -47,7 +48,9 @@ export default function NavbarMenu(): React.JSX.Element {
   const initScroll = 100;
   const { scrollY } = useScroll();
   const navigate = useNavigate();
-  const isScrolling = scrollY >= initScroll;
+
+  const { isBelowWidth } = useMediaWidth(1024);
+  const isScrolling = scrollY >= initScroll || isBelowWidth;
 
   const onNavigateOptions = (to: string) => {
     const isInLanding = window.location.pathname.split('/').length <= 2;
@@ -88,22 +91,28 @@ export default function NavbarMenu(): React.JSX.Element {
           }
         ></div>
         <div className={Style.navbar_menu_products_links}>
-          <LinkComponent img={PcLogo} span="PC" to="/catalogue?system=PC" />
-          <LinkComponent
-            img={PlayStationLogo}
-            span="PlayStation"
-            to="/catalogue?system=PlayStation"
-          />
-          <LinkComponent
-            img={XboxLogo}
-            span="Xbox"
-            to="/catalogue?system=Xbox"
-          />
-          <LinkComponent
-            img={SwitchLogo}
-            span="Nintendo"
-            to="/catalogue?system=Nintendo"
-          />
+          {isBelowWidth 
+            ? null 
+            : (
+              <>
+                <LinkComponent img={PcLogo} span="PC" to="/catalogue?system=PC" />
+                <LinkComponent
+                  img={PlayStationLogo}
+                  span="PlayStation"
+                  to="/catalogue?system=PlayStation"
+                />
+                <LinkComponent
+                  img={XboxLogo}
+                  span="Xbox"
+                  to="/catalogue?system=Xbox"
+                />
+                <LinkComponent
+                  img={SwitchLogo}
+                  span="Nintendo"
+                  to="/catalogue?system=Nintendo"
+                />
+              </>
+            )}
           <LandingNavbarSearch />
         </div>
       </div>
