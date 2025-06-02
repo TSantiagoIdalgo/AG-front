@@ -21,7 +21,7 @@ export const useFilterProducts = () => {
       minPrice: searchParams.get('minPrice'),
       name: searchParams.get('name'),
       pageNumber: page,
-      pageSize: 60,
+      pageSize: 10,
       platform: getArrayOrNull(searchParams.getAll('platform')),
       system: getArrayOrNull(searchParams.getAll('system'))
     };

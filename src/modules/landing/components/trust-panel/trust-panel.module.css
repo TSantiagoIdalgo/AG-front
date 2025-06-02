@@ -57,3 +57,18 @@
     height: 70px;
     width: 1px;
 }
+
+@media (width <= 1024px) {
+    .container {
+        height: 100%;
+    }
+    .content {
+        flex-wrap: wrap;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .spacer {
+        background-color: transparent;
+    }
+}

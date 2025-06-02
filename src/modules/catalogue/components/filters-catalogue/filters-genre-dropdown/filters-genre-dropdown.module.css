@@ -229,3 +229,9 @@
 .search_dropdown_input {
     display: none;
 }
+
+@media (width <= 600px) {
+    .container {
+        width: calc(100%);
+    }
+}

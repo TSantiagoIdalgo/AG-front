@@ -128,3 +128,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@media (width <= 800px) {
+    .review {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}

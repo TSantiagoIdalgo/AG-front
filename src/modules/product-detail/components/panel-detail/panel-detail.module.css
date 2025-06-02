@@ -295,3 +295,13 @@
 .buttons_favorite:hover {
     background: var(--fire-gradient-hover);
 }
+
+@media (width <= 1280px) {
+    .content_panel {
+        flex-direction: column;
+    }
+
+    .content_info {
+        margin-left: 0;
+    }
+}

@@ -1,5 +1,5 @@
 import IconSend from '#assets/icons/icon-send.svg';
-import React from "react";
+import React from 'react';
 import Style from './pre-footer.module.css';
 
 export default function PreFooter(): React.JSX.Element {

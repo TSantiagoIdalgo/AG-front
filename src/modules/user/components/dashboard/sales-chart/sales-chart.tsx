@@ -1,10 +1,11 @@
 import { Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Checkout } from '#src/common/interfaces/checkout.interface.ts';
 import { parsePrice } from '#src/common/parse-price.ts';
 import Style from './sales-chart.module.css';
 import DashboardTooltip from '../dashboard-tooltip/dashboard-tooltip';
 import { useCalculateDashboardData } from '#modules/user/hooks/use-calculated-dashboard-data.ts';
+import { getPreviousMonthIndex } from '../total-graphics/total-graphics';
 
 interface SalesChartProps {
     checkouts: Checkout[];
@@ -14,7 +15,22 @@ interface SalesChartProps {
 export const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
 export const SalesChart: React.FC<SalesChartProps> = ({ checkouts }): React.JSX.Element => {
-  const groupedData = useCalculateDashboardData(checkouts);
+  const groupedMonthData = useCalculateDashboardData(checkouts);
+  const groupedData: typeof groupedMonthData = useMemo(() => {
+    const monthFound = groupedMonthData.itemsGrouped.find((item) => item.month === months[new Date().getMonth()]);
+    if (monthFound) return groupedMonthData;
+    const previuosMonth = groupedMonthData.itemsGrouped.find(item => item.month[getPreviousMonthIndex(new Date().getMonth())]) as typeof groupedMonthData.itemsGrouped[0];
+    groupedMonthData.itemsGrouped.push({
+      'Growth rate': 0,
+      'Profit diff': 0,
+      Sales: 0,
+      'Sales diff': 0 - previuosMonth?.['Total profit'],
+      'Sales quantity diff': 0 - previuosMonth?.Sales,
+      'Total profit': 0,
+      month: months[new Date().getMonth()]
+    });
+    return groupedMonthData;
+  }, [groupedMonthData]);
   if (!checkouts.length) return <p>Loading...</p>;
   return (
     <article className={Style.sales}>

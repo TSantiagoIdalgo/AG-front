@@ -1,4 +1,4 @@
-/* eslint-disable no-magic-numbers */
+ 
 import React from 'react';
 import Style from './total-graphics.module.css';
 import { Checkout, ProductCheckout } from '#src/common/interfaces/checkout.interface.ts';
@@ -8,6 +8,7 @@ import { useFetchData } from '#src/hooks/use-fetch-data.tsx';
 import { USER_ENDPOINT } from '#src/config/endpoints.ts';
 import { ImArrowUp } from 'react-icons/im';
 import { ImArrowDown } from 'react-icons/im';
+import { months } from '../sales-chart/sales-chart';
 
 
 interface TotalGraphicsProps {
@@ -15,13 +16,22 @@ interface TotalGraphicsProps {
     checkouts: Checkout[];
     loading: boolean;
 }
+export const getPreviousMonthIndex = (monthIndex: number) => (monthIndex - 1 + 12) % 12;
 
 const TotalGraphics: React.FC<TotalGraphicsProps> = ({ checkouts }): React.JSX.Element => {
   const { data } = useFetchData<number>(USER_ENDPOINT.GET.countClients());
 
   const groupedData = useCalculateDashboardData(checkouts);
-  const previousMonthData = groupedData.itemsGrouped[new Date().getMonth() - 1];
-  const currentMonthData = groupedData.itemsGrouped[new Date().getMonth()];
+  const previousMonthData = groupedData.itemsGrouped[getPreviousMonthIndex(new Date().getMonth())];
+  const currentMonthData = groupedData.itemsGrouped[new Date().getMonth()] ?? {
+    'Growth rate': 0,
+    'Profit diff': 0,
+    Sales: 0,
+    'Sales diff': 0 - previousMonthData['Total profit'],
+    'Sales quantity diff': 0 - previousMonthData.Sales,
+    'Total profit': 0,
+    month: months[new Date().getMonth()],
+  };
   if (!checkouts.length) return <p>loading...</p>;
 
   const booleansProperties = {

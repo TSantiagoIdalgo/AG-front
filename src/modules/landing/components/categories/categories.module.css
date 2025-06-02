@@ -101,3 +101,22 @@
 .category_content:hover>.category_content_cover {
     transform: scale(1.04);
 }
+
+@media (800px <= width <= 1280px) {
+    .categories_list {
+        grid-template-columns: repeat(auto-fit, 380px);
+        grid-template-rows: repeat(auto-fit, 240px);
+
+    }
+}
+
+@media (width <= 800px) {
+    .categories_list {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(auto, 240px);
+
+    }
+    .category_container {
+        max-width: 100%;
+    }
+}

@@ -1,4 +1,4 @@
-/* eslint-disable max-statements */
+ 
 import SearchIcon from '#assets/icons/search.svg';
 import {useOutClick} from '#modules/catalogue/hooks/use-out-click.ts';
 import {FilterObject, IFiltersDropdown} from '#modules/catalogue/interfaces/catalogue.interface.ts';

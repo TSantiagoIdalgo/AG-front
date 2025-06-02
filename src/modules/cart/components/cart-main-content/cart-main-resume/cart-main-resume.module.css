@@ -78,3 +78,11 @@
     }
   }
 }
+
+@media (width <= 800px) {
+  .cart_page_right {
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 20px;
+  }
+}

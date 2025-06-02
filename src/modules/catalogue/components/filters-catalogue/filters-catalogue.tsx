@@ -25,7 +25,7 @@ export default function FiltersCatalogue(): React.JSX.Element {
   return (
     <div className={Style.filters}>
       <form name="filters" className={Style.filters_form}>
-        <div className={Style.seach_title}>
+        <div style={{display: 'flex', flexWrap: 'wrap', width: '100%'}}>
           <FiltersDropdown
             name="Sistemas" 
             results={systems}

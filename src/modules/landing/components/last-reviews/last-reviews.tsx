@@ -1,11 +1,11 @@
 import * as libs from '../../libs/landing-libs';
 import { DataResponse } from '#src/common/interfaces/pageable-data.interface.ts';
 import NotRecommendedIcon from '#assets/icons/icon-dislike.svg';
-import { REVIEW_ENDPOINT } from "#src/config/endpoints.ts";
-import React from "react";
+import { REVIEW_ENDPOINT } from '#src/config/endpoints.ts';
+import React from 'react';
 import RecommendedIcon from '#assets/icons/icon-like.svg';
 import { Review } from '#src/common/interfaces/review.interface.ts';
-import Style from "./last-reviews.module.css";
+import Style from './last-reviews.module.css';
 import UUIDBase64 from '#src/common/uuid-base64.ts';
 import UserIcon from '#assets/icons/icon-user.svg';
 import arowLeft from '#assets/icons/icon-arrow.svg';

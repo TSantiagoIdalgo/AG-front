@@ -26,9 +26,9 @@ export default function ReviewsSection (): React.JSX.Element {
     const days = Math.floor(hours / day);
 
     if (days > one) return `Hace ${days} dias`;
-    else if (days > zero) return "Ayer";
+    else if (days > zero) return 'Ayer';
     else if (hours > zero) return `Hace ${hours} horas`;
-    return "Hace unos momentos";
+    return 'Hace unos momentos';
 
   };
 

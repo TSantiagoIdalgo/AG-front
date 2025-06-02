@@ -61,3 +61,19 @@
     justify-content: center;
     position: relative;
 }
+
+@media (width <= 768px) {
+    .indies {
+        flex-wrap: wrap;
+        margin-right: 0;
+    }
+
+    .indies_character {
+        background-image: none;
+        background-size: cover;
+        flex: 0 0 0px;
+        height: 0px;
+        margin-right: 0px;
+        position: relative;
+    }
+}

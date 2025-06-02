@@ -76,3 +76,17 @@
 .button:hover {
     background: var(--fire-gradient-hover);
 }
+
+@media (width <= 600px) {
+    .pre_footer {
+        height: 100%;
+    }
+
+    .subscribe {
+        flex-direction: column;
+    }
+
+    .button {
+        margin-top: 20px;
+    }
+}

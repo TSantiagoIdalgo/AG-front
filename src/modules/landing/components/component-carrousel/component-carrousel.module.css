@@ -120,6 +120,22 @@
   }
 }
 
+@media (600px <= width <= 1024px) {
+  .componentCarrousel {
+    margin-top: 66px;
+    height: 400px;
+  }
+
+  .clip_path {
+    height: 60px;
+  }
+
+  .product_data h2,
+  .product_data span {
+    font-size: 22px;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .componentCarrousel {
     margin-top: 66px;

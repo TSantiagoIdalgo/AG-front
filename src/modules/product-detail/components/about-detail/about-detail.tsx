@@ -26,6 +26,7 @@ export default function AboutDetail({
   pegi
 }: TAboutDetail): React.JSX.Element {
   const {id} = libs.useParams();
+  const [maxTags, setMaxTags] = libs.useState(5);
   const [circleMeter, setCircleMeter] = libs.useState<PercentageOfReviews>({
     circleMeterBar: 0,
     circleMeterBarId: '',
@@ -35,7 +36,7 @@ export default function AboutDetail({
     data,
     loading
   } = libs.useFetchData<AVGProductReview>(REVIEW_ENDPOINT.GET.avgByProduct(UUIDBase64.base64ToUuid(id as string)));
-  const dividePercentage = 10, high = 80, maxTag = 5, medium = 50, zero = 0;
+  const dividePercentage = 10, high = 80, medium = 50, zero = 0;
 
   libs.useEffect(() => {
     (function getPercentage() {
@@ -81,8 +82,8 @@ export default function AboutDetail({
         <div className={Style.user_tags}>
           <h2>Tags de usuario*:</h2>
           {tags.map((tag) => tag.length > zero &&
-            <a href={`/ancore/catalogue?name=${tag}`} title={tag} key={tag}>{tag}</a>).slice(zero, maxTag)}
-          {tags.length > maxTag && <a href="#" className={Style.more_tags}>...</a>}
+            <a href={`/ancore/catalogue?name=${tag}`} title={tag} key={tag}>{tag}</a>).slice(zero, maxTags)}
+          {tags.length > maxTags && <span onClick={() => setMaxTags(tags.length)} className={Style.more_tags}>...</span>}
         </div>
       </section>
       <section className={Style.specifics}>

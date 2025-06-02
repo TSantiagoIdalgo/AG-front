@@ -188,3 +188,10 @@
     height: 25px;
     filter: brightness(0) saturate(100%) invert(20%) sepia(69%) saturate(6615%) hue-rotate(335deg) brightness(99%) contrast(106%);
 }
+
+@media (width <= 1280px) {
+    .review_show,
+    .review {
+        width: calc(100%);
+    }
+}

@@ -62,7 +62,8 @@
         font-weight: 100;
     }
 
-    a {
+    a,
+    span {
         border: 1px solid #999;
         border-radius: 5px;
         padding: 5px;
@@ -73,9 +74,11 @@
         padding: 5px 7px;
         text-transform: uppercase;
         text-decoration: none;
+        cursor: pointer;
     }
 
-    a:hover {
+    a:hover,
+    span:hover {
         border-color: #fff;
         color: #fff;
     }
@@ -118,4 +121,31 @@
 
 .rating:hover .based .link {
     color: var(--color);
+}
+
+@media (width <= 1280px) {
+    .user_tags {
+        margin: 0;
+    }
+    .details {
+        flex-direction: column;
+    }
+
+    .about {
+        flex: 0 0 0px;
+        margin-left: 0;
+        padding-left: 15px;
+        width: calc(100%);
+    }
+
+    .specifics {
+        margin: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-top: 20px;
+        gap: 10px;
+        padding-left: 15px;
+        color: var(--color-light);
+    }
 }

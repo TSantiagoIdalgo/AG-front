@@ -79,6 +79,7 @@
 .icons {
     display: flex;
     justify-content: flex-end;
+    flex-wrap: wrap;
     margin: -7px;
 
     a {

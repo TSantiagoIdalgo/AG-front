@@ -69,3 +69,19 @@
     height: 50px;
   }
 }
+
+@media (width <= 800px) {
+  .main_content {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .cart_page_container {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .cart_listing,
+  .cart_empty {
+    padding: 15px;
+  }
+}
