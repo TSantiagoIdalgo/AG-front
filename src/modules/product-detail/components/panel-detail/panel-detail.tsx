@@ -15,6 +15,7 @@ import Style from './panel-detail.module.css';
 import { useUserCartCount } from '#modules/core/hooks/use-user-cart-count.ts';
 import { debounce } from '#src/common/debounce.ts';
 import PanelModal from './panel-modal/panel-modal';
+import { IState } from '#src/state/store.ts';
 
 const calculateTotalPrice = (discount: number, price: number): number => {
   const initValue = 100;
@@ -23,11 +24,21 @@ const calculateTotalPrice = (discount: number, price: number): number => {
 
 export default function PanelDetail({product, inWishlist}: { product: Product, inWishlist: boolean }): React.JSX.Element {
   const {platforms, mainImage, name, stock, price, discount} = product;
+  const { data: user } = libs.useSelector((state: IState) => state.user);
+  const platformMap = libs.useMemo(() => {
+    if (!platforms) return [];
+    return [
+      ...new Map(
+        platforms.map(plat => [JSON.stringify(plat), plat])
+      ).values()
+    ];
+  }, [platforms]);
   const fixedPrice = 2, minStock = 1, timeToRefresh = 80;
   const inStock = stock >= minStock;
   const debounceTime = 300;
   const { refetch, newItemSetted, cart } = useUserCartCount();
-  const platformFind = platforms.find(platform => !platform.disabled);
+  const navigate = libs.useNavigate();
+  const platformFind = platformMap.find(platform => !platform.disabled);
   const [onSelectPlatform, handleOnSelectPlatfrom] = libs.useState(false);
   const {callMutation} = useMutation<Cart>(CART_ENDPOINT.POST.increaseProduct());
   const [isProductInWishlist, setProductIsInWishlist] = libs.useState(inWishlist);
@@ -44,6 +55,7 @@ export default function PanelDetail({product, inWishlist}: { product: Product, i
   };
 
   const handleProductForWishlsit = debounce(async () => {
+    if (!user) return navigate('/login');
     if (isProductInWishlist) {
       await removeFromWishlist();
       return setProductIsInWishlist(false);
@@ -78,10 +90,10 @@ export default function PanelDetail({product, inWishlist}: { product: Product, i
               className={Style.selected}>{selectedPlatform?.platform}</span>
             {onSelectPlatform && (
               <div className={Style.platform_options}>
-                {platforms.map(plat => <span
+                {platformMap.map(plat => <span
                   onClick={() => selectPlatform(plat)}
                   className={selectedPlatform?.name === plat.name ? Style.selectedPlatform : Style.none}
-                  key={plat.name}>{plat.platform}</span>)}
+                  key={plat.name}>{plat.platform} <span style={{ background: 'transparent', color: '#333', fontSize: '12px'}}>({plat.name})</span></span>)}
               </div>
             )}
           </div>
@@ -102,8 +114,9 @@ export default function PanelDetail({product, inWishlist}: { product: Product, i
             <img src={isProductInWishlist ? FavoriteIconActive : FavoriteIcon} alt="favorite"/>
           </div>
           <div className={Style.buttons_add} onClick={async () => {
+            if (!user) return navigate('/login');
             await callMutation({params: {productId: product.id}});
-            await refetch();
+            return await refetch();
           }}>
             <img src={CartIcon} alt="cart"/>
             <span>Añadir a la cesta</span>

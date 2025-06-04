@@ -26,6 +26,8 @@ export default function AboutDetail({
   pegi
 }: TAboutDetail): React.JSX.Element {
   const {id} = libs.useParams();
+  const tagsSet = libs.useMemo(() => new Set(tags).values().toArray(),[tags]);
+
   const [maxTags, setMaxTags] = libs.useState(5);
   const [circleMeter, setCircleMeter] = libs.useState<PercentageOfReviews>({
     circleMeterBar: 0,
@@ -81,9 +83,9 @@ export default function AboutDetail({
         <span onClick={() => scrollInToView('description')} className={Style.show_more}>Leer mas</span>
         <div className={Style.user_tags}>
           <h2>Tags de usuario*:</h2>
-          {tags.map((tag) => tag.length > zero &&
+          {tagsSet.map((tag) => tag.length > zero &&
             <a href={`/ancore/catalogue?name=${tag}`} title={tag} key={tag}>{tag}</a>).slice(zero, maxTags)}
-          {tags.length > maxTags && <span onClick={() => setMaxTags(tags.length)} className={Style.more_tags}>...</span>}
+          {tagsSet.length > maxTags && <span onClick={() => setMaxTags(tags.length)} className={Style.more_tags}>...</span>}
         </div>
       </section>
       <section className={Style.specifics}>

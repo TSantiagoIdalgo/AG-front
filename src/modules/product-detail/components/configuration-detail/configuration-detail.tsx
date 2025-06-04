@@ -1,18 +1,29 @@
 import { Product } from '#src/common/interfaces/product.interface.ts';
-import React from 'react';
+import React, { useMemo } from 'react';
 import Style from './configuration-detail.module.css';
 
 type TConfigurationDetail = Pick<Product, 'requirements'>
 
-export default function ConfigurationDetail ({ requirements }: TConfigurationDetail): React.JSX.Element {
-  if (!requirements.length) return <p></p>;
+export default function ConfigurationDetail ({ requirements = [] }: TConfigurationDetail): React.JSX.Element {
+  const requirementsMap = useMemo(() => {
+    if (!requirements.length) return [];
+
+    return [
+      ...new Map(
+        requirements.map(obj => [JSON.stringify(obj), obj])
+      ).values()
+    ];
+    
+  }, [requirements]);
+  
+  if (!requirementsMap.length) return <p></p>;
   return (
     <section className={Style.requirements_container}>
       <div className={Style.headline}>
         <h2>Configuracion</h2>
       </div>
       <div className={Style.specs_container}>
-        {requirements.map((requirement) => (
+        {requirementsMap.map((requirement) => (
           <div key={requirement.id} className={Style.spec_type}>
             <h3>{requirement.type}<span className="asterix">*</span></h3>
             <ul className={Style.specs}>

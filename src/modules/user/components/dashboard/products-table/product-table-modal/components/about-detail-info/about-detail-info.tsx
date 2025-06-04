@@ -1,5 +1,5 @@
-import { Product } from '#src/common/interfaces/product.interface.ts';
-import React, { useState } from 'react';
+import { Genre, Product } from '#src/common/interfaces/product.interface.ts';
+import React, { useMemo, useState } from 'react';
 import Style from './about-detail-info.module.css';
 
 type TAboutDetailInfo = Partial<Pick<Product, 'genres' | 'pegi' | 'developer' | 'distributor' | 'release_date' | 'franchise'>> & {
@@ -20,7 +20,9 @@ export default function AboutDetailInfo({ developer, distributor, genres = [], p
     release_date: false,
   });
 
-  const [localGenres, setLocalGenres] = useState(genres.map(g => g.name).join(', '));
+  const genresSet: Genre[] = useMemo(() => new Set(genres.map(genre => genre.name)).values().map(genre => ({ name: genre })).toArray(),[genres]);
+
+  const [localGenres, setLocalGenres] = useState(genresSet.map(g => g.name).join(', '));
 
   const handleChange = (field: string, value: unknown) => {
     setProductState(prev => ({

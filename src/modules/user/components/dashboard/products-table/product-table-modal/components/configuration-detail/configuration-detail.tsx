@@ -1,6 +1,6 @@
  
 import { Product, Requirements } from '#src/common/interfaces/product.interface.ts';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Style from './configuration-detail.module.css';
 import ConfigurationsRender from './configurations-render';
 import { MdDelete } from 'react-icons/md';
@@ -12,6 +12,15 @@ type TConfigurationDetail = Partial<Pick<Product, 'requirements'>> & {
 
 export default function ConfigurationModalDetail({ requirements = [], setProductState }: TConfigurationDetail) {
   const [prevRequirements, setPrevRequirements] = useState<Requirements[]>([]);
+  const requirementsMap = useMemo(() => {
+    if (!requirements.length) return [];
+    return [
+      ...new Map(
+        requirements.map(obj => [JSON.stringify(obj), obj])
+      ).values()
+    ];
+      
+  }, [requirements]);
   const handleAddDefaults = () => {
     const generateId = () => Math.floor(Math.random() * 1000000);
     const defaultRequirement = (type: 'MINIMUM' | 'RECOMMENDED') => ({
@@ -30,7 +39,7 @@ export default function ConfigurationModalDetail({ requirements = [], setProduct
     }) as Product);
   };
 
-  if (!requirements.length) {
+  if (!requirementsMap.length) {
     return (
       <section className={Style.requirements_container}>
         <div className={Style.headline}>
@@ -58,7 +67,7 @@ export default function ConfigurationModalDetail({ requirements = [], setProduct
         
       </div>
       <div className={Style.specs_container}>
-        {requirements.map((requirement) => <ConfigurationsRender requirement={requirement} setProductState={setProductState} key={requirement.id}/>)}
+        {requirementsMap.map((requirement) => <ConfigurationsRender requirement={requirement} setProductState={setProductState} key={requirement.id}/>)}
       </div>
     </section>
   );

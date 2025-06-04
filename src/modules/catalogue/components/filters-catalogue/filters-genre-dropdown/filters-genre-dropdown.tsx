@@ -1,4 +1,4 @@
-/* eslint-disable max-statements */
+ 
 /* eslint-disable consistent-return */
 import * as libs from '#modules/catalogue/libs/catalogue-libs';
 import React, { useEffect } from 'react';
@@ -34,7 +34,7 @@ const FiltersGenreDropdown = ({ name, results }: IFiltersDropdown): React.JSX.El
 
   useEffect(() => {
     setSearchResults(results);
-  }, [results.length]);
+  }, [results]);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;

@@ -21,6 +21,16 @@ export const PlatformEditable: React.FC<PlatformEditableProps> = ({
   setSelectedPlatform,
   setProductState
 }) => {
+  const platformMap = libs.useMemo(() => {
+    if (!platforms.length) return [];
+  
+    return [
+      ...new Map(
+        platforms.map(obj => [JSON.stringify(obj), obj])
+      ).values()
+    ];
+      
+  }, [platforms]);
   const REFRESH_DELAY = 80;
   const [allPlatformsSaved, setAllPlatformSaved] = libs.useState(allPlatforms);
   const [isAddPlatformOpen, setAddPlatformOpen] = libs.useState(false);
@@ -125,7 +135,7 @@ export const PlatformEditable: React.FC<PlatformEditableProps> = ({
   
         {isPlatformSelectorOpen && (
           <div className={Style.platform_options}>
-            {platforms.map(plat =>
+            {platformMap.map(plat =>
               renderPlatformOption(
                 plat,
                 selectedPlatform?.name === plat.name,
@@ -149,7 +159,7 @@ export const PlatformEditable: React.FC<PlatformEditableProps> = ({
           {allPlatformsSaved?.map(plat =>
             renderPlatformOption(
               plat,
-              platforms.some(p => p.name === plat.name && p.platform === plat.platform),
+              platformMap.some(p => p.name === plat.name && p.platform === plat.platform),
               () => onAddOrRemovePlatform(plat)
             )
           )}
