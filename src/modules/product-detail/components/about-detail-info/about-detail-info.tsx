@@ -1,5 +1,5 @@
-import { Product } from '#src/common/interfaces/product.interface.ts';
-import React from 'react';
+import { Genre, Product } from '#src/common/interfaces/product.interface.ts';
+import React, { useMemo } from 'react';
 import Style from './about-detail-info.module.css';
 
 type TAboutDetailInfo = Pick<Product, 'genres' | 'pegi' | 'developer' | 'distributor' | 'release_date'>
@@ -10,6 +10,8 @@ export default function AboutDetailInfo({ developer, distributor, genres, pegi, 
     const date = new Date(`${dateTime  }T12:00:00` );
     return new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
   };
+  const genresSet: Genre[] = useMemo(() => new Set(genres.map(genre => genre.name)).values().map(genre => ({ name: genre })).toArray(),[genres]);
+
   return (<>
     <div className={Style.specifics_text}>
       <span className={Style.specifics_text_title}>Puntuacion:</span>
@@ -29,7 +31,7 @@ export default function AboutDetailInfo({ developer, distributor, genres, pegi, 
     </div>
     <div className={Style.specifics_text}>
       <span className={Style.specifics_text_title}>Genero:</span>
-      <span className={Style.specifics_value_genres}>{genres.map((genre, index) => <a href={`/ancore/catalogue?genre=${genre.name}`} key={genre.name}>{genre.name}{index < genresLength? ',' : ''}</a>)}</span>
+      <span className={Style.specifics_value_genres}>{genresSet.map((genre, index) => <a href={`/ancore/catalogue?genre=${genre.name}`} key={genre.name}>{genre.name}{index < genresLength? ',' : ''}</a>)}</span>
     </div>
   </>
   );

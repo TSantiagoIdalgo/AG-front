@@ -23,6 +23,7 @@
         cursor: pointer;
         font-size: .9rem;
         display: flex;
+        flex-wrap: wrap;
         gap: 6px;
 
         a {
