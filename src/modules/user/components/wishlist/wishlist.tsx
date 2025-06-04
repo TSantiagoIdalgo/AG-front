@@ -48,12 +48,8 @@ const Wishlist = (): React.JSX.Element => {
   if (loading) return <p>Loading...</p>;
 
   const beforeDeleteItem = (productId: string) => {
-    const deleteItem = 1, notFoundItem = -1;
-    const wishlistClone = structuredClone(wishlist);
-    const productIndex = wishlistClone.findIndex(item => item.product.id === productId);
-    if (productIndex === notFoundItem) return;
-    wishlistClone.splice(notFoundItem, deleteItem);
-    setWishlist(wishlistClone);
+    const wishlistDeleted = wishlist.filter((item) => item.product.id !== productId);
+    setWishlist(wishlistDeleted);
   };
 
   return (

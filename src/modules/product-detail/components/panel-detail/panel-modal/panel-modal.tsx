@@ -23,7 +23,7 @@ const PanelModal: React.FC<PanelModalProps> = ({ cart, getUserCart }): React.JSX
       method: 'POST',
     }
   );
-  
+
   const onCreateCheckout = async () => {
     const response = await callMutation({});
     const link = document.createElement('a');
@@ -36,9 +36,9 @@ const PanelModal: React.FC<PanelModalProps> = ({ cart, getUserCart }): React.JSX
   const containerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  useOutClickExec(containerRef, () => {
-    dispatch(handleNewItemSetted(false));
-  });
+  const onCloseModal = () => dispatch(handleNewItemSetted(false));
+  useOutClickExec(containerRef, onCloseModal);
+  
   if (!cart) return <p></p>;
   return (
     <div  className={Style.panel_modal}>
@@ -46,7 +46,7 @@ const PanelModal: React.FC<PanelModalProps> = ({ cart, getUserCart }): React.JSX
         <div className={Style.content}>
           <div className={Style.header}>
             <p>Cesta <span>{cart?.items.length > 1 ? `(${cart?.items.length} articulos)` : `(${cart?.items.length} articulo)`}</span></p>
-            <MdClose color='#fff' fontSize={35}/>
+            <MdClose onClick={onCloseModal} id={Style.close_modal} color='#fff' fontSize={35}/>
           </div>
           <div className={Style.items}>
             {cart.items.map(item => <CartMainContentCard

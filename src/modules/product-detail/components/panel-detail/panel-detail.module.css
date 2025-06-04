@@ -263,6 +263,7 @@
     }
 }
 
+.buttons_add_outstock,
 .buttons_add {
     align-items: center;
     appearance: none;
@@ -289,6 +290,12 @@
         width: 25px;
         height: 25px;
     }
+}
+
+.buttons_add_outstock {
+
+    background: linear-gradient(10deg, #ff800050, transparent) #ff412050;;
+    cursor: not-allowed;
 }
 
 .buttons_add:hover,

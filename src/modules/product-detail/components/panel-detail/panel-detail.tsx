@@ -113,10 +113,12 @@ export default function PanelDetail({product, inWishlist}: { product: Product, i
             onClick={handleProductForWishlsit}>
             <img src={isProductInWishlist ? FavoriteIconActive : FavoriteIcon} alt="favorite"/>
           </div>
-          <div className={Style.buttons_add} onClick={async () => {
-            if (!user) return navigate('/login');
-            await callMutation({params: {productId: product.id}});
-            return await refetch();
+          <div className={inStock ? Style.buttons_add : Style.buttons_add_outstock} onClick={async () => {
+            if (!user) navigate('/login');
+            else if (inStock) {
+              await callMutation({params: {productId: product.id}});
+              await refetch();
+            }
           }}>
             <img src={CartIcon} alt="cart"/>
             <span>Añadir a la cesta</span>

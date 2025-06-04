@@ -85,6 +85,14 @@
     }
 }
 
+#close_modal {
+    cursor: pointer;
+}
+
+#close_modal:hover {
+    color: var(--color);
+}
+
 @keyframes show_panel {
     from {
         right: -100vw;
